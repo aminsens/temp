@@ -1,0 +1,72 @@
+{
+  "backstory": {
+    "sleep_quality": "moderate",
+    "sleep_hours": 6.5,
+    "wake_feeling": "slightly groggy",
+    "energy_level": 6,
+    "mood_baseline": "neutral-positive",
+    "mood_narrative": "Cautiously optimistic about the week ahead, with a slight undercurrent of Monday blues",
+    "day_archetype": "normal_grind",
+    "weather": "partly cloudy with occasional sun breaks",
+    "temperature_c": 5,
+    "has_big_event": false,
+    "big_event_description": "",
+    "has_social_plan": true,
+    "social_description": "Coffee meetup with two colleagues after work at a caf\u00e9 near Nidelva river",
+    "physical_carryover": "Mild stiffness in lower back from weekend hiking in Tyholt forest",
+    "backstory_narrative": "Erik woke up to the soft gray light filtering through his apartment window in the city center. He's been working on a new feature for their fintech platform, and today involves a code review session followed by implementation work. The weekend was productive but tiring - he spent Saturday hiking in the nearby Tyholt forest with friends, enjoying the early spring scenery, and Sunday catching up on personal projects. As he prepares for his day, he's mindful of his lower back stiffness from the hike, but looks forward to the team's coffee meetup after work - a tradition that's become a highlight of his week."
+  },
+  "diary": {
+    "day_of_week": "Monday",
+    "episodes": [],
+    "device_wear_schedule": [
+      {
+        "start": "07:00",
+        "end": "07:30",
+        "status": "not_worn",
+        "reason": "shower"
+      },
+      {
+        "start": "07:30",
+        "end": "22:00",
+        "status": "worn",
+        "reason": "continuous"
+      }
+    ]
+  },
+  "validation": {
+    "hetus_codes": {
+      "issues": [],
+      "score": 1.0
+    },
+    "activity_domain": {
+      "issues": [],
+      "score": 1.0
+    },
+    "temporal": {
+      "issues": [
+        "no episodes"
+      ],
+      "score": 0.5
+    },
+    "completeness": {
+      "issues": [],
+      "score": 1.0
+    },
+    "device_wear": {
+      "issues": [],
+      "score": 1.0
+    },
+    "fatigue_trajectory": {
+      "issues": [
+        "too few fatigue values to assess trajectory"
+      ],
+      "score": 0.5
+    },
+    "location_specificity": {
+      "issues": [],
+      "score": 1.0
+    },
+    "overall_score": 0.8571428571428571
+  }
+}

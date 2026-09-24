@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_f364f0d31785ff5632a186898945e21a {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    <div style='position:fixed;bottom:20px;left:20px;background:white;padding:12px;border-radius:5px;z-index:1000;font-size:12px;max-height:300px;overflow-y:auto;box-shadow:0 2px 6px rgba(0,0,0,0.3);'><b>Jar of Life — 6 Routes</b><br><br>07:45 cycling: Unnamed residential → NTNU Kalvskinnet<br>12:00 walking: NTNU Kalvskinnet → Dromedar Øya - Mat og Vin<br>12:30 walking: Dromedar Øya - Mat og Vin → NTNU Kalvskinnet<br>17:00 walking: NTNU Kalvskinnet → Trondheim Kung-Fu club<br>12:15 implied: Agnar Mykles plass → Dromedar Øya - Mat og Vin<br>19:30 implied: Trondheim Kung-Fu club → Unnamed residential<br><br><i>Solid = route on street<br>Dotted = to/from building entrance<br>Circle = entry/exit point</i></div>
+    
+            <div class="folium-map" id="map_f364f0d31785ff5632a186898945e21a" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_f364f0d31785ff5632a186898945e21a = L.map(
+                "map_f364f0d31785ff5632a186898945e21a",
+                {
+                    center: [63.4305, 10.3951],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_355ea72b337452aa70a678fcf28f4030 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_355ea72b337452aa70a678fcf28f4030.addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var marker_80aad5deb949925d58fd7113de92098c = L.marker(
+                [63.4252511, 10.3915545],
+                {
+}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var icon_03f38afc18bd9ebe6afc93a2597f90ca = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_676b3d78c454825b83ac752428a97c99 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8ca5d69042776cd410adc8835e837641 = $(`<div id="html_8ca5d69042776cd410adc8835e837641" style="width: 100.0%; height: 100.0%;"><b>Unnamed residential</b><br>home</div>`)[0];
+                popup_676b3d78c454825b83ac752428a97c99.setContent(html_8ca5d69042776cd410adc8835e837641);
+            
+        
+
+        marker_80aad5deb949925d58fd7113de92098c.bindPopup(popup_676b3d78c454825b83ac752428a97c99)
+        ;
+
+        
+    
+    
+            marker_80aad5deb949925d58fd7113de92098c.bindTooltip(
+                `<div>
+                     Unnamed residential (home)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_80aad5deb949925d58fd7113de92098c.setIcon(icon_03f38afc18bd9ebe6afc93a2597f90ca);
+            
+    
+            var marker_88f382bb6622ee8806592d1d6313f4d6 = L.marker(
+                [63.4286425, 10.3902342],
+                {
+}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var icon_a554a9f5b708d8179fd1b916f4ddaebc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "briefcase",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a237b66a41fc0e20f1753bf76a5bcac8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9034f1f96803e0e6e1905dbc6faa3af1 = $(`<div id="html_9034f1f96803e0e6e1905dbc6faa3af1" style="width: 100.0%; height: 100.0%;"><b>NTNU Kalvskinnet</b><br>work</div>`)[0];
+                popup_a237b66a41fc0e20f1753bf76a5bcac8.setContent(html_9034f1f96803e0e6e1905dbc6faa3af1);
+            
+        
+
+        marker_88f382bb6622ee8806592d1d6313f4d6.bindPopup(popup_a237b66a41fc0e20f1753bf76a5bcac8)
+        ;
+
+        
+    
+    
+            marker_88f382bb6622ee8806592d1d6313f4d6.bindTooltip(
+                `<div>
+                     NTNU Kalvskinnet (work)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_88f382bb6622ee8806592d1d6313f4d6.setIcon(icon_a554a9f5b708d8179fd1b916f4ddaebc);
+            
+    
+            var marker_2ced5474236131d9874fac7bc344e8c2 = L.marker(
+                [63.4326814, 10.3920325],
+                {
+}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var icon_dbcd12c6fae69eb26dcf61d87ded1bc7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_511be26b9e22f10ef02d7bd69476e6e1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4b7bf66a047cfc1281d20e1ecb57d937 = $(`<div id="html_4b7bf66a047cfc1281d20e1ecb57d937" style="width: 100.0%; height: 100.0%;"><b>Trondheim Kung-Fu club</b><br>gym</div>`)[0];
+                popup_511be26b9e22f10ef02d7bd69476e6e1.setContent(html_4b7bf66a047cfc1281d20e1ecb57d937);
+            
+        
+
+        marker_2ced5474236131d9874fac7bc344e8c2.bindPopup(popup_511be26b9e22f10ef02d7bd69476e6e1)
+        ;
+
+        
+    
+    
+            marker_2ced5474236131d9874fac7bc344e8c2.bindTooltip(
+                `<div>
+                     Trondheim Kung-Fu club (gym)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2ced5474236131d9874fac7bc344e8c2.setIcon(icon_dbcd12c6fae69eb26dcf61d87ded1bc7);
+            
+    
+            var marker_606a5e78f96a703da8fd8c6fd5817cda = L.marker(
+                [63.4225015, 10.3937712],
+                {
+}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var icon_b0f869324829ddcbadc3066fc004fd85 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "coffee",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3a9970aa891a139c45d3efb758588bc8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2cb77b42e4c7c4013de89fab943bcb6b = $(`<div id="html_2cb77b42e4c7c4013de89fab943bcb6b" style="width: 100.0%; height: 100.0%;"><b>Dromedar Øya - Mat og Vin</b><br>cafe</div>`)[0];
+                popup_3a9970aa891a139c45d3efb758588bc8.setContent(html_2cb77b42e4c7c4013de89fab943bcb6b);
+            
+        
+
+        marker_606a5e78f96a703da8fd8c6fd5817cda.bindPopup(popup_3a9970aa891a139c45d3efb758588bc8)
+        ;
+
+        
+    
+    
+            marker_606a5e78f96a703da8fd8c6fd5817cda.bindTooltip(
+                `<div>
+                     Dromedar Øya - Mat og Vin (cafe)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_606a5e78f96a703da8fd8c6fd5817cda.setIcon(icon_b0f869324829ddcbadc3066fc004fd85);
+            
+    
+            var marker_308e66aa9f13eede02655e9a8a0bcc15 = L.marker(
+                [63.4241665, 10.3864535],
+                {
+}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var icon_9fd2fe49400fc9ce872d4f6a05b22ac5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkgreen",
+  "iconColor": "white",
+  "icon": "tree",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_547c73285f2877480c8ecb4e4add64b4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bae288c5bbc8f7bf1736e302bdcef27c = $(`<div id="html_bae288c5bbc8f7bf1736e302bdcef27c" style="width: 100.0%; height: 100.0%;"><b>Agnar Mykles plass</b><br>park</div>`)[0];
+                popup_547c73285f2877480c8ecb4e4add64b4.setContent(html_bae288c5bbc8f7bf1736e302bdcef27c);
+            
+        
+
+        marker_308e66aa9f13eede02655e9a8a0bcc15.bindPopup(popup_547c73285f2877480c8ecb4e4add64b4)
+        ;
+
+        
+    
+    
+            marker_308e66aa9f13eede02655e9a8a0bcc15.bindTooltip(
+                `<div>
+                     Agnar Mykles plass (park)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_308e66aa9f13eede02655e9a8a0bcc15.setIcon(icon_9fd2fe49400fc9ce872d4f6a05b22ac5);
+            
+    
+            var marker_05d27ab382911c017c2a80af5679ccf7 = L.marker(
+                [63.423045, 10.389784],
+                {
+}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var icon_60d2065a4878d041a3e336280ed8b479 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "shopping-cart",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f94a5429a11423096fdf0d62884ae4a9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_44a220fa08f72bd453b5af57500fdbc5 = $(`<div id="html_44a220fa08f72bd453b5af57500fdbc5" style="width: 100.0%; height: 100.0%;"><b>Coop Prix Øya</b><br>supermarket</div>`)[0];
+                popup_f94a5429a11423096fdf0d62884ae4a9.setContent(html_44a220fa08f72bd453b5af57500fdbc5);
+            
+        
+
+        marker_05d27ab382911c017c2a80af5679ccf7.bindPopup(popup_f94a5429a11423096fdf0d62884ae4a9)
+        ;
+
+        
+    
+    
+            marker_05d27ab382911c017c2a80af5679ccf7.bindTooltip(
+                `<div>
+                     Coop Prix Øya (supermarket)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_05d27ab382911c017c2a80af5679ccf7.setIcon(icon_60d2065a4878d041a3e336280ed8b479);
+            
+    
+            var poly_line_0ca66dab30c77cd0a278c4f0dbab4a5e = L.polyline(
+                [[63.425701, 10.391496], [63.42571, 10.39185], [63.425712, 10.391928], [63.425959, 10.391894], [63.426093, 10.391876], [63.426456, 10.391826], [63.426441, 10.391147], [63.426435, 10.390869], [63.426409, 10.389758], [63.42676, 10.389695], [63.427296, 10.389599], [63.42738, 10.389583], [63.427375, 10.389461], [63.427359, 10.389116], [63.427309, 10.387795], [63.427351, 10.387477], [63.427445, 10.387104], [63.427467, 10.387136], [63.427547, 10.387235], [63.427572, 10.387259], [63.427596, 10.387268], [63.427819, 10.387227], [63.427848, 10.387238], [63.427869, 10.387249], [63.427892, 10.387218], [63.428038, 10.387171], [63.42814, 10.387169], [63.428191, 10.387169], [63.428319, 10.387167], [63.42853, 10.387195], [63.428748, 10.387216], [63.428795, 10.38722], [63.428998, 10.387238], [63.429202, 10.387265], [63.429245, 10.38727], [63.429229, 10.388057], [63.429226, 10.388272], [63.429222, 10.388438], [63.4292, 10.389121], [63.429194, 10.389301], [63.429156, 10.389295], [63.429103, 10.389291], [63.428943, 10.389288], [63.428942, 10.389355], [63.428942, 10.389393], [63.42894, 10.389492], [63.428926, 10.389911], [63.428629, 10.389997]],
+                {"bubblingMouseEvents": true, "color": "#e74c3c", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#e74c3c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_daf0f407b7ba60d340b45390570ab1a0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2f05de94950f2c97e8e57bd3e00d2819 = $(`<div id="html_2f05de94950f2c97e8e57bd3e00d2819" style="width: 100.0%; height: 100.0%;"><b>07:45 - 08:15</b><br>Cycling: Unnamed residential → NTNU Kalvskinnet<br>842m / 165s<br>commuting to work</div>`)[0];
+                popup_daf0f407b7ba60d340b45390570ab1a0.setContent(html_2f05de94950f2c97e8e57bd3e00d2819);
+            
+        
+
+        poly_line_0ca66dab30c77cd0a278c4f0dbab4a5e.bindPopup(popup_daf0f407b7ba60d340b45390570ab1a0)
+        ;
+
+        
+    
+    
+            poly_line_0ca66dab30c77cd0a278c4f0dbab4a5e.bindTooltip(
+                `<div>
+                     07:45 cycling: Unnamed residential → NTNU Kalvskinnet
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_457c7cd96b69350de0f9004f146096d9 = L.polyline(
+                [[63.4252511, 10.3915545], [63.425701, 10.391496]],
+                {"bubblingMouseEvents": true, "color": "#e74c3c", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#e74c3c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var poly_line_8a953fbf77b4c1a7e32a16c9053621d5 = L.polyline(
+                [[63.428629, 10.389997], [63.4286425, 10.3902342]],
+                {"bubblingMouseEvents": true, "color": "#e74c3c", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#e74c3c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var circle_marker_8d32d82498c57fe1d21a0ab4c1303d11 = L.circleMarker(
+                [63.4252511, 10.3915545],
+                {"bubblingMouseEvents": true, "color": "#e74c3c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_acb27865aa784a4adc5ed4ebcbd13c1f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c9f8820c1443279ce729a9414e56f1cc = $(`<div id="html_c9f8820c1443279ce729a9414e56f1cc" style="width: 100.0%; height: 100.0%;">EXIT: Unnamed residential</div>`)[0];
+                popup_acb27865aa784a4adc5ed4ebcbd13c1f.setContent(html_c9f8820c1443279ce729a9414e56f1cc);
+            
+        
+
+        circle_marker_8d32d82498c57fe1d21a0ab4c1303d11.bindPopup(popup_acb27865aa784a4adc5ed4ebcbd13c1f)
+        ;
+
+        
+    
+    
+            var circle_marker_4082d00575e55961c9c79d4579dd429e = L.circleMarker(
+                [63.4286425, 10.3902342],
+                {"bubblingMouseEvents": true, "color": "#e74c3c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#e74c3c", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_2ecc6b02ae7a90d7f7e4c66c26c3c774 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7c80090d1ac60334d35008b7a50a23c1 = $(`<div id="html_7c80090d1ac60334d35008b7a50a23c1" style="width: 100.0%; height: 100.0%;">ENTER: NTNU Kalvskinnet</div>`)[0];
+                popup_2ecc6b02ae7a90d7f7e4c66c26c3c774.setContent(html_7c80090d1ac60334d35008b7a50a23c1);
+            
+        
+
+        circle_marker_4082d00575e55961c9c79d4579dd429e.bindPopup(popup_2ecc6b02ae7a90d7f7e4c66c26c3c774)
+        ;
+
+        
+    
+    
+            var poly_line_8b1ef92eb04418d71798a023386b953a = L.polyline(
+                [[63.428629, 10.389997], [63.428926, 10.389911], [63.42894, 10.389492], [63.428942, 10.389393], [63.428942, 10.389355], [63.428943, 10.389288], [63.428404, 10.389376], [63.428395, 10.389377], [63.428077, 10.389436], [63.428079, 10.389503], [63.42808, 10.389554], [63.428091, 10.389887], [63.428116, 10.39062], [63.428132, 10.391026], [63.42815, 10.391126], [63.428176, 10.391171], [63.428202, 10.391179], [63.428337, 10.391159], [63.428412, 10.391097], [63.428457, 10.391086], [63.428829, 10.390993], [63.428828, 10.391057], [63.428818, 10.391754], [63.428807, 10.392503], [63.428805, 10.39267], [63.428651, 10.392714], [63.428128, 10.392842], [63.427641, 10.392973], [63.427583, 10.392989], [63.427509, 10.393014], [63.427467, 10.392954], [63.426563, 10.393186], [63.426501, 10.393201], [63.426476, 10.393208], [63.426307, 10.393258], [63.426255, 10.39328], [63.426121, 10.393335], [63.425754, 10.393535], [63.424828, 10.393816], [63.423495, 10.394199], [63.422938, 10.394359], [63.422852, 10.394377], [63.422667, 10.394311], [63.422137, 10.394552], [63.422043, 10.394679], [63.421654, 10.394888], [63.421439, 10.394998], [63.421385, 10.395026], [63.421281, 10.395075], [63.421249, 10.394769], [63.421201, 10.39432], [63.421123, 10.393681], [63.421104, 10.393486], [63.421111, 10.393432], [63.421104, 10.393315], [63.42109, 10.393261], [63.421174, 10.393067], [63.421191, 10.393026], [63.421353, 10.392644], [63.421825, 10.391513], [63.421932, 10.391269], [63.422149, 10.390755], [63.422189, 10.390659], [63.422231, 10.390753], [63.422785, 10.391899], [63.422837, 10.392006], [63.422821, 10.392606], [63.422811, 10.392915], [63.42279, 10.393409], [63.422768, 10.393939], [63.422759, 10.393982], [63.422741, 10.394014], [63.422665, 10.394072], [63.42248, 10.393973]],
+                {"bubblingMouseEvents": true, "color": "#3498db", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3498db", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_7960a8b7cf8c1d90f9fb02506d894653 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0a95c179fd6fc04073dcd9e4ba56b94c = $(`<div id="html_0a95c179fd6fc04073dcd9e4ba56b94c" style="width: 100.0%; height: 100.0%;"><b>12:00 - 12:15</b><br>Walking: NTNU Kalvskinnet → Dromedar Øya - Mat og Vin<br>1762m / 265s<br>short walk</div>`)[0];
+                popup_7960a8b7cf8c1d90f9fb02506d894653.setContent(html_0a95c179fd6fc04073dcd9e4ba56b94c);
+            
+        
+
+        poly_line_8b1ef92eb04418d71798a023386b953a.bindPopup(popup_7960a8b7cf8c1d90f9fb02506d894653)
+        ;
+
+        
+    
+    
+            poly_line_8b1ef92eb04418d71798a023386b953a.bindTooltip(
+                `<div>
+                     12:00 walking: NTNU Kalvskinnet → Dromedar Øya - Mat og Vin
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_976000f961c36e3534211034ca030fec = L.polyline(
+                [[63.4286425, 10.3902342], [63.428629, 10.389997]],
+                {"bubblingMouseEvents": true, "color": "#3498db", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#3498db", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var poly_line_edcde51715772671e846474cddfe4f54 = L.polyline(
+                [[63.42248, 10.393973], [63.4225015, 10.3937712]],
+                {"bubblingMouseEvents": true, "color": "#3498db", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#3498db", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var circle_marker_2e4a8f895d70c8948a8d1a234d8f1141 = L.circleMarker(
+                [63.4286425, 10.3902342],
+                {"bubblingMouseEvents": true, "color": "#3498db", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_bf55bd005e2869a10dd653ac85bbe2f3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9285a5fc6aac3f38545412588d57e3ea = $(`<div id="html_9285a5fc6aac3f38545412588d57e3ea" style="width: 100.0%; height: 100.0%;">EXIT: NTNU Kalvskinnet</div>`)[0];
+                popup_bf55bd005e2869a10dd653ac85bbe2f3.setContent(html_9285a5fc6aac3f38545412588d57e3ea);
+            
+        
+
+        circle_marker_2e4a8f895d70c8948a8d1a234d8f1141.bindPopup(popup_bf55bd005e2869a10dd653ac85bbe2f3)
+        ;
+
+        
+    
+    
+            var circle_marker_1c52b657d633f37dc8e0deb6e2f81c30 = L.circleMarker(
+                [63.4225015, 10.3937712],
+                {"bubblingMouseEvents": true, "color": "#3498db", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3498db", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_cb6b973a7a3811244a147966b796bea7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5e5a2fab45811ae739e95f59732297c8 = $(`<div id="html_5e5a2fab45811ae739e95f59732297c8" style="width: 100.0%; height: 100.0%;">ENTER: Dromedar Øya - Mat og Vin</div>`)[0];
+                popup_cb6b973a7a3811244a147966b796bea7.setContent(html_5e5a2fab45811ae739e95f59732297c8);
+            
+        
+
+        circle_marker_1c52b657d633f37dc8e0deb6e2f81c30.bindPopup(popup_cb6b973a7a3811244a147966b796bea7)
+        ;
+
+        
+    
+    
+            var poly_line_617251bf94ed5ef934d06c0a3d26f8dc = L.polyline(
+                [[63.42248, 10.393973], [63.422665, 10.394072], [63.422741, 10.394014], [63.422759, 10.393982], [63.422768, 10.393939], [63.42279, 10.393409], [63.422811, 10.392915], [63.422821, 10.392606], [63.422837, 10.392006], [63.422848, 10.391735], [63.422872, 10.390961], [63.42292, 10.389518], [63.422923, 10.389324], [63.42291, 10.38917], [63.422826, 10.389223], [63.422782, 10.389283], [63.42273, 10.389382], [63.422234, 10.390555], [63.422189, 10.390659], [63.422149, 10.390755], [63.421932, 10.391269], [63.421825, 10.391513], [63.421353, 10.392644], [63.421191, 10.393026], [63.421174, 10.393067], [63.42109, 10.393261], [63.421077, 10.39323], [63.421062, 10.393205], [63.42103, 10.393179], [63.420997, 10.393177], [63.420966, 10.393199], [63.420939, 10.393243], [63.42092, 10.393304], [63.420911, 10.393366], [63.420911, 10.393432], [63.42092, 10.393495], [63.420941, 10.393562], [63.420958, 10.39359], [63.421018, 10.394125], [63.421093, 10.394776], [63.421101, 10.394843], [63.42113, 10.395141], [63.421281, 10.395075], [63.421385, 10.395026], [63.421439, 10.394998], [63.421654, 10.394888], [63.422043, 10.394679], [63.422163, 10.394734], [63.422669, 10.394533], [63.422852, 10.394377], [63.422938, 10.394359], [63.423495, 10.394199], [63.424828, 10.393816], [63.425754, 10.393535], [63.426129, 10.39348], [63.426315, 10.393439], [63.42644, 10.393396], [63.426483, 10.393381], [63.426508, 10.393375], [63.427353, 10.393137], [63.427475, 10.393102], [63.427509, 10.393014], [63.427583, 10.392989], [63.427641, 10.392973], [63.428128, 10.392842], [63.428651, 10.392714], [63.428805, 10.39267], [63.428902, 10.392649], [63.429049, 10.392616], [63.429056, 10.392373], [63.429062, 10.392245], [63.429083, 10.391856], [63.429118, 10.390921], [63.429133, 10.390561], [63.429188, 10.389457], [63.429194, 10.389301], [63.429156, 10.389295], [63.429103, 10.389291], [63.428943, 10.389288], [63.428942, 10.389355], [63.428942, 10.389393], [63.42894, 10.389492], [63.428926, 10.389911], [63.428629, 10.389997]],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#2ecc71", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_49224e03db3b143eb4db066a17795435 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3761df81320a8837a84c399855351375 = $(`<div id="html_3761df81320a8837a84c399855351375" style="width: 100.0%; height: 100.0%;"><b>12:30 - 13:15</b><br>Walking: Dromedar Øya - Mat og Vin → NTNU Kalvskinnet<br>1836m / 277s<br>bathroom break</div>`)[0];
+                popup_49224e03db3b143eb4db066a17795435.setContent(html_3761df81320a8837a84c399855351375);
+            
+        
+
+        poly_line_617251bf94ed5ef934d06c0a3d26f8dc.bindPopup(popup_49224e03db3b143eb4db066a17795435)
+        ;
+
+        
+    
+    
+            poly_line_617251bf94ed5ef934d06c0a3d26f8dc.bindTooltip(
+                `<div>
+                     12:30 walking: Dromedar Øya - Mat og Vin → NTNU Kalvskinnet
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_f926c9c1eacb01a181c69648e5a6bc7d = L.polyline(
+                [[63.4225015, 10.3937712], [63.42248, 10.393973]],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#2ecc71", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var poly_line_e8b7efeb64280288940bb4f4c7b32db5 = L.polyline(
+                [[63.428629, 10.389997], [63.4286425, 10.3902342]],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#2ecc71", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var circle_marker_ce600883b9b660a3211dba5da880dea7 = L.circleMarker(
+                [63.4225015, 10.3937712],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_204f242618665557d98d158ee55fb36e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_34a03b3c7910f80900202206c8a0a56c = $(`<div id="html_34a03b3c7910f80900202206c8a0a56c" style="width: 100.0%; height: 100.0%;">EXIT: Dromedar Øya - Mat og Vin</div>`)[0];
+                popup_204f242618665557d98d158ee55fb36e.setContent(html_34a03b3c7910f80900202206c8a0a56c);
+            
+        
+
+        circle_marker_ce600883b9b660a3211dba5da880dea7.bindPopup(popup_204f242618665557d98d158ee55fb36e)
+        ;
+
+        
+    
+    
+            var circle_marker_a69497b1d978e1ab9ef993fa4f89a894 = L.circleMarker(
+                [63.4286425, 10.3902342],
+                {"bubblingMouseEvents": true, "color": "#2ecc71", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#2ecc71", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_f5064b3c84b66c3e4f38f28af7fcfad0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_aed43e225b68c579c4287f84f12a75ed = $(`<div id="html_aed43e225b68c579c4287f84f12a75ed" style="width: 100.0%; height: 100.0%;">ENTER: NTNU Kalvskinnet</div>`)[0];
+                popup_f5064b3c84b66c3e4f38f28af7fcfad0.setContent(html_aed43e225b68c579c4287f84f12a75ed);
+            
+        
+
+        circle_marker_a69497b1d978e1ab9ef993fa4f89a894.bindPopup(popup_f5064b3c84b66c3e4f38f28af7fcfad0)
+        ;
+
+        
+    
+    
+            var poly_line_0f42d2417678749a5dc5eb501d93edac = L.polyline(
+                [[63.428629, 10.389997], [63.428926, 10.389911], [63.42894, 10.389492], [63.428942, 10.389393], [63.428942, 10.389355], [63.428943, 10.389288], [63.428404, 10.389376], [63.428395, 10.389377], [63.428077, 10.389436], [63.428079, 10.389503], [63.42808, 10.389554], [63.428091, 10.389887], [63.428116, 10.39062], [63.428132, 10.391026], [63.42815, 10.391126], [63.428176, 10.391171], [63.428202, 10.391179], [63.428337, 10.391159], [63.428412, 10.391097], [63.428457, 10.391086], [63.428829, 10.390993], [63.429078, 10.39093], [63.429118, 10.390921], [63.429083, 10.391856], [63.429062, 10.392245], [63.429056, 10.392373], [63.429049, 10.392616], [63.429132, 10.39259], [63.429188, 10.392576], [63.429554, 10.392482], [63.4299, 10.392391], [63.429955, 10.392376], [63.430011, 10.392362], [63.430041, 10.392354], [63.430396, 10.392262], [63.430471, 10.392243], [63.430535, 10.392203], [63.430594, 10.392154], [63.430737, 10.392159], [63.430808, 10.392151], [63.431306, 10.392036], [63.431395, 10.391982], [63.431403, 10.391977], [63.43145, 10.391981], [63.431489, 10.391972], [63.431819, 10.391891], [63.431884, 10.391875], [63.431972, 10.391855], [63.432068, 10.39183], [63.432124, 10.391816], [63.432265, 10.391782], [63.432387, 10.391752], [63.432433, 10.391742], [63.432815, 10.391648], [63.432819, 10.391767], [63.43282, 10.391796], [63.432827, 10.392009]],
+                {"bubblingMouseEvents": true, "color": "#f39c12", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#f39c12", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_16ae15dd2bc31f449d7fae203500f822 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0f5d5add80710c0df8895a5cdf4eb191 = $(`<div id="html_0f5d5add80710c0df8895a5cdf4eb191" style="width: 100.0%; height: 100.0%;"><b>17:00 - 17:45</b><br>Walking: NTNU Kalvskinnet → Trondheim Kung-Fu club<br>882m / 169s<br>commuting to gym</div>`)[0];
+                popup_16ae15dd2bc31f449d7fae203500f822.setContent(html_0f5d5add80710c0df8895a5cdf4eb191);
+            
+        
+
+        poly_line_0f42d2417678749a5dc5eb501d93edac.bindPopup(popup_16ae15dd2bc31f449d7fae203500f822)
+        ;
+
+        
+    
+    
+            poly_line_0f42d2417678749a5dc5eb501d93edac.bindTooltip(
+                `<div>
+                     17:00 walking: NTNU Kalvskinnet → Trondheim Kung-Fu club
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_43800e3588a5b4b19111052f471718d3 = L.polyline(
+                [[63.4286425, 10.3902342], [63.428629, 10.389997]],
+                {"bubblingMouseEvents": true, "color": "#f39c12", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#f39c12", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var poly_line_83e406c3e7fba12e83a7d0249f0714f7 = L.polyline(
+                [[63.432827, 10.392009], [63.4326814, 10.3920325]],
+                {"bubblingMouseEvents": true, "color": "#f39c12", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#f39c12", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var circle_marker_173454855ffd61d32089aa3f8dffaedc = L.circleMarker(
+                [63.4286425, 10.3902342],
+                {"bubblingMouseEvents": true, "color": "#f39c12", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_2077b59d9c7a3ad7b1b5a56070229232 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_fd9738541816922c91b890bbff4c2e2a = $(`<div id="html_fd9738541816922c91b890bbff4c2e2a" style="width: 100.0%; height: 100.0%;">EXIT: NTNU Kalvskinnet</div>`)[0];
+                popup_2077b59d9c7a3ad7b1b5a56070229232.setContent(html_fd9738541816922c91b890bbff4c2e2a);
+            
+        
+
+        circle_marker_173454855ffd61d32089aa3f8dffaedc.bindPopup(popup_2077b59d9c7a3ad7b1b5a56070229232)
+        ;
+
+        
+    
+    
+            var circle_marker_96cee764e72324e97f4c64eaf7b61892 = L.circleMarker(
+                [63.4326814, 10.3920325],
+                {"bubblingMouseEvents": true, "color": "#f39c12", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f39c12", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_98cd71266bf10f6fd41d9baa57431411 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b28c7e0a8b7a87644ccf4802bc05308a = $(`<div id="html_b28c7e0a8b7a87644ccf4802bc05308a" style="width: 100.0%; height: 100.0%;">ENTER: Trondheim Kung-Fu club</div>`)[0];
+                popup_98cd71266bf10f6fd41d9baa57431411.setContent(html_b28c7e0a8b7a87644ccf4802bc05308a);
+            
+        
+
+        circle_marker_96cee764e72324e97f4c64eaf7b61892.bindPopup(popup_98cd71266bf10f6fd41d9baa57431411)
+        ;
+
+        
+    
+    
+            var poly_line_032656acfb9549ba33d89315b83f64c7 = L.polyline(
+                [[63.424302, 10.386163], [63.424249, 10.386039], [63.424231, 10.385996], [63.424147, 10.38579], [63.42412, 10.385724], [63.424051, 10.385872], [63.423982, 10.386055], [63.423898, 10.386319], [63.423429, 10.387915], [63.423317, 10.388322], [63.423228, 10.388535], [63.423062, 10.388881], [63.423022, 10.388965], [63.422956, 10.389111], [63.42291, 10.38917], [63.422923, 10.389324], [63.42292, 10.389518], [63.422872, 10.390961], [63.422848, 10.391735], [63.422837, 10.392006], [63.422821, 10.392606], [63.422811, 10.392915], [63.42279, 10.393409], [63.422768, 10.393939], [63.422759, 10.393982], [63.422741, 10.394014], [63.422665, 10.394072], [63.42248, 10.393973]],
+                {"bubblingMouseEvents": true, "color": "#9b59b6", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#9b59b6", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_38bc192d5afa27456ceed3093b005d00 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_15fd160d3b922d0cdcb33adffd3c8f64 = $(`<div id="html_15fd160d3b922d0cdcb33adffd3c8f64" style="width: 100.0%; height: 100.0%;"><b>12:15 - 12:15</b><br>Implied: Agnar Mykles plass → Dromedar Øya - Mat og Vin<br>524m / 84s<br>travel: short walk → lunch break</div>`)[0];
+                popup_38bc192d5afa27456ceed3093b005d00.setContent(html_15fd160d3b922d0cdcb33adffd3c8f64);
+            
+        
+
+        poly_line_032656acfb9549ba33d89315b83f64c7.bindPopup(popup_38bc192d5afa27456ceed3093b005d00)
+        ;
+
+        
+    
+    
+            poly_line_032656acfb9549ba33d89315b83f64c7.bindTooltip(
+                `<div>
+                     12:15 implied: Agnar Mykles plass → Dromedar Øya - Mat og Vin
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_5b7c92e53a4d8f5b830e05ff5bea709e = L.polyline(
+                [[63.4241665, 10.3864535], [63.424302, 10.386163]],
+                {"bubblingMouseEvents": true, "color": "#9b59b6", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#9b59b6", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var poly_line_ca60f57774731e092e6394c7b783ffe7 = L.polyline(
+                [[63.42248, 10.393973], [63.4225015, 10.3937712]],
+                {"bubblingMouseEvents": true, "color": "#9b59b6", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#9b59b6", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var circle_marker_19519383167552feab83b36dff8e5ff3 = L.circleMarker(
+                [63.4241665, 10.3864535],
+                {"bubblingMouseEvents": true, "color": "#9b59b6", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9b59b6", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_b24a9071bc8bcd4be4bcbb08361900e6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c79e83d06073bfe7e2a945709c423824 = $(`<div id="html_c79e83d06073bfe7e2a945709c423824" style="width: 100.0%; height: 100.0%;">EXIT: Agnar Mykles plass</div>`)[0];
+                popup_b24a9071bc8bcd4be4bcbb08361900e6.setContent(html_c79e83d06073bfe7e2a945709c423824);
+            
+        
+
+        circle_marker_19519383167552feab83b36dff8e5ff3.bindPopup(popup_b24a9071bc8bcd4be4bcbb08361900e6)
+        ;
+
+        
+    
+    
+            var circle_marker_b6c521728c02b2e9e1a3a71ede8cf803 = L.circleMarker(
+                [63.4225015, 10.3937712],
+                {"bubblingMouseEvents": true, "color": "#9b59b6", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#9b59b6", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_aab3fbbd7b856e27404c2aaf3d3a7f2c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_778326eed228d899f5aafa45c2d99bc7 = $(`<div id="html_778326eed228d899f5aafa45c2d99bc7" style="width: 100.0%; height: 100.0%;">ENTER: Dromedar Øya - Mat og Vin</div>`)[0];
+                popup_aab3fbbd7b856e27404c2aaf3d3a7f2c.setContent(html_778326eed228d899f5aafa45c2d99bc7);
+            
+        
+
+        circle_marker_b6c521728c02b2e9e1a3a71ede8cf803.bindPopup(popup_aab3fbbd7b856e27404c2aaf3d3a7f2c)
+        ;
+
+        
+    
+    
+            var poly_line_3af4023086ce43fc8a5f64383f47af4b = L.polyline(
+                [[63.432827, 10.392009], [63.43282, 10.391796], [63.432819, 10.391767], [63.432815, 10.391648], [63.432433, 10.391742], [63.432387, 10.391752], [63.432265, 10.391782], [63.432124, 10.391816], [63.432068, 10.39183], [63.431972, 10.391855], [63.431884, 10.391875], [63.431819, 10.391891], [63.431489, 10.391972], [63.43145, 10.391981], [63.431403, 10.391977], [63.431301, 10.391896], [63.430805, 10.392006], [63.430788, 10.392011], [63.430737, 10.392028], [63.430594, 10.392154], [63.430535, 10.392203], [63.430471, 10.392243], [63.430396, 10.392262], [63.430041, 10.392354], [63.430011, 10.392362], [63.429955, 10.392376], [63.4299, 10.392391], [63.429554, 10.392482], [63.429188, 10.392576], [63.429132, 10.39259], [63.429049, 10.392616], [63.429056, 10.392373], [63.429062, 10.392245], [63.429083, 10.391856], [63.429118, 10.390921], [63.429133, 10.390561], [63.429188, 10.389457], [63.429194, 10.389301], [63.429156, 10.389295], [63.429103, 10.389291], [63.428943, 10.389288], [63.428404, 10.389376], [63.428395, 10.389377], [63.428077, 10.389436], [63.427977, 10.38945], [63.427932, 10.389457], [63.427469, 10.389564], [63.42738, 10.389583], [63.427296, 10.389599], [63.42676, 10.389695], [63.426409, 10.389758], [63.425704, 10.38999], [63.425679, 10.390044], [63.425662, 10.390106], [63.425687, 10.390981], [63.42569, 10.391082], [63.425701, 10.391496]],
+                {"bubblingMouseEvents": true, "color": "#1abc9c", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#1abc9c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_50e75f0d0b29ba7bb4a8265f70d417f3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4b3a2b37d1af10f2f51f65a4bb4a4c02 = $(`<div id="html_4b3a2b37d1af10f2f51f65a4bb4a4c02" style="width: 100.0%; height: 100.0%;"><b>19:30 - 19:30</b><br>Implied: Trondheim Kung-Fu club → Unnamed residential<br>1077m / 178s<br>travel: kung-fu training session → dinner preparation and eating</div>`)[0];
+                popup_50e75f0d0b29ba7bb4a8265f70d417f3.setContent(html_4b3a2b37d1af10f2f51f65a4bb4a4c02);
+            
+        
+
+        poly_line_3af4023086ce43fc8a5f64383f47af4b.bindPopup(popup_50e75f0d0b29ba7bb4a8265f70d417f3)
+        ;
+
+        
+    
+    
+            poly_line_3af4023086ce43fc8a5f64383f47af4b.bindTooltip(
+                `<div>
+                     19:30 implied: Trondheim Kung-Fu club → Unnamed residential
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_84e01b013072353b3feba373d3c8c0b2 = L.polyline(
+                [[63.4326814, 10.3920325], [63.432827, 10.392009]],
+                {"bubblingMouseEvents": true, "color": "#1abc9c", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#1abc9c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var poly_line_a1e9da2fc98d44d012e3c7a0e2cab660 = L.polyline(
+                [[63.425701, 10.391496], [63.4252511, 10.3915545]],
+                {"bubblingMouseEvents": true, "color": "#1abc9c", "dashArray": "5,10", "dashOffset": null, "fill": false, "fillColor": "#1abc9c", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "smoothFactor": 1.0, "stroke": true, "weight": 2}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+            var circle_marker_7c8d4f0e1a63ce80223f308d511dac9a = L.circleMarker(
+                [63.4326814, 10.3920325],
+                {"bubblingMouseEvents": true, "color": "#1abc9c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1abc9c", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_0365a249d632c27c64681d3652317c63 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b14043e0b91dd89ae20efea559c8cc1a = $(`<div id="html_b14043e0b91dd89ae20efea559c8cc1a" style="width: 100.0%; height: 100.0%;">EXIT: Trondheim Kung-Fu club</div>`)[0];
+                popup_0365a249d632c27c64681d3652317c63.setContent(html_b14043e0b91dd89ae20efea559c8cc1a);
+            
+        
+
+        circle_marker_7c8d4f0e1a63ce80223f308d511dac9a.bindPopup(popup_0365a249d632c27c64681d3652317c63)
+        ;
+
+        
+    
+    
+            var circle_marker_80302f3f5af66b65d55e1e5639a7e67e = L.circleMarker(
+                [63.4252511, 10.3915545],
+                {"bubblingMouseEvents": true, "color": "#1abc9c", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1abc9c", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(map_f364f0d31785ff5632a186898945e21a);
+        
+    
+        var popup_5949b5a145a012d24006bc8f0965a871 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c0ce73f94b47c9acaa263d451f3c1882 = $(`<div id="html_c0ce73f94b47c9acaa263d451f3c1882" style="width: 100.0%; height: 100.0%;">ENTER: Unnamed residential</div>`)[0];
+                popup_5949b5a145a012d24006bc8f0965a871.setContent(html_c0ce73f94b47c9acaa263d451f3c1882);
+            
+        
+
+        circle_marker_80302f3f5af66b65d55e1e5639a7e67e.bindPopup(popup_5949b5a145a012d24006bc8f0965a871)
+        ;
+
+        
+    
+</script>
+</html>
