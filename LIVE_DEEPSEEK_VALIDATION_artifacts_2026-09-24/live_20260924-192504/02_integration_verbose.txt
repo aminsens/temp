@@ -1,0 +1,17 @@
+$ C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\.venv-live\Scripts\python.exe -m pytest paper3_ema/tests/test_deepseek_integration.py -v --tb=line -q
+
+cwd=C:\Users\AminR\Downloads\EMA-DEEPSEEK
+
+=== stdout ===
+============================= test session starts =============================
+platform win32 -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema
+configfile: pyproject.toml
+collected 4 items
+
+paper3_ema\tests\test_deepseek_integration.py ....                       [100%]
+
+============================= 4 passed in 33.07s ==============================
+
+=== stderr ===
+

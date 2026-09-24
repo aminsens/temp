@@ -1,0 +1,11 @@
+{
+  "reachable": true,
+  "probe_detail": "HTTP 401",
+  "key_present": true,
+  "diagnostics": {
+    "dns": "ok -> 3.173.21.63",
+    "tcp": "ok",
+    "tls": "ok (TLSv1.3)"
+  },
+  "checked_utc": "2026-09-24T19:25:04+00:00"
+}
