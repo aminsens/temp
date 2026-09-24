@@ -59,6 +59,7 @@ import time
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from statistics import mean, median
@@ -188,6 +189,7 @@ def _v(x):
 # (harness-only; the production client is not modified)
 # ---------------------------------------------------------------------------
 
+@dataclass
 class LiveTimingClient(DeepSeekClient):
     """DeepSeek client wrapper for the live validation run.
 
@@ -334,9 +336,9 @@ INTEGRATION_FILE = "paper3_ema/tests/test_deepseek_integration.py"
 
 def _run_pytest(args: list[str], out: Path, name: str, timeout: int = 1800) -> int:
     cmd = [sys.executable, "-m", "pytest", *args]
-    proc = subprocess.run(cmd, cwd=str(_PKG_ROOT), capture_output=True, text=True, timeout=timeout)
+    proc = subprocess.run(cmd, cwd=str(_REPO_ROOT), capture_output=True, text=True, timeout=timeout)
     (out / name).write_text(
-        f"$ {' '.join(cmd)}\n\ncwd={_PKG_ROOT}\n\n=== stdout ===\n{proc.stdout}\n=== stderr ===\n{proc.stderr}\n",
+        f"$ {' '.join(cmd)}\n\ncwd={_REPO_ROOT}\n\n=== stdout ===\n{proc.stdout}\n=== stderr ===\n{proc.stderr}\n",
         encoding="utf-8",
     )
     print(f"[pytest:{name}] rc={proc.returncode}")
@@ -827,14 +829,14 @@ def phase4_cohort(out: Path, model: str, participants: int = 4, days: int = 7,
     # representative records for human inspection (>=15, spanning triggers)
     bundle_of = {id(record): bundle for bundle in bundles for record in bundle.records}
     representative: list = []  # (bundle, record) pairs
-    picked: set = set()
+    picked: set = set()  # ids of picked records (EMARecord is a non-frozen dataclass, unhashable)
 
     def pick(record) -> None:
-        if record in picked or len(representative) >= 18:
+        if id(record) in picked or len(representative) >= 18:
             return
         if not record.response.answered or not record.response.context_note:
             return
-        picked.add(record)
+        picked.add(id(record))
         representative.append((bundle_of[id(record)], record))
 
     seen_triggers: set = set()
@@ -851,7 +853,7 @@ def phase4_cohort(out: Path, model: str, participants: int = 4, days: int = 7,
             break
         if record.prompt.participant_id not in seen_archetypes:
             pick(record)
-            if record in picked:
+            if id(record) in picked:
                 seen_archetypes.add(record.prompt.participant_id)
     for record in [r for r in answered if r.response.note_source == "offline_template"][:3]:
         pick(record)
