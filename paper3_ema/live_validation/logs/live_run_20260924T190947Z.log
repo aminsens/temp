@@ -1,0 +1,37 @@
+[harness] v1.0.0 model=deepseek-flash out=C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\artifacts\live_20260924-190947
+[connectivity] reachable=True (HTTP 401)
+[phase1] running committed integration tests (verbose) ...
+[pytest:02_integration_verbose.txt] rc=0
+[phase1] running full suite ...
+[pytest:02_suite_full.txt] rc=0
+[phase1] suite: 134 passed, 5 skipped in 86.82s (0:01:26)
+[phase1b] flash smoke: {'auth_succeeded': True, 'expected_model_used': True, 'request_shape_accepted': True, 'response_parsing_succeeded': True, 'retry_bounds_intact': True, 'closed_world_acceptance': True, 'bundle_validation': True}
+[phase2] semi_random_home: attempts=3 source=offline_template note='Feeling stressed right now while sitting.'
+[phase2] work_study: attempts=3 source=offline_template note='Feeling pressured after the bus trip.'
+[phase2] childcare: attempts=3 source=offline_template note='In a good mood after the walk.'
+[phase2] social: attempts=2 source=llm note='Sitting at home in the evening with the company, the free time feels good and I have energy.'
+[phase2] post_walk: attempts=2 source=llm note='Sitting at home in the evening with my partner, I feel very positive and calm after the earlier walk.'
+[phase2] post_run_exercise: attempts=3 source=offline_template note='Running low on energy right now after the walk.'
+[phase2] post_cycle: attempts=1 source=llm note='Sitting at work after the bike ride, I feel low and very tense this early morning.'
+[phase2] post_public_transport: attempts=3 source=offline_template note='Feeling stressed, feeling drained.'
+[phase2] post_car: attempts=3 source=None note=None
+[phase2] documented_delayed_journey: attempts=1 source=llm note='Sitting at work in the early morning, after the train trip, I feel neutral, very low in energy, and very stressed.'
+[phase2] journey_without_documented_delay: attempts=3 source=offline_template note='Feeling pressured right now after the bus trip.'
+[phase2] context_transition: attempts=3 source=offline_template note='Feeling fairly neutral right now while standing, at home.'
+[phase2] evening: attempts=3 source=None note=None
+[phase2] no_eligible_event_day: attempts=1 source=llm note='Sitting at home in the morning with free time, the quiet has me feeling neutral and calm.'
+[phase2] sparse_ambiguous: attempts=3 source=offline_template note='Feeling pressured right now after the bus trip, at work.'
+[phase3] diffs=244 unallowed=180
+Traceback (most recent call last):
+  File "C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\live_harness.py", line 1253, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\live_harness.py", line 1227, in main
+    cohort = phase4_cohort(out, args.model, workers=args.workers)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\live_harness.py", line 835, in phase4_cohort
+    pick(record)
+  File "C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\live_harness.py", line 822, in pick
+    if record in picked or len(representative) >= 18:
+       ^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'EMARecord'

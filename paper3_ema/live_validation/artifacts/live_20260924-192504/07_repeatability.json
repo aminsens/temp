@@ -1,0 +1,25 @@
+{
+  "offline_byte_identical_same_seed": true,
+  "live_structural_diffs": 133,
+  "live_unallowed_diffs": [],
+  "live_note_identical_between_runs": false,
+  "live_notes_run1": [
+    null,
+    null,
+    "Sitting at work with colleagues at midday, I feel very low on energy and quite stressed.",
+    "Feeling pressured after the bike ride, at home.",
+    "Feeling alert right now while sitting, at home."
+  ],
+  "live_notes_run2": [
+    null,
+    "I am sitting at work this morning, feeling down but not stressed.",
+    null,
+    "Feeling pressured after the bike ride, at home.",
+    "Feeling alert right now while sitting, at home."
+  ],
+  "gate": {
+    "offline_reproducible": true,
+    "llm_nondeterminism_confined": true
+  },
+  "note": "LLM prose is not required to be byte-identical across API calls; only the structured fields and all non-note provenance must be."
+}

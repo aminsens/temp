@@ -1,0 +1,16 @@
+{
+  "python": "3.11.15",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "model": "deepseek-flash",
+  "base_url": "https://api.deepseek.com",
+  "thinking": "enabled",
+  "reasoning_effort": "high",
+  "max_tokens_override": "1024",
+  "started_utc": "2026-09-24T19:25:04+00:00",
+  "started_local": "2026-09-24T19:25:04+00:00",
+  "commit": "",
+  "commit_short": "",
+  "branch": "",
+  "working_tree_dirty": false,
+  "dirty_summary": []
+}

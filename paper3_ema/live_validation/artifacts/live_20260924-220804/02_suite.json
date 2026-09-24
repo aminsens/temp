@@ -1,0 +1,18 @@
+{
+  "integration_tests": {
+    "test_real_llm_end_to_end_bundle": null,
+    "test_real_llm_retries_are_bounded": null,
+    "test_real_llm_never_alters_inherited_context": null,
+    "test_real_llm_subjective_values_are_not_model_chosen": null
+  },
+  "integration_failures": [],
+  "integration_failure_classified_model_unavailable": false,
+  "failure_excerpt": "",
+  "full_suite_summary": "134 passed, 5 skipped in 67.56s (0:01:07)",
+  "non_integration_failed_lines": [],
+  "suite_gate": {
+    "non_integration_tests_pass": true,
+    "integration_gate": true
+  },
+  "note": "if integration tests failed with a transport/model error (e.g. retired model id), the transport gate for this run is carried by phase 1b (flash smoke)"
+}
