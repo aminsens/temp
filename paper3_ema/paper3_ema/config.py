@@ -40,6 +40,7 @@ REQUIRED_KEYS: tuple[str, ...] = (
     "sampling.stability_margin_minutes",
     "sampling.max_minutes_after_event",
     "eligibility.exclude_activities",
+    "eligibility.exclude_unknown_activity",
     "eligibility.exclude_unresolved_intervals",
     "eligibility.exclude_non_realised_movements",
     "eligibility.exclude_unstable_micro_transitions",

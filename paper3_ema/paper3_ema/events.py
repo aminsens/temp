@@ -231,7 +231,11 @@ def _context_transition_events(
         anchor = current.start_min + settle
         if anchor >= DAY_MINUTES:
             continue
-        if not eligibility.is_stable(anchor):
+        # The prompt that will follow this transition must actually be
+        # placeable: a stable minute inside a host-declared waking window.  A
+        # stability-only test here let a transition be reported as eligible
+        # while the scheduler could not place any prompt after it.
+        if not _has_stable_opportunity(eligibility, anchor, config):
             continue
         events.append(
             DayEvent(
@@ -284,6 +288,12 @@ def _discretionary_events(
             if anchor_minute is None:
                 continue
             anchor = float(anchor_minute)
+        # The scheduler places this prompt *after* the episode, so the episode
+        # end must have a legal (stable, in-window) prompt minute.  Requiring
+        # only an interior stable minute reported the event as eligible while
+        # it was unplaceable.
+        if not _has_stable_opportunity(eligibility, episode.end_min, config):
+            continue
         events.append(
             DayEvent(
                 event_id=f"evt-disc-{episode.episode_id}",
@@ -324,9 +334,33 @@ def _score(duration_min: float, priority_order: Sequence[str], kind: TriggerType
 
 
 def _has_stable_opportunity(eligibility: DayEligibility, event_end: float, config: ProtocolConfig) -> bool:
+    """Is there a *legal* prompt minute after this event?
+
+    "Legal" must mean the same thing here as it does in
+    :func:`paper3_ema.scheduler.schedule_for_day`: the minute must be stable
+    **and** inside a host-declared waking window
+    (``sampling.waking_windows.require_prompt_inside_window``).  Testing
+    stability alone let an event be reported as eligible while every prompt
+    minute after it fell outside the daytime strata; the scheduler could then
+    not place it, and the auditor -- which consumes this same detector --
+    reported the contradiction as ``event_enrichment_missing`` on a day where
+    no legal prompt existed.
+    """
     horizon = float(config.get("sampling.max_minutes_after_event", 45))
-    minute = eligibility.first_stable_minute(event_end, min(DAY_MINUTES, event_end + horizon))
-    return minute is not None
+    deadline = min(float(DAY_MINUTES), event_end + horizon)
+    windows = tuple(getattr(eligibility.day, "waking_windows", ()) or ())
+    if not windows:
+        return eligibility.first_stable_minute(event_end, deadline) is not None
+    for window in windows:
+        start = max(event_end, window.start)
+        # ``Interval.contains`` is half-open, so the last contained minute is
+        # strictly below ``window.end``.
+        end = min(deadline, window.end - 1.0)
+        if end < start:
+            continue
+        if eligibility.first_stable_minute(start, end) is not None:
+            return True
+    return False
 
 
 def _deduplicate(events: Sequence[DayEvent], config: ProtocolConfig) -> list[DayEvent]:

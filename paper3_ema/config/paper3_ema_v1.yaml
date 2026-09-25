@@ -17,7 +17,7 @@
 
 meta:
   protocol_name: paper3_ema_v1
-  protocol_version: "1.0.0"
+  protocol_version: "1.1.0"
   schema_version: "1.0.0"
   description: >-
     Event-enriched stratified semi-random hybrid EMA protocol for Paper 3.
@@ -110,7 +110,22 @@ eligibility:
     - cycling
     - running
     - other_vigorous
-  exclude_unknown_activity: true            # [C] cannot verify stability -> do not prompt
+  # [C] REVISED in protocol 1.1.0.  See docs/POLICY_REVISION_1_1_0.md.
+  # An unknown *physical posture* is not a safety exclusion.  The
+  # evidence-documented exclusion set is S-11 -- asleep, driving, cycling,
+  # running/vigorous, non-realised movement, unresolved interval, unstable
+  # micro-transition -- and every one of those remains enforced independently
+  # of this flag.  The earlier rationale here ("cannot verify stability") is
+  # already carried by exclude_unstable_episodes /
+  # exclude_unstable_micro_transitions plus the boundary stability margins, so
+  # the flag was redundant as a stability guard while making whole stable
+  # behavioural episodes unpromptable.  EMA supplies the context that movement
+  # sensing cannot, and domain -- not posture -- is the variable that resolves
+  # sensor ambiguity (Synthesis 10.2 UNDERRATED #2), so removing the prompt
+  # exactly where posture is unknown removes the moments EMA adds most value.
+  # Physical state stays unknown and is never inferred in order to enable a
+  # prompt.
+  exclude_unknown_activity: false
   exclude_during_sleep_period: true         # [A]
   exclude_unresolved_intervals: true        # [B] demarcation uncertainty (synthesis §10.2 #4)
   exclude_non_realised_movements: true      # [B] planned movement that did not happen

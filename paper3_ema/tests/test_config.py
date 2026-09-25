@@ -30,9 +30,25 @@ def test_parser_matches_pyyaml():
 def test_shipped_config_loads_and_has_stable_hash():
     config = default_config()
     assert config.protocol_name == "paper3_ema_v1"
-    assert config.protocol_version == "1.0.0"
+    # 1.1.0 revised eligibility.exclude_unknown_activity; see
+    # docs/POLICY_REVISION_1_1_0.md
+    assert config.protocol_version == "1.1.0"
     assert len(config.hash()) == 16
     assert default_config().hash() == config.hash()
+
+
+def test_unknown_posture_is_not_a_default_exclusion():
+    """Posture is not a safety exclusion; the flag exists but defaults off."""
+    config = default_config()
+    assert config.get("eligibility.exclude_unknown_activity") is False
+
+
+def test_safety_exclusions_cannot_be_absent_from_the_config():
+    """The exclusion policy must be explicit, never an implicit code default."""
+    data = copy.deepcopy(default_config().to_dict())
+    del data["eligibility"]["exclude_unknown_activity"]
+    with pytest.raises(ConfigError, match="missing required keys"):
+        ProtocolConfig.from_dict(data)
 
 
 def test_required_keys_are_present():

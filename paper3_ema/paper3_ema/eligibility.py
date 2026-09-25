@@ -167,10 +167,16 @@ class DayEligibility:
         return tuple(merge(periods))
 
     def _hard_blocked_periods(self) -> tuple[Interval, ...]:
-        """Blocked periods that hold under the *relaxed* stability rule too:
-        excluded activities, unknown activity, non-realised movements,
-        unresolved intervals/episodes and unstable micro-transitions.  Boundary
-        margins are the only thing the relaxed path drops."""
+        """Blocked periods that hold under the *relaxed* stability rule too.
+
+        The evidence-documented safety exclusions: excluded activities,
+        non-realised movements, unresolved intervals/episodes and unstable
+        micro-transitions.  Unknown activity is included only when
+        ``eligibility.exclude_unknown_activity`` is explicitly enabled (it is
+        disabled by default from protocol 1.1.0, because posture is not a
+        safety exclusion).  Boundary margins are the only thing the relaxed
+        path drops.
+        """
         excluded_activities = self._excluded_activities()
         periods: list[Interval] = []
         for episode in self.day.episodes:
