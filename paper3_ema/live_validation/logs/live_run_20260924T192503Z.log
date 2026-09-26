@@ -1,0 +1,28 @@
+[harness] v1.0.0 model=deepseek-flash out=C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\artifacts\live_20260924-192504
+[connectivity] reachable=True (HTTP 401)
+[phase1] running committed integration tests (verbose) ...
+[pytest:02_integration_verbose.txt] rc=0
+[phase1] running full suite ...
+[pytest:02_suite_full.txt] rc=0
+[phase1] suite: 134 passed, 5 skipped in 67.42s (0:01:07)
+[phase1b] flash smoke: {'auth_succeeded': True, 'expected_model_used': True, 'request_shape_accepted': True, 'response_parsing_succeeded': True, 'retry_bounds_intact': True, 'closed_world_acceptance': True, 'bundle_validation': True}
+[phase2] semi_random_home: attempts=3 source=offline_template note='Feeling stressed right now while sitting.'
+[phase2] work_study: attempts=2 source=llm note='Sitting at work with colleagues this early morning, I feel neutral, with high energy and high stress.'
+[phase2] childcare: attempts=3 source=offline_template note='In a good mood after the walk.'
+[phase2] social: attempts=3 source=offline_template note='In a good mood right now after the bus trip, at home.'
+[phase2] post_walk: attempts=2 source=llm note='Sitting at home this evening for a meal, I feel very positive and my stress is low after the earlier walk.'
+[phase2] post_run_exercise: attempts=2 source=llm note='After my run, standing at the gym with strangers, my energy feels very low and I feel neutral.'
+[phase2] post_cycle: attempts=1 source=llm note='Sitting at work in the early morning after my bike ride, I feel low in energy, down, and very stressed.'
+[phase2] post_public_transport: attempts=3 source=offline_template note='Feeling stressed, feeling drained.'
+[phase2] post_car: attempts=3 source=None note=None
+[phase2] documented_delayed_journey: attempts=2 source=llm note='Sitting at work with colleagues this early morning, after the train trip and the walk, I feel very low on energy and very stressed.'
+[phase2] journey_without_documented_delay: attempts=2 source=llm note='Sitting at work with colleagues this early morning, I feel positive and stressed, my energy steady after the walk and bus trip.'
+[phase2] context_transition: attempts=3 source=offline_template note='Feeling fairly neutral right now while standing, at home.'
+[phase2] evening: attempts=3 source=None note=None
+[phase2] no_eligible_event_day: attempts=2 source=llm note='I am sitting at home in the quiet morning, with free time for leisure.'
+[phase2] sparse_ambiguous: attempts=3 source=offline_template note='Feeling pressured right now after the bus trip, at work.'
+[phase3] diffs=255 unallowed=0
+[phase4] 140 opportunities, 125 answered, calls=339, survivors=0
+[phase5] offline identical=True, live unallowed diffs=0
+[harness] verdict: CONDITIONAL PASS
+[harness] wrote C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\docs\LIVE_DEEPSEEK_VALIDATION.md

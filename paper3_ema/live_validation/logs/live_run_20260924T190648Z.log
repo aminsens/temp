@@ -1,0 +1,21 @@
+[harness] v1.0.0 model=deepseek-flash out=C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\artifacts\live_20260924-190649
+[connectivity] reachable=True (HTTP 401)
+[phase1] running committed integration tests (verbose) ...
+[pytest:02_integration_verbose.txt] rc=4
+[phase1] running full suite ...
+[pytest:02_suite_full.txt] rc=4
+[phase1] suite: n/a
+Traceback (most recent call last):
+  File "C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\live_harness.py", line 1251, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\live_harness.py", line 1216, in main
+    smoke = phase1b_flash_smoke(out, args.model)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\live_harness.py", line 423, in phase1b_flash_smoke
+    client = make_client(model)
+             ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\live_harness.py", line 281, in make_client
+    return LiveTimingClient(
+           ^^^^^^^^^^^^^^^^^
+TypeError: DeepSeekClient.__init__() got an unexpected keyword argument 'reasoning_effort'

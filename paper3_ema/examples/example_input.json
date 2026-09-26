@@ -1,0 +1,498 @@
+{
+  "_comment": "Example INPUT to the Paper 3 EMA module: a generic contextual day supplied by a host system (DayForge today, Appa via its adapter later). The module consumes this mapping through paper3_ema.contextual_day_from_mapping / paper3_ema.generate_ema and needs nothing else. Field names follow the tolerant importer (start/end or start_time/end_time, activity, domain, place_type/location_type, social_context, indoor_outdoor, journeys, fixed_commitments, optional device_wear).",
+  "day": {
+    "participant_id": "fixture-office",
+    "date": "2026-05-04",
+    "wake_time": "07:00",
+    "sleep_time": "23:00",
+    "weather": null,
+    "episodes": [
+      {
+        "start_time": "06:45",
+        "end_time": "07:00",
+        "activity": "sleeping",
+        "domain": "self_care",
+        "place_type": "home",
+        "social_context": "alone",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "sleep"
+      },
+      {
+        "start_time": "07:00",
+        "end_time": "07:30",
+        "activity": "standing",
+        "domain": "self_care",
+        "place_type": "home",
+        "social_context": "alone",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "morning routine",
+        "exertion": 0.2
+      },
+      {
+        "start_time": "07:30",
+        "end_time": "07:50",
+        "activity": "sitting",
+        "domain": "self_care",
+        "place_type": "home",
+        "social_context": "with_partner",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "breakfast",
+        "exertion": 0.05
+      },
+      {
+        "start_time": "07:50",
+        "end_time": "08:20",
+        "activity": "public_transport",
+        "domain": "transport",
+        "place_type": "vehicle",
+        "social_context": "with_strangers",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "commute",
+        "exertion": 0.05
+      },
+      {
+        "start_time": "08:20",
+        "end_time": "08:30",
+        "activity": "walking",
+        "domain": "transport",
+        "place_type": "street",
+        "social_context": "alone",
+        "indoor_outdoor": "outdoor",
+        "is_realised": true,
+        "purpose": "commute",
+        "exertion": 0.3
+      },
+      {
+        "start_time": "08:30",
+        "end_time": "10:30",
+        "activity": "sitting",
+        "domain": "work",
+        "place_type": "workplace",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "work",
+        "exertion": 0.05,
+        "is_fixed_commitment": true
+      },
+      {
+        "start_time": "10:30",
+        "end_time": "10:45",
+        "activity": "standing",
+        "domain": "work",
+        "place_type": "workplace",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "meeting",
+        "exertion": 0.15
+      },
+      {
+        "start_time": "10:45",
+        "end_time": "12:15",
+        "activity": "sitting",
+        "domain": "work",
+        "place_type": "workplace",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "work",
+        "exertion": 0.05
+      },
+      {
+        "start_time": "12:15",
+        "end_time": "12:45",
+        "activity": "sitting",
+        "domain": "social",
+        "place_type": "food_venue",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "lunch",
+        "exertion": 0.05
+      },
+      {
+        "start_time": "12:45",
+        "end_time": "13:05",
+        "activity": "walking",
+        "domain": "leisure",
+        "place_type": "park",
+        "social_context": "alone",
+        "indoor_outdoor": "outdoor",
+        "is_realised": true,
+        "purpose": "walk",
+        "exertion": 0.35
+      },
+      {
+        "start_time": "13:05",
+        "end_time": "15:30",
+        "activity": "sitting",
+        "domain": "work",
+        "place_type": "workplace",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "work",
+        "exertion": 0.05
+      },
+      {
+        "start_time": "15:30",
+        "end_time": "16:00",
+        "activity": "sitting",
+        "domain": "work",
+        "place_type": "workplace",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "meeting",
+        "exertion": 0.05
+      },
+      {
+        "start_time": "16:00",
+        "end_time": "16:30",
+        "activity": "public_transport",
+        "domain": "transport",
+        "place_type": "vehicle",
+        "social_context": "with_strangers",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "commute",
+        "exertion": 0.05
+      },
+      {
+        "start_time": "16:30",
+        "end_time": "17:00",
+        "activity": "walking",
+        "domain": "shopping",
+        "place_type": "shop",
+        "social_context": "alone",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "shopping",
+        "exertion": 0.3,
+        "discretionary_event": "errand"
+      },
+      {
+        "start_time": "17:00",
+        "end_time": "18:00",
+        "activity": "standing",
+        "domain": "household",
+        "place_type": "home",
+        "social_context": "alone",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "cooking",
+        "exertion": 0.25
+      },
+      {
+        "start_time": "18:00",
+        "end_time": "18:40",
+        "activity": "sitting",
+        "domain": "social",
+        "place_type": "home",
+        "social_context": "with_partner",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "dinner",
+        "exertion": 0.05
+      },
+      {
+        "start_time": "18:40",
+        "end_time": "20:10",
+        "activity": "sitting",
+        "domain": "leisure",
+        "place_type": "home",
+        "social_context": "with_partner",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "leisure",
+        "exertion": 0.05
+      },
+      {
+        "start_time": "20:10",
+        "end_time": "21:00",
+        "activity": "sitting",
+        "domain": "leisure",
+        "place_type": "home",
+        "social_context": "alone",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "leisure",
+        "exertion": 0.05
+      },
+      {
+        "start_time": "21:00",
+        "end_time": "21:30",
+        "activity": "standing",
+        "domain": "self_care",
+        "place_type": "home",
+        "social_context": "alone",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "self care",
+        "exertion": 0.15
+      },
+      {
+        "start_time": "21:30",
+        "end_time": "23:00",
+        "activity": "lying_awake",
+        "domain": "leisure",
+        "place_type": "home",
+        "social_context": "alone",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "rest",
+        "exertion": 0.02
+      },
+      {
+        "start_time": "23:00",
+        "end_time": "23:59",
+        "activity": "sleeping",
+        "domain": "self_care",
+        "place_type": "home",
+        "social_context": "alone",
+        "indoor_outdoor": "indoor",
+        "is_realised": true,
+        "purpose": "sleep"
+      }
+    ],
+    "intervals": [
+      {
+        "start_time": "06:45",
+        "end_time": "07:00",
+        "kind": "rest",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-001"
+      },
+      {
+        "start_time": "07:00",
+        "end_time": "07:30",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-002"
+      },
+      {
+        "start_time": "07:30",
+        "end_time": "07:50",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-003"
+      },
+      {
+        "start_time": "07:50",
+        "end_time": "08:20",
+        "kind": "travel",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-004"
+      },
+      {
+        "start_time": "08:20",
+        "end_time": "08:30",
+        "kind": "active",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-005"
+      },
+      {
+        "start_time": "08:30",
+        "end_time": "10:30",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-006"
+      },
+      {
+        "start_time": "10:30",
+        "end_time": "10:45",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-007"
+      },
+      {
+        "start_time": "10:45",
+        "end_time": "12:15",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-008"
+      },
+      {
+        "start_time": "12:15",
+        "end_time": "12:45",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-009"
+      },
+      {
+        "start_time": "12:45",
+        "end_time": "13:05",
+        "kind": "active",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-010"
+      },
+      {
+        "start_time": "13:05",
+        "end_time": "15:30",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-011"
+      },
+      {
+        "start_time": "15:30",
+        "end_time": "16:00",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-012"
+      },
+      {
+        "start_time": "16:00",
+        "end_time": "16:30",
+        "kind": "travel",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-013"
+      },
+      {
+        "start_time": "16:30",
+        "end_time": "17:00",
+        "kind": "active",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-014"
+      },
+      {
+        "start_time": "17:00",
+        "end_time": "18:00",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-015"
+      },
+      {
+        "start_time": "18:00",
+        "end_time": "18:40",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-016"
+      },
+      {
+        "start_time": "18:40",
+        "end_time": "20:10",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-017"
+      },
+      {
+        "start_time": "20:10",
+        "end_time": "21:00",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-018"
+      },
+      {
+        "start_time": "21:00",
+        "end_time": "21:30",
+        "kind": "sedentary",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-019"
+      },
+      {
+        "start_time": "21:30",
+        "end_time": "23:00",
+        "kind": "rest",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-020"
+      },
+      {
+        "start_time": "23:00",
+        "end_time": "23:59",
+        "kind": "rest",
+        "resolved": true,
+        "realised": true,
+        "interval_id": "iv-021"
+      }
+    ],
+    "journeys": [
+      {
+        "start_time": "07:50",
+        "end_time": "08:20",
+        "mode": "bus",
+        "purpose": "commute",
+        "origin_place_type": "home",
+        "destination_place_type": "workplace",
+        "journey_id": "jn-office-am"
+      },
+      {
+        "start_time": "16:00",
+        "end_time": "16:30",
+        "mode": "bus",
+        "purpose": "commute",
+        "origin_place_type": "workplace",
+        "destination_place_type": "home",
+        "journey_id": "jn-office-pm"
+      }
+    ],
+    "fixed_commitments": [
+      {
+        "start_time": "08:30",
+        "end_time": "10:30",
+        "kind": "work",
+        "requires_travel": true,
+        "travel_time_min": 30,
+        "commitment_id": "fc-morning-block"
+      },
+      {
+        "start_time": "10:30",
+        "end_time": "10:45",
+        "kind": "work",
+        "requires_travel": false,
+        "travel_time_min": 0.0,
+        "label": "meeting",
+        "commitment_id": "fc-standup"
+      },
+      {
+        "start_time": "15:30",
+        "end_time": "16:00",
+        "kind": "work",
+        "requires_travel": false,
+        "travel_time_min": 0.0,
+        "label": "meeting",
+        "commitment_id": "fc-review"
+      }
+    ],
+    "device_wear": [
+      {
+        "start_time": "07:00",
+        "end_time": "23:00",
+        "status": "worn",
+        "reason": "continuous wear"
+      }
+    ],
+    "fixture": "normal_office_day",
+    "expectation": "two post_trip events available; meeting commitments create schedule pressure"
+  },
+  "request": {
+    "participant_id": "fixture-office",
+    "day_date": "2026-05-04",
+    "seed": 7,
+    "protocol_name": "paper3_ema_v1"
+  }
+}

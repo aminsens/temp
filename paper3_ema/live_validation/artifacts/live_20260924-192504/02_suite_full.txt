@@ -1,0 +1,11 @@
+$ C:\Users\AminR\Downloads\EMA-DEEPSEEK\paper3_ema\live_validation\.venv-live\Scripts\python.exe -m pytest paper3_ema/tests -q --tb=short
+
+cwd=C:\Users\AminR\Downloads\EMA-DEEPSEEK
+
+=== stdout ===
+........................................................................ [ 51%]
+........ss................ss..s....................................      [100%]
+134 passed, 5 skipped in 67.42s (0:01:07)
+
+=== stderr ===
+

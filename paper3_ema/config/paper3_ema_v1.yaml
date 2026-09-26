@@ -1,0 +1,451 @@
+# =====================================================================
+# paper3_ema_v1.yaml — versioned Paper 3 EMA protocol configuration
+# =====================================================================
+# This file is the SINGLE source of policy for the standalone EMA module.
+# No protocol constant lives in the Python source; the loader
+# (paper3_ema/config.py) refuses to run with missing required keys.
+#
+# Every parameter is classified in docs/SCIENTIFIC_ASSUMPTIONS.md as
+#   A  directly supported by the supplied evidence corpus
+#   B  broadly motivated by evidence, parameter value is a design choice
+#   C  Paper 3-specific engineering / design choice
+# The class is given inline as `# [A|B|C]` next to each block.
+#
+# NOTE ON APPA: this configuration is intentionally independent of Appa and
+# DayForge.  Waking windows, episodes, intervals and journeys are supplied by
+# the host day; nothing here asserts their schema.
+
+meta:
+  protocol_name: paper3_ema_v1
+  protocol_version: "1.1.0"
+  schema_version: "1.0.0"
+  description: >-
+    Event-enriched stratified semi-random hybrid EMA protocol for Paper 3.
+    Five EMA opportunities per participant-day: at least three background
+    (semi-random, stratified across host-supplied daytime windows) and at most
+    two event-enriched (post_trip > post_active_episode >
+    meaningful_context_transition > discretionary fallback).  EMA is a
+    contextual and subjective annotation layer over inherited facts; it never
+    re-reports contextual facts with injected noise.
+  evidence_basis:
+    - "EMA_Definitive_Synthesis.md (definitive cross-source synthesis, April 2026)"
+    - "CONCLUSION.md (cross-source agreement register)"
+    - "Chatgpt.md, Chatgpt_deep_research.md, Deepseek.md, Gemini.md, Kimi.md, Scite_Opus4.6.md, Scite_Opus4.6_v2.md"
+  appa_dependency: "none"
+  dayforge_dependency: "none"
+
+# ---------------------------------------------------------------------
+# subjective items — synthetic, 5-point ordinal                       [B/C]
+# ---------------------------------------------------------------------
+scales:
+  points: 5
+  items:
+    valence:
+      label: "How positive or negative do you feel right now?"
+      anchors:
+        1: very negative
+        2: negative
+        3: neutral
+        4: positive
+        5: very positive
+    energy:
+      label: "How much energy do you feel right now?"
+      anchors:
+        1: very low
+        2: low
+        3: moderate
+        4: high
+        5: very high
+    stress:
+      label: "How stressed do you feel right now?"
+      anchors:
+        1: none/very low
+        2: low
+        3: moderate
+        4: high
+        5: very high
+  synthetic_declaration: >-
+    These values are synthetic simulation outputs produced by a seeded,
+    context-conditioned generator.  They are not observed human measurements
+    and must not be interpreted as empirical affect data.
+
+# ---------------------------------------------------------------------
+# sampling design                                                       [A/B/C]
+# ---------------------------------------------------------------------
+sampling:
+  opportunities_per_day: 5                  # [B] synthesis §9.3/§9.5: 4-6 prompts/day
+  min_background: 3                         # [C] hybrid design: >=3 semi-random
+  max_event_enriched: 2                     # [C] hybrid design: <=2 event prompts
+  allow_background_to_exceed_min: true      # [C] leftover event slots become background
+  force_event_diversity: false              # [A] never fabricate event categories
+  fallback_when_insufficient_events: semi_random   # [C]
+  min_events_for_enrichment: 1
+  waking_windows:
+    source: host_supplied_or_default        # [C] host day may supply its own strata
+    default_start: "08:00"                  # [B] Maher 2018 style daytime window
+    default_end: "23:00"                    # [B]
+    default_count: 8                        # [C] "approximately eight waking/daytime windows"
+    require_prompt_inside_window: true      # [C]
+  min_gap_minutes: 30                       # [C] burden control between prompts
+  max_gap_minutes: 300                      # [C] spread requirement (auditor)
+  coverage:
+    min_distinct_windows: 3                 # [C] spread across the day
+    max_prompts_per_window: 2               # [C] anti-clustering
+    min_spread_minutes: 210                 # [C] first-to-last prompt span
+  stability_margin_minutes: 5               # [C] do not prompt within 5 min of an episode boundary
+  post_event_search_minutes: 45             # [B] first suitable stable opportunity after an event
+  max_minutes_after_event: 45               # [B] beyond this the event is no longer "just happened"
+  candidate_step_minutes: 1                 # [C] sampling resolution
+  max_candidates_per_window: 400            # [C] runtime bound
+  prompt_id_prefix: "ema"
+
+# ---------------------------------------------------------------------
+# eligibility / exclusions                                              [A]
+# ---------------------------------------------------------------------
+eligibility:
+  exclude_activities:                       # [A] Gemini: delay prompts during driving/cycling/vigorous exercise
+    - sleeping
+    - lying_awake
+    - driving
+    - cycling
+    - running
+    - other_vigorous
+  # [C] REVISED in protocol 1.1.0.  See docs/POLICY_REVISION_1_1_0.md.
+  # An unknown *physical posture* is not a safety exclusion.  The
+  # evidence-documented exclusion set is S-11 -- asleep, driving, cycling,
+  # running/vigorous, non-realised movement, unresolved interval, unstable
+  # micro-transition -- and every one of those remains enforced independently
+  # of this flag.  The earlier rationale here ("cannot verify stability") is
+  # already carried by exclude_unstable_episodes /
+  # exclude_unstable_micro_transitions plus the boundary stability margins, so
+  # the flag was redundant as a stability guard while making whole stable
+  # behavioural episodes unpromptable.  EMA supplies the context that movement
+  # sensing cannot, and domain -- not posture -- is the variable that resolves
+  # sensor ambiguity (Synthesis 10.2 UNDERRATED #2), so removing the prompt
+  # exactly where posture is unknown removes the moments EMA adds most value.
+  # Physical state stays unknown and is never inferred in order to enable a
+  # prompt.
+  exclude_unknown_activity: false
+  exclude_during_sleep_period: true         # [A]
+  exclude_unresolved_intervals: true        # [B] demarcation uncertainty (synthesis §10.2 #4)
+  exclude_non_realised_movements: true      # [B] planned movement that did not happen
+  exclude_unstable_micro_transitions: true  # [B]
+  exclude_unstable_episodes: true           # [B]
+  require_episode_coverage: true            # [C] prompt must sit inside a known episode
+  allow_prompt_at_episode_start: false      # [C]
+
+# ---------------------------------------------------------------------
+# event detection (event-enriched sampling)                             [A/B/C]
+# ---------------------------------------------------------------------
+events:
+  priority:                                 # [C] Paper 3 priority order
+    - post_trip
+    - post_active_episode
+    - context_transition
+    - discretionary_fallback
+  per_kind_daily_cap:
+    post_trip: 2
+    post_active_episode: 2
+    context_transition: 2
+    discretionary_fallback: 1
+  post_trip:
+    include_journeys: true                  # [A] event-triggered alignment (synthesis §7.3)
+    min_duration_minutes: 5                 # [C]
+    include_active_transport_episodes: true # [A] active transport is Paper 3's focus
+  post_active_episode:
+    min_duration_minutes: 10                # [B] Giurgiu 2020 style bout threshold (20-30 min for SB)
+    min_exertion: 0.4                       # [C] host-supplied relative exertion 0..1
+    domains: [exercise]                     # [C]
+    activities: [running, other_vigorous, walking, cycling]   # cycling counted only when domain == exercise
+  context_transition:
+    min_stable_minutes_before: 5            # [C] transition must have settled
+    count_domain_change: true               # [B] domain is the highest-value variable
+    count_place_change: true                # [B]
+    count_social_change: false              # [C] social change alone is not "meaningful" here
+    count_indoor_outdoor_change: true       # [B]
+  discretionary_fallback:
+    enabled: true                           # [C]
+    domains: [shopping, childcare, social, self_care]
+    min_duration_minutes: 15                # [C]
+  scoring:
+    priority_weight: 1.0                    # [C]
+    recency_weight: 0.10                    # [C] prefer events closer to the prompt
+    duration_weight: 0.02                   # [C] mildly prefer longer events
+    max_score: 3.0
+
+# ---------------------------------------------------------------------
+# subjective state generator (structured, seeded, transparent)          [B/C]
+# ---------------------------------------------------------------------
+state_generator:
+  version: "1.0.0"
+  baseline:                                 # [C] latent centre of each construct (scale units)
+    valence: 3.2
+    energy: 3.2
+    stress: 2.6
+  day_effect_sd: 0.45                       # [C] between-day person-level variation
+  noise_sd:                                 # [C] within-person moment variation
+    valence: 0.45
+    energy: 0.45
+    stress: 0.50
+  continuity:
+    enabled: true                           # [C] same-day continuity only
+    weight: 0.35                            # [C] anchor towards previous answered EMA
+    max_interval_minutes: 240               # [C] beyond this, no continuity anchor
+  modifiers:                                # [C] magnitudes; [B] directions where noted
+    circadian:
+      enabled: true                         # [B] time-of-day effects are ubiquitous in EMA literature
+      energy_by_period:
+        early_morning: -0.60
+        morning: 0.30
+        midday: 0.10
+        afternoon: -0.10
+        evening: -0.25
+        late_evening: -0.70
+        night: -0.80
+      valence_by_period:
+        early_morning: -0.10
+        morning: 0.15
+        midday: 0.10
+        afternoon: 0.00
+        evening: 0.10
+        late_evening: -0.05
+        night: -0.15
+      stress_by_period:
+        early_morning: 0.10
+        morning: 0.15
+        midday: 0.05
+        afternoon: 0.05
+        evening: -0.15
+        late_evening: -0.25
+        night: -0.20
+    minutes_since_wake:
+      enabled: true                         # [C]
+      energy_ramp_minutes: 60
+      energy_max_boost: 0.5
+    recent_exertion:
+      enabled: true                         # [B] post-activity affect/fatigue is a documented EMA use
+      energy_effect: -0.9                   # per unit of bounded exertion 0..1
+      valence_effect: 0.35
+      stress_effect: -0.15
+      decay_half_life_minutes: 45
+    post_journey:
+      enabled: true                         # [C]
+      active_modes: [walk, walking, bike, bicycle, cycling, cycle, foot]
+      public_modes: [bus, train, tram, metro, subway, ferry, public_transport]
+      car_modes: [car, drive, driving, motorbike, motorcycle]
+      window_minutes: 30
+      active:   {valence: 0.25, energy: -0.20, stress: -0.10}
+      public:   {valence: -0.05, energy: -0.05, stress: 0.10}
+      car:      {valence: 0.00, energy: -0.05, stress: 0.15}
+      delayed_journey: {valence: -0.35, energy: -0.10, stress: 0.45}   # only when host documents a delay
+      crowded_journey: {valence: -0.15, energy: -0.05, stress: 0.20}   # only when host documents crowding
+    schedule_pressure:
+      enabled: true                         # [C]
+      horizons_minutes: [30, 60, 120]
+      pressure_by_horizon: {30: 0.50, 60: 0.30, 120: 0.10}
+      stress_effect: 1.0                    # multiplied by pressure
+      energy_effect: -0.25
+      valence_effect: -0.20
+      extra_when_travel_required: 0.15
+    post_transition:
+      enabled: true                         # [C]
+      window_minutes: 20
+      valence: 0.00
+      energy: -0.05
+      stress: 0.10
+    social_company:
+      enabled: true                         # [B] Hevel 2021: affect during SB depends on social context
+      with_company: {valence: 0.20, energy: 0.05, stress: -0.10}
+      alone: {valence: 0.00, energy: 0.00, stress: 0.00}
+    domain:
+      enabled: true                         # [C] small, bounded, symmetric — NOT "work => stress high"
+      valence: {leisure: 0.15, social: 0.20, exercise: 0.10, self_care: 0.05, household: -0.05, childcare: -0.05, work: -0.05, study: -0.05, transport: -0.05, shopping: 0.00, other: 0.00}
+      energy: {leisure: 0.00, social: 0.05, exercise: -0.10, self_care: 0.05, household: -0.10, childcare: -0.10, work: -0.10, study: -0.10, transport: -0.05, shopping: -0.05, other: 0.00}
+      stress: {leisure: -0.15, social: -0.10, exercise: -0.10, self_care: -0.10, household: 0.05, childcare: 0.10, work: 0.15, study: 0.10, transport: 0.05, shopping: 0.00, other: 0.00}
+      max_abs_total: 0.30                   # [C] hard cap: domain can never dominate the state
+    outdoor:
+      enabled: true                         # [B] Kracht 2021 links indoor/alone context to sedentary time
+      outdoor: {valence: 0.10, energy: 0.05, stress: -0.05}
+      indoor: {valence: 0.00, energy: 0.00, stress: 0.00}
+  modifier_clip: 1.5                        # [C] hard bound on the summed contextual modifier
+  hard_clip: [1.0, 5.0]                     # [C] latent bounds before ordinal rounding
+  sampling:
+    method: ordinal_from_latent             # [C]
+    sd: 0.6                                 # [C] ordinal rounding noise
+  time_of_day_periods:                      # [C]
+    early_morning: ["05:00", "09:00"]
+    morning: ["09:00", "12:00"]
+    midday: ["12:00", "14:00"]
+    afternoon: ["14:00", "17:00"]
+    evening: ["17:00", "20:00"]
+    late_evening: ["20:00", "23:00"]
+    night: ["23:00", "05:00"]
+
+# ---------------------------------------------------------------------
+# persona / demographic safeguard                                       [C]
+# ---------------------------------------------------------------------
+persona:
+  allowed_facts:                            # closed allowlist
+    - childcare_responsibility              # only when current episode is childcare
+    - work_schedule_pattern                 # only for schedule pressure
+    - usual_commute_mode                    # only for transport context
+    - usual_sleep_schedule                  # only for minutes-since-wake
+  forbidden_facts:                          # never read by the generator
+    - age
+    - sex
+    - gender
+    - ethnicity
+    - race
+    - occupation
+    - income
+    - education
+    - health_notes
+    - health
+    - diagnosis
+    - fitness
+    - fitness_level
+    - personality
+    - personality_traits
+    - hobbies
+    - name
+    - weight
+    - bmi
+  strict: true                              # raise when a forbidden fact is supplied
+  use_childcare_responsibility: true        # contextual role only
+  childcare_effect: {valence: -0.05, energy: -0.10, stress: 0.15}   # [C] applied ONLY inside childcare episodes
+  use_work_schedule_pattern: true
+  shift_work_extra_pressure: 0.10           # [C] applied only when a fixed commitment is near
+
+# ---------------------------------------------------------------------
+# missingness (response / non-response)                                 [A/B/C]
+# ---------------------------------------------------------------------
+missingness:
+  model: stochastic_bernoulli               # [C]
+  force_one_miss_per_day: false             # [A] explicitly rejected historical behaviour
+  calibration_target_response_rate: [0.85, 0.90]   # [B] simulation calibration target, not a compliance claim
+  base_response_probability:                # [C] calibrated so a large canonical cohort lands in the target band
+    semi_random: 0.94
+    post_trip: 0.90
+    post_active_episode: 0.88
+    context_transition: 0.90
+    discretionary_fallback: 0.90
+  modifiers:                                # [A] direction (non-random missingness), [C] magnitude
+    high_exertion:
+      enabled: true
+      threshold: 0.60                       # bounded recent exertion 0..1
+      multiplier: 0.92
+    engaged_context:
+      enabled: true                         # [A] less likely to respond in intense social/occupational situations
+      domains: [work, study, childcare, social]
+      activities: [other_vigorous]
+      multiplier: 0.97
+    late_window:
+      enabled: true
+      after_minute_of_day: 1260             # 21:00
+      multiplier: 0.95
+    device_not_worn:
+      enabled: true                         # only when the host supplies wear data
+      multiplier: 0.85
+    study_day_decay:
+      enabled: false                        # [B] documented decay, off by default to hold calibration
+      per_day_multiplier: 0.98
+      start_day_index: 3
+  min_probability: 0.05
+  max_probability: 0.995
+  record_nonresponse_reason: true
+
+# ---------------------------------------------------------------------
+# response latency + expiry                                             [A/B/C]
+# ---------------------------------------------------------------------
+latency:
+  distribution: lognormal                   # [B] right-skewed, mean ~2-3 min (Chatgpt_deep_research §lag)
+  mu: -0.05                                 # [C] lognormal location parameter (log minutes)
+  sigma: 1.3                                # [C] lognormal scale parameter (long tail so the 10-min expiry is reachable)
+  max_minutes: 30.0                         # [C] simulation guard
+  expiry_minutes: 10.0                      # [A] synthesis §9.1 / Gemini: hard 5-10 min bound
+  expired_policy: record_and_flag           # [A] record both timestamps, flag, exclude from alignment
+  keep_expired_response: true
+  usable_for_alignment_requires_answered: true
+  context_reference_time: prompt_time       # [A] always align context to the prompt
+  modifiers:
+    after_exertion_multiplier: 1.35         # [C] slower responses around physical activity
+    late_window_multiplier: 1.15            # [C]
+
+# ---------------------------------------------------------------------
+# optional context note                                                 [C]
+# ---------------------------------------------------------------------
+note:
+  enabled: true
+  max_sentences: 1
+  max_words: 24
+  max_chars: 160
+  null_probability_offline: 0.35            # [C] offline renderer emits null sometimes
+  allow_offline_renderer: true              # [C] deterministic, closed-world-by-construction fallback
+  template_version: "1.0.0"
+  validate_closed_world: true
+  max_retries: 2
+  fallback_to_offline_template: true
+  fallback_to_null: true
+  require_grounding: true
+  banned_categories:
+    - unsupported_person
+    - unsupported_place
+    - unsupported_activity
+    - unsupported_event
+    - unsupported_delay
+    - unsupported_weather
+    - unsupported_cause
+    - unsupported_journey
+    - medical_condition
+    - psychological_trait_inference
+    - demographic_reference
+
+# ---------------------------------------------------------------------
+# LLM (DeepSeek, OpenAI-compatible chat completions)                    [C]
+# ---------------------------------------------------------------------
+llm:
+  provider: deepseek
+  base_url: "https://api.deepseek.com"
+  chat_path: "/chat/completions"
+  model: "deepseek-chat"
+  api_key_env: "DEEPSEEK_API_KEY"
+  api_key_files:
+    - "~/.deepseek_api_key"
+    - "~/.config/deepseek/api_key"
+  temperature: 0.4
+  top_p: 0.9
+  max_tokens: 120
+  seed: null                                # set from the request seed at runtime when supported
+  timeout_seconds: 30
+  max_attempts: 3
+  template_version: "note_v1"
+  response_format: json_in_tags             # <json>{...}</json> (salvaged extraction strategy)
+  role: note_rendering_only                 # [A-motivated] the LLM never schedules, never edits facts
+  allowed_to_select_subjective_values: false
+  closed_world: true
+
+# ---------------------------------------------------------------------
+# validation                                                            [C]
+# ---------------------------------------------------------------------
+validation:
+  expected_opportunities: 5
+  min_background: 3
+  max_event_enriched: 2
+  enforce_scale_bounds: true
+  enforce_dual_timestamps: true
+  enforce_provenance_complete: true
+  enforce_inherited_context_unchanged: true
+  enforce_note_closed_world: true
+  warn_when_response_rate_outside_calibration: true
+  max_latency_minutes: 30.0
+
+# ---------------------------------------------------------------------
+# provenance                                                            [C]
+# ---------------------------------------------------------------------
+provenance:
+  record_field_origin: true
+  record_config_hash: true
+  record_request_hash: true
+  record_context_fingerprint: true
+  record_llm_metadata: true
+  record_retry_counts: true

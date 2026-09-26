@@ -1,0 +1,190 @@
+{
+  "protocol": "paper3_ema_v1",
+  "protocol_version": "1.0.0",
+  "config_hash": "6cd9101d73e98891",
+  "cohort": {
+    "participants": 4,
+    "days_per_participant": 7,
+    "days": 28,
+    "opportunities": 140,
+    "archetypes": [
+      "normal_office_day",
+      "cycling_commuter_day",
+      "public_transport_commuter_day",
+      "mostly_home_day",
+      "evening_shift_day"
+    ]
+  },
+  "response": {
+    "answered": 125,
+    "expired": 4,
+    "missed": 11,
+    "response_rate": 0.893,
+    "target_band": [
+      0.85,
+      0.9
+    ],
+    "by_trigger": {
+      "post_trip": {
+        "total": 35,
+        "response_rate": 0.829
+      },
+      "semi_random": {
+        "total": 89,
+        "response_rate": 0.91
+      },
+      "post_active_episode": {
+        "total": 7,
+        "response_rate": 0.857
+      },
+      "context_transition": {
+        "total": 9,
+        "response_rate": 1.0
+      }
+    }
+  },
+  "latency_minutes": {
+    "n": 129,
+    "mean": 2.21,
+    "median": 1.03,
+    "p90": 5.13,
+    "max": 22.75,
+    "right_skewed": true,
+    "expiry_minutes": 10.0
+  },
+  "sampling": {
+    "background": 89,
+    "event_enriched": 51,
+    "trigger_counts": {
+      "post_trip": 35,
+      "semi_random": 89,
+      "post_active_episode": 7,
+      "context_transition": 9
+    },
+    "windows_used": {
+      "1": 22,
+      "2": 21,
+      "3": 10,
+      "4": 22,
+      "5": 25,
+      "6": 14,
+      "7": 26
+    },
+    "windows_per_day": [
+      5,
+      6,
+      7
+    ]
+  },
+  "subjective": {
+    "valence": {
+      "n": 125,
+      "mean": 3.53,
+      "median": 4,
+      "distribution": {
+        "1": 5,
+        "2": 11,
+        "3": 38,
+        "4": 55,
+        "5": 16
+      }
+    },
+    "energy": {
+      "n": 125,
+      "mean": 2.54,
+      "median": 3,
+      "distribution": {
+        "1": 16,
+        "2": 44,
+        "3": 49,
+        "4": 13,
+        "5": 3
+      }
+    },
+    "stress": {
+      "n": 125,
+      "mean": 2.98,
+      "median": 3,
+      "distribution": {
+        "1": 15,
+        "2": 29,
+        "3": 35,
+        "4": 35,
+        "5": 11
+      }
+    }
+  },
+  "notes": {
+    "rendered": 76,
+    "null": 49,
+    "sources": {
+      "offline_template": 76
+    }
+  },
+  "per_participant": {
+    "demo-p01": {
+      "days": 7,
+      "response_rate": 0.857,
+      "triggers": {
+        "post_trip": 14,
+        "semi_random": 21
+      },
+      "means": {
+        "valence": 3.45,
+        "energy": 2.39,
+        "stress": 2.81
+      }
+    },
+    "demo-p02": {
+      "days": 7,
+      "response_rate": 0.914,
+      "triggers": {
+        "post_trip": 7,
+        "semi_random": 21,
+        "post_active_episode": 7
+      },
+      "means": {
+        "valence": 3.73,
+        "energy": 1.91,
+        "stress": 3.24
+      }
+    },
+    "demo-p03": {
+      "days": 7,
+      "response_rate": 0.914,
+      "triggers": {
+        "post_trip": 14,
+        "semi_random": 21
+      },
+      "means": {
+        "valence": 3.0,
+        "energy": 2.73,
+        "stress": 3.48
+      }
+    },
+    "demo-p04": {
+      "days": 7,
+      "response_rate": 0.886,
+      "triggers": {
+        "context_transition": 9,
+        "semi_random": 26
+      },
+      "means": {
+        "valence": 4.0,
+        "energy": 3.22,
+        "stress": 2.47
+      }
+    }
+  },
+  "provenance_sample": {
+    "protocol_version": "1.0.0",
+    "scheduler_version": "1.0.0",
+    "state_generator_version": "1.0.0",
+    "seed": 20260504,
+    "config_hash": "6cd9101d73e98891",
+    "context_fingerprint": "ca416d008874993c",
+    "note_source_mix": {
+      "offline_template": 77
+    }
+  }
+}

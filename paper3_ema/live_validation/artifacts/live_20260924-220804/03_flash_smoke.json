@@ -1,0 +1,47 @@
+{
+  "model": "deepseek-flash",
+  "raw_call": {
+    "content": "ok",
+    "metric": {
+      "ok": true,
+      "latency_ms": 859.0,
+      "http_status": 200,
+      "response_model": "deepseek-flash",
+      "usage": {
+        "prompt_tokens": 43,
+        "completion_tokens": 19,
+        "total_tokens": 62,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 17
+        },
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 43
+      },
+      "content_chars": 2,
+      "reasoning_chars": 67
+    },
+    "ok": true
+  },
+  "bundle": {
+    "llm_calls": 10,
+    "llm_retries": 5,
+    "notes_checked": 4,
+    "note_sources": {
+      "llm": 4,
+      "offline_template": 0
+    }
+  },
+  "checks": {
+    "auth_succeeded": true,
+    "expected_model_used": true,
+    "request_shape_accepted": true,
+    "response_parsing_succeeded": true,
+    "retry_bounds_intact": true,
+    "closed_world_acceptance": true,
+    "bundle_validation": true
+  },
+  "all_checks_pass": true
+}

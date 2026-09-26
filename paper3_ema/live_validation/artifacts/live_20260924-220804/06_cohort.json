@@ -1,0 +1,267 @@
+{
+  "model": "deepseek-flash",
+  "cohort": {
+    "participants": 4,
+    "days": 7,
+    "participant_days": 28
+  },
+  "opportunities": 140,
+  "answered": 125,
+  "missed": 11,
+  "expired": 4,
+  "prompt_type_distribution": {
+    "context_transition": 9,
+    "post_active_episode": 7,
+    "post_trip": 35,
+    "semi_random": 89
+  },
+  "api": {
+    "calls_attempted": 297,
+    "calls_succeeded": 297,
+    "calls_failed": 0,
+    "latency_ms": {
+      "mean": 6740.7,
+      "median": 5640.0,
+      "p95": 15750.0,
+      "max": 19172.0
+    },
+    "usage_totals": {
+      "prompt_tokens": 224972,
+      "completion_tokens": 418241,
+      "cached_tokens": 165627,
+      "reasoning_tokens": 408380
+    },
+    "estimated_cost_usd": {
+      "peak": 0.520686462,
+      "off_peak": 0.260343231
+    },
+    "pricing": {
+      "model": "deepseek-flash (DeepSeek-V4.1-Flash)",
+      "as_of": "2026-09-24",
+      "source": "DeepSeek official pricing table, synced 2026-09-10..2026-09-23",
+      "peak": {
+        "input_per_m": 0.3,
+        "cached_input_per_m": 0.006,
+        "output_per_m": 1.2
+      },
+      "off_peak": {
+        "input_per_m": 0.15,
+        "cached_input_per_m": 0.003,
+        "output_per_m": 0.6
+      },
+      "notes": [
+        "peak vs off-peak window is defined by DeepSeek (UTC schedule); both are reported",
+        "cached_input tokens are billed at the cache-hit rate (subset of prompt_tokens)",
+        "completion_tokens includes reasoning tokens where the provider reports them"
+      ]
+    }
+  },
+  "note_pipeline": {
+    "rendered": 129,
+    "first_attempt_parse_ok": 127,
+    "first_attempt_parse_fail": 2,
+    "first_attempt_closed_world_accept": 19,
+    "model_chose_null_first_attempt": 0,
+    "retry_distribution": {
+      "0": 19,
+      "1": 52,
+      "2": 58
+    },
+    "rejection_counts_by_code": {
+      "medical_condition": 14,
+      "multiple_sentences": 4,
+      "unparseable_output": 9,
+      "unsupported_delay": 31,
+      "unsupported_event": 1,
+      "unsupported_reference": 188
+    },
+    "offline_fallback_count": 25,
+    "null_note_count_answered": 16,
+    "final_non_null_note_count_answered": 109
+  },
+  "validation": {
+    "all_bundles_valid": true,
+    "bundle_issue_codes": {
+      "response_rate_outside_calibration": 28
+    },
+    "surviving_unsupported_facts": []
+  },
+  "representative_records": [
+    {
+      "participant": "demo-p01",
+      "date": "2026-05-04",
+      "prompt_time": "11:12",
+      "trigger": "semi_random",
+      "preceding_mode": "bus",
+      "delay_documented": true,
+      "context": {
+        "activity": "sitting",
+        "place_type": "workplace",
+        "social": "with_colleagues",
+        "domain": "work"
+      },
+      "valence_energy_stress": [
+        3,
+        2,
+        4
+      ],
+      "final_note": "Feeling pressured right now after the bus trip, at work.",
+      "note_source": "offline_template",
+      "validation_status": "bundle PASS"
+    },
+    {
+      "participant": "demo-p01",
+      "date": "2026-05-04",
+      "prompt_time": "16:35",
+      "trigger": "post_trip",
+      "preceding_mode": "bus",
+      "delay_documented": false,
+      "context": {
+        "activity": "walking",
+        "place_type": "shop",
+        "social": "alone",
+        "domain": "shopping"
+      },
+      "valence_energy_stress": [
+        3,
+        3,
+        3
+      ],
+      "final_note": "After the bus trip, I am on the walk at the shop this afternoon, with light rain and the quiet.",
+      "note_source": "llm",
+      "validation_status": "bundle PASS"
+    },
+    {
+      "participant": "demo-p02",
+      "date": "2026-05-04",
+      "prompt_time": "17:17",
+      "trigger": "post_active_episode",
+      "preceding_mode": "bike",
+      "delay_documented": false,
+      "context": {
+        "activity": "standing",
+        "place_type": "home",
+        "social": "alone",
+        "domain": "self_care"
+      },
+      "valence_energy_stress": [
+        4,
+        2,
+        4
+      ],
+      "final_note": "This evening, standing at home alone after my run and bike ride, I feel positive but low on energy and stressed.",
+      "note_source": "llm",
+      "validation_status": "bundle PASS"
+    },
+    {
+      "participant": "demo-p04",
+      "date": "2026-05-04",
+      "prompt_time": "09:55",
+      "trigger": "context_transition",
+      "preceding_mode": null,
+      "delay_documented": null,
+      "context": {
+        "activity": "standing",
+        "place_type": "home",
+        "social": "with_children",
+        "domain": "household"
+      },
+      "valence_energy_stress": [
+        5,
+        2,
+        3
+      ],
+      "final_note": "While standing at home in the morning, I am very positive and low on energy.",
+      "note_source": "llm",
+      "validation_status": "bundle PASS"
+    },
+    {
+      "participant": "demo-p02",
+      "date": "2026-05-04",
+      "prompt_time": "11:55",
+      "trigger": "semi_random",
+      "preceding_mode": "bike",
+      "delay_documented": false,
+      "context": {
+        "activity": "sitting",
+        "place_type": "workplace",
+        "social": "alone",
+        "domain": "work"
+      },
+      "valence_energy_stress": [
+        4,
+        3,
+        4
+      ],
+      "final_note": "I am sitting alone at work in the quiet morning after my walk and bike ride in light rain.",
+      "note_source": "llm",
+      "validation_status": "bundle PASS"
+    },
+    {
+      "participant": "demo-p03",
+      "date": "2026-05-04",
+      "prompt_time": "08:48",
+      "trigger": "post_trip",
+      "preceding_mode": "train",
+      "delay_documented": false,
+      "context": {
+        "activity": "sitting",
+        "place_type": "workplace",
+        "social": "with_colleagues",
+        "domain": "work"
+      },
+      "valence_energy_stress": [
+        1,
+        2,
+        4
+      ],
+      "final_note": "Sitting at work with colleagues in the early morning, I feel very negative, low on energy, and high in stress.",
+      "note_source": "llm",
+      "validation_status": "bundle PASS"
+    },
+    {
+      "participant": "demo-p01",
+      "date": "2026-05-04",
+      "prompt_time": "20:40",
+      "trigger": "semi_random",
+      "preceding_mode": "bus",
+      "delay_documented": false,
+      "context": {
+        "activity": "sitting",
+        "place_type": "home",
+        "social": "alone",
+        "domain": "leisure"
+      },
+      "valence_energy_stress": [
+        1,
+        2,
+        4
+      ],
+      "final_note": "Feeling stressed right now while sitting.",
+      "note_source": "offline_template",
+      "validation_status": "bundle PASS"
+    },
+    {
+      "participant": "demo-p01",
+      "date": "2026-05-07",
+      "prompt_time": "10:59",
+      "trigger": "semi_random",
+      "preceding_mode": "bus",
+      "delay_documented": true,
+      "context": {
+        "activity": "sitting",
+        "place_type": "workplace",
+        "social": "with_friends",
+        "domain": "work"
+      },
+      "valence_energy_stress": [
+        4,
+        3,
+        4
+      ],
+      "final_note": "Feeling pressured, energy is steady.",
+      "note_source": "offline_template",
+      "validation_status": "bundle PASS"
+    }
+  ]
+}

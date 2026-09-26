@@ -1,0 +1,3316 @@
+{
+  "model": "deepseek-flash",
+  "cases": [
+    {
+      "case": "semi_random_home",
+      "found": true,
+      "fixture": "mostly_home_day",
+      "seed": 1,
+      "temptations": [
+        "another_person",
+        "named_place",
+        "weather"
+      ],
+      "prompt_time": "2026-06-01T15:39:00",
+      "trigger": "semi_random",
+      "context_seen_by_model": {
+        "activity": "sitting",
+        "activity_label": null,
+        "domain": "leisure",
+        "place_type": "home",
+        "social_context": "alone",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "leisure",
+        "preceding_activity": "lying_awake",
+        "preceding_domain": "leisure",
+        "preceding_journey_mode": null,
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": null,
+        "minutes_since_active_episode_end": null,
+        "minutes_to_next_commitment": null,
+        "next_commitment_kind": null,
+        "time_of_day": "afternoon",
+        "weather_available": false,
+        "allowed_entities": [
+          "sitting",
+          "the earlier res",
+          "the rest",
+          "at home",
+          "the free time",
+          "leisure",
+          "afternoon",
+          "the quiet"
+        ],
+        "allowed_causes": [
+          "sitting",
+          "the rest",
+          "the free time",
+          "leisure",
+          "afternoon",
+          "the quiet",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 3,
+        "energy": 3,
+        "stress": 4
+      },
+      "attempts": 2,
+      "retries": 1,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I am sitting at home in the afternoon during leisure, feeling neutral with moderate energy and high stress.\"}</json>",
+          "parsed_candidate": "I am sitting at home in the afternoon during leisure, feeling neutral with moderate energy and high stress.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'moderate' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "moderate"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "I am sitting at home in the afternoon during leisure, feeling neutral with moderate energy and high stress.",
+            "words": 18,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I am sitting at home in the afternoon, with the free time and the quiet.\"}</json>",
+          "parsed_candidate": "I am sitting at home in the afternoon, with the free time and the quiet.",
+          "validation": {
+            "valid": true,
+            "issues": [],
+            "codes": [],
+            "normalized": "I am sitting at home in the afternoon, with the free time and the quiet.",
+            "words": 15,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "I am sitting at home in the afternoon, with the free time and the quiet.",
+        "source": "llm",
+        "fallback_reason": null
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 8671.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 707,
+            "completion_tokens": 1899,
+            "total_tokens": 2606,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1866
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 195
+          },
+          "content_chars": 140,
+          "reasoning_chars": 8165
+        },
+        {
+          "ok": true,
+          "latency_ms": 5719.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 751,
+            "completion_tokens": 1054,
+            "total_tokens": 1805,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1024
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 239
+          },
+          "content_chars": 105,
+          "reasoning_chars": 4564
+        }
+      ]
+    },
+    {
+      "case": "work_study",
+      "found": true,
+      "fixture": "normal_office_day",
+      "seed": 1,
+      "temptations": [
+        "causal_explanation",
+        "named_place"
+      ],
+      "prompt_time": "2026-06-01T08:35:00",
+      "trigger": "post_trip",
+      "context_seen_by_model": {
+        "activity": "sitting",
+        "activity_label": null,
+        "domain": "work",
+        "place_type": "workplace",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "work",
+        "preceding_activity": "walking",
+        "preceding_domain": "transport",
+        "preceding_journey_mode": "bus",
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": 15.0,
+        "minutes_since_active_episode_end": 5.0,
+        "minutes_to_next_commitment": 0.0,
+        "next_commitment_kind": "work",
+        "time_of_day": "early_morning",
+        "weather_available": false,
+        "allowed_entities": [
+          "sitting",
+          "the earlier walk",
+          "the walk",
+          "the bus trip",
+          "at work",
+          "work",
+          "the trip just finished",
+          "early morning",
+          "the company"
+        ],
+        "allowed_causes": [
+          "sitting",
+          "the walk",
+          "the bus trip",
+          "work",
+          "the trip",
+          "early morning",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 3,
+        "energy": 4,
+        "stress": 4
+      },
+      "attempts": 2,
+      "retries": 1,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I'm sitting at work this early morning, feeling neutral, with high energy and high stress.\"}</json>",
+          "parsed_candidate": "I'm sitting at work this early morning, feeling neutral, with high energy and high stress.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term \"i'm\" is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "i'm"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "I'm sitting at work this early morning, feeling neutral, with high energy and high stress.",
+            "words": 15,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"Sitting at work in the early morning, I feel neutral, with high energy and high stress.\"}</json>",
+          "parsed_candidate": "Sitting at work in the early morning, I feel neutral, with high energy and high stress.",
+          "validation": {
+            "valid": true,
+            "issues": [],
+            "codes": [],
+            "normalized": "Sitting at work in the early morning, I feel neutral, with high energy and high stress.",
+            "words": 16,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "Sitting at work in the early morning, I feel neutral, with high energy and high stress.",
+        "source": "llm",
+        "fallback_reason": null
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 4281.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 728,
+            "completion_tokens": 859,
+            "total_tokens": 1587,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 827
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 216
+          },
+          "content_chars": 123,
+          "reasoning_chars": 3460
+        },
+        {
+          "ok": true,
+          "latency_ms": 2516.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 772,
+            "completion_tokens": 408,
+            "total_tokens": 1180,
+            "prompt_tokens_details": {
+              "cached_tokens": 638
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 375
+            },
+            "prompt_cache_hit_tokens": 638,
+            "prompt_cache_miss_tokens": 134
+          },
+          "content_chars": 120,
+          "reasoning_chars": 1410
+        }
+      ]
+    },
+    {
+      "case": "childcare",
+      "found": true,
+      "fixture": "highly_fragmented_day",
+      "seed": 2,
+      "temptations": [
+        "another_person",
+        "medical_condition"
+      ],
+      "prompt_time": "2026-06-01T13:13:00",
+      "trigger": "semi_random",
+      "context_seen_by_model": {
+        "activity": "walking",
+        "activity_label": null,
+        "domain": "childcare",
+        "place_type": "home",
+        "social_context": "with_children",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "childcare",
+        "preceding_activity": "standing",
+        "preceding_domain": "household",
+        "preceding_journey_mode": null,
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": null,
+        "minutes_since_active_episode_end": null,
+        "minutes_to_next_commitment": null,
+        "next_commitment_kind": null,
+        "time_of_day": "midday",
+        "weather_available": false,
+        "allowed_entities": [
+          "the walk",
+          "the earlier standing",
+          "standing",
+          "at home",
+          "time with the children",
+          "childcare",
+          "midday",
+          "the company"
+        ],
+        "allowed_causes": [
+          "the walk",
+          "standing",
+          "time with the children",
+          "childcare",
+          "midday",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 5,
+        "energy": 4,
+        "stress": 3
+      },
+      "attempts": 2,
+      "retries": 1,
+      "attempt_details": [
+        {
+          "raw_model_output": "{\"context_note\": \"Midday at home, I find the walk and time with the children during childcare very positive, with high energy and moderate stress.\"}",
+          "parsed_candidate": "Midday at home, I find the walk and time with the children during childcare very positive, with high energy and moderate stress.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'find' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "find"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term 'moderate' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "moderate"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "Midday at home, I find the walk and time with the children during childcare very positive, with high energy and moderate stress.",
+            "words": 22,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"It is midday, I am at home walking with the children during childcare.\"}</json>",
+          "parsed_candidate": "It is midday, I am at home walking with the children during childcare.",
+          "validation": {
+            "valid": true,
+            "issues": [],
+            "codes": [],
+            "normalized": "It is midday, I am at home walking with the children during childcare.",
+            "words": 13,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "It is midday, I am at home walking with the children during childcare.",
+        "source": "llm",
+        "fallback_reason": null
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 4500.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 707,
+            "completion_tokens": 988,
+            "total_tokens": 1695,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 954
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 195
+          },
+          "content_chars": 148,
+          "reasoning_chars": 4113
+        },
+        {
+          "ok": true,
+          "latency_ms": 2453.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 776,
+            "completion_tokens": 385,
+            "total_tokens": 1161,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 357
+            },
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 136
+          },
+          "content_chars": 103,
+          "reasoning_chars": 1582
+        }
+      ]
+    },
+    {
+      "case": "social",
+      "found": true,
+      "fixture": "normal_office_day",
+      "seed": 1,
+      "temptations": [
+        "another_person",
+        "causal_explanation"
+      ],
+      "prompt_time": "2026-06-01T18:50:00",
+      "trigger": "semi_random",
+      "context_seen_by_model": {
+        "activity": "sitting",
+        "activity_label": null,
+        "domain": "leisure",
+        "place_type": "home",
+        "social_context": "with_partner",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "leisure",
+        "preceding_activity": "sitting",
+        "preceding_domain": "social",
+        "preceding_journey_mode": "bus",
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": 140.0,
+        "minutes_since_active_episode_end": 110.0,
+        "minutes_to_next_commitment": null,
+        "next_commitment_kind": null,
+        "time_of_day": "evening",
+        "weather_available": false,
+        "allowed_entities": [
+          "sitting",
+          "the earlier sitting",
+          "the bus trip",
+          "at home",
+          "the free time",
+          "leisure",
+          "the trip just finished",
+          "evening",
+          "the company"
+        ],
+        "allowed_causes": [
+          "sitting",
+          "the bus trip",
+          "the free time",
+          "leisure",
+          "the trip",
+          "evening",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 4,
+        "energy": 4,
+        "stress": 3
+      },
+      "attempts": 3,
+      "retries": 2,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I'm sitting at home in the evening with the company, enjoying free time after the bus trip.\"}</json>",
+          "parsed_candidate": "I'm sitting at home in the evening with the company, enjoying free time after the bus trip.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term \"i'm\" is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "i'm"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term 'enjoying' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "enjoying"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "I'm sitting at home in the evening with the company, enjoying free time after the bus trip.",
+            "words": 17,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"Sitting at home with my partner in the evening after the bus trip, I feel positive, energetic, and moderately stressed.\"}</json>",
+          "parsed_candidate": "Sitting at home with my partner in the evening after the bus trip, I feel positive, energetic, and moderately stressed.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'energetic' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "energetic"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term 'moderately' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "moderately"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "Sitting at home with my partner in the evening after the bus trip, I feel positive, energetic, and moderately stressed.",
+            "words": 20,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I'm sitting at home with the company this evening, and the bus trip is over.\"}</json>",
+          "parsed_candidate": "I'm sitting at home with the company this evening, and the bus trip is over.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term \"i'm\" is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "i'm"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "I'm sitting at home with the company this evening, and the bus trip is over.",
+            "words": 15,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "In a good mood right now after the bus trip, at home.",
+        "source": "offline_template",
+        "fallback_reason": "closed_world_violation:unsupported_reference"
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 3375.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 728,
+            "completion_tokens": 587,
+            "total_tokens": 1315,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 554
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 216
+          },
+          "content_chars": 124,
+          "reasoning_chars": 2296
+        },
+        {
+          "ok": true,
+          "latency_ms": 6125.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 799,
+            "completion_tokens": 1126,
+            "total_tokens": 1925,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1088
+            },
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 159
+          },
+          "content_chars": 152,
+          "reasoning_chars": 4671
+        },
+        {
+          "ok": true,
+          "latency_ms": 7109.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 800,
+            "completion_tokens": 1675,
+            "total_tokens": 2475,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1644
+            },
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 160
+          },
+          "content_chars": 109,
+          "reasoning_chars": 6264
+        }
+      ]
+    },
+    {
+      "case": "post_walk",
+      "found": true,
+      "fixture": "exercise_day",
+      "seed": 1,
+      "temptations": [
+        "unsupported_journey_event",
+        "weather"
+      ],
+      "prompt_time": "2026-06-01T18:35:00",
+      "trigger": "post_trip",
+      "context_seen_by_model": {
+        "activity": "sitting",
+        "activity_label": null,
+        "domain": "household",
+        "place_type": "home",
+        "social_context": "with_partner",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "meal",
+        "preceding_activity": "walking",
+        "preceding_domain": "transport",
+        "preceding_journey_mode": "walk",
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": null,
+        "minutes_since_active_episode_end": 5.0,
+        "minutes_to_next_commitment": null,
+        "next_commitment_kind": null,
+        "time_of_day": "evening",
+        "weather_available": false,
+        "allowed_entities": [
+          "sitting",
+          "the earlier walk",
+          "the walk",
+          "at home",
+          "the household tasks",
+          "meal",
+          "evening",
+          "the company"
+        ],
+        "allowed_causes": [
+          "sitting",
+          "the walk",
+          "the household tasks",
+          "meal",
+          "evening",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 5,
+        "energy": 3,
+        "stress": 2
+      },
+      "attempts": 3,
+      "retries": 2,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"The evening at home with my partner, sitting after a walk, has me feeling very positive with moderate energy and low stress.\"}</json>",
+          "parsed_candidate": "The evening at home with my partner, sitting after a walk, has me feeling very positive with moderate energy and low stress.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'moderate' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "moderate"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "The evening at home with my partner, sitting after a walk, has me feeling very positive with moderate energy and low stress.",
+            "words": 22,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I'm sitting at home with my partner in the evening after the earlier walk.\"}</json>",
+          "parsed_candidate": "I'm sitting at home with my partner in the evening after the earlier walk.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term \"i'm\" is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "i'm"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "I'm sitting at home with my partner in the evening after the earlier walk.",
+            "words": 14,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"Sitting at home in the evening with my partner before a meal, I feel very positive and calm.\"}</json>",
+          "parsed_candidate": "Sitting at home in the evening with my partner before a meal, I feel very positive and calm.",
+          "validation": {
+            "valid": true,
+            "issues": [],
+            "codes": [],
+            "normalized": "Sitting at home in the evening with my partner before a meal, I feel very positive and calm.",
+            "words": 18,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "Sitting at home in the evening with my partner before a meal, I feel very positive and calm.",
+        "source": "llm",
+        "fallback_reason": null
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 5703.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 709,
+            "completion_tokens": 1150,
+            "total_tokens": 1859,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1112
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 197
+          },
+          "content_chars": 157,
+          "reasoning_chars": 4596
+        },
+        {
+          "ok": true,
+          "latency_ms": 8672.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 753,
+            "completion_tokens": 1884,
+            "total_tokens": 2637,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1855
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 241
+          },
+          "content_chars": 107,
+          "reasoning_chars": 8165
+        },
+        {
+          "ok": true,
+          "latency_ms": 1891.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 753,
+            "completion_tokens": 291,
+            "total_tokens": 1044,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 257
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 241
+          },
+          "content_chars": 125,
+          "reasoning_chars": 833
+        }
+      ]
+    },
+    {
+      "case": "post_run_exercise",
+      "found": true,
+      "fixture": "exercise_day",
+      "seed": 1,
+      "temptations": [
+        "medical_condition",
+        "causal_explanation"
+      ],
+      "prompt_time": "2026-06-01T08:25:00",
+      "trigger": "post_active_episode",
+      "context_seen_by_model": {
+        "activity": "standing",
+        "activity_label": null,
+        "domain": "self_care",
+        "place_type": "gym",
+        "social_context": "with_strangers",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "self_care",
+        "preceding_activity": "running",
+        "preceding_domain": "exercise",
+        "preceding_journey_mode": "walk",
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": 65.0,
+        "minutes_since_active_episode_end": 5.0,
+        "minutes_to_next_commitment": 35.0,
+        "next_commitment_kind": "work",
+        "time_of_day": "early_morning",
+        "weather_available": false,
+        "allowed_entities": [
+          "standing",
+          "the earlier run",
+          "the run",
+          "the walk",
+          "at the gym",
+          "the morning routine",
+          "self care",
+          "the trip just finished",
+          "early morning",
+          "the company"
+        ],
+        "allowed_causes": [
+          "standing",
+          "the run",
+          "the walk",
+          "the morning routine",
+          "self care",
+          "the trip",
+          "early morning",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 3,
+        "energy": 1,
+        "stress": 2
+      },
+      "attempts": 3,
+      "retries": 2,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I'm standing at the gym in the early morning, and my energy feels very low after the run.\"}</json>",
+          "parsed_candidate": "I'm standing at the gym in the early morning, and my energy feels very low after the run.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term \"i'm\" is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "i'm"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "I'm standing at the gym in the early morning, and my energy feels very low after the run.",
+            "words": 18,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"Standing here at the gym after the run, the early morning leaves me feeling very low on energy.\"}</json>",
+          "parsed_candidate": "Standing here at the gym after the run, the early morning leaves me feeling very low on energy.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'leaves' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "leaves"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "Standing here at the gym after the run, the early morning leaves me feeling very low on energy.",
+            "words": 18,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"Standing at the gym in the early morning after the run, I feel very low on energy, neutral, and low stress.\"}</json>",
+          "parsed_candidate": "Standing at the gym in the early morning after the run, I feel very low on energy, neutral, and low stress.",
+          "validation": {
+            "valid": true,
+            "issues": [],
+            "codes": [],
+            "normalized": "Standing at the gym in the early morning after the run, I feel very low on energy, neutral, and low stress.",
+            "words": 21,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "Standing at the gym in the early morning after the run, I feel very low on energy, neutral, and low stress.",
+        "source": "llm",
+        "fallback_reason": null
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 4188.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 741,
+            "completion_tokens": 941,
+            "total_tokens": 1682,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 907
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 229
+          },
+          "content_chars": 122,
+          "reasoning_chars": 3659
+        },
+        {
+          "ok": true,
+          "latency_ms": 1844.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 785,
+            "completion_tokens": 224,
+            "total_tokens": 1009,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 190
+            },
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 145
+          },
+          "content_chars": 128,
+          "reasoning_chars": 639
+        },
+        {
+          "ok": true,
+          "latency_ms": 6016.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 785,
+            "completion_tokens": 1397,
+            "total_tokens": 2182,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1358
+            },
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 145
+          },
+          "content_chars": 140,
+          "reasoning_chars": 5447
+        }
+      ]
+    },
+    {
+      "case": "post_cycle",
+      "found": true,
+      "fixture": "cycling_commuter_day",
+      "seed": 1,
+      "temptations": [
+        "named_place",
+        "weather"
+      ],
+      "prompt_time": "2026-06-01T08:20:00",
+      "trigger": "post_trip",
+      "context_seen_by_model": {
+        "activity": "sitting",
+        "activity_label": null,
+        "domain": "work",
+        "place_type": "workplace",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "work",
+        "preceding_activity": "cycling",
+        "preceding_domain": "transport",
+        "preceding_journey_mode": "bike",
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": 5.0,
+        "minutes_since_active_episode_end": null,
+        "minutes_to_next_commitment": 0.0,
+        "next_commitment_kind": "work",
+        "time_of_day": "early_morning",
+        "weather_available": false,
+        "allowed_entities": [
+          "sitting",
+          "the earlier bike rid",
+          "the bike ride",
+          "at work",
+          "work",
+          "the trip just finished",
+          "early morning",
+          "the company"
+        ],
+        "allowed_causes": [
+          "sitting",
+          "the bike ride",
+          "work",
+          "the trip",
+          "early morning",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 2,
+        "energy": 2,
+        "stress": 5
+      },
+      "attempts": 1,
+      "retries": 0,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"Sitting at work with colleagues this early morning after the bike ride, I feel very stressed, low on energy, and negative.\"}</json>",
+          "parsed_candidate": "Sitting at work with colleagues this early morning after the bike ride, I feel very stressed, low on energy, and negative.",
+          "validation": {
+            "valid": true,
+            "issues": [],
+            "codes": [],
+            "normalized": "Sitting at work with colleagues this early morning after the bike ride, I feel very stressed, low on energy, and negative.",
+            "words": 21,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "Sitting at work with colleagues this early morning after the bike ride, I feel very stressed, low on energy, and negative.",
+        "source": "llm",
+        "fallback_reason": null
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 2813.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 717,
+            "completion_tokens": 541,
+            "total_tokens": 1258,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 502
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 205
+          },
+          "content_chars": 155,
+          "reasoning_chars": 1969
+        }
+      ]
+    },
+    {
+      "case": "post_public_transport",
+      "found": true,
+      "fixture": "public_transport_commuter_day",
+      "seed": 1,
+      "temptations": [
+        "named_place",
+        "delay"
+      ],
+      "prompt_time": "2026-06-01T08:45:00",
+      "trigger": "post_trip",
+      "context_seen_by_model": {
+        "activity": "sitting",
+        "activity_label": null,
+        "domain": "work",
+        "place_type": "workplace",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "work",
+        "preceding_activity": "walking",
+        "preceding_domain": "transport",
+        "preceding_journey_mode": "train",
+        "preceding_journey_delayed": true,
+        "preceding_journey_crowded": true,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": 5.0,
+        "minutes_since_active_episode_end": 5.0,
+        "minutes_to_next_commitment": 0.0,
+        "next_commitment_kind": "work",
+        "time_of_day": "early_morning",
+        "weather_available": false,
+        "allowed_entities": [
+          "sitting",
+          "the earlier walk",
+          "the walk",
+          "the train trip",
+          "at work",
+          "work",
+          "the trip just finished",
+          "early morning",
+          "the company"
+        ],
+        "allowed_causes": [
+          "sitting",
+          "the walk",
+          "the train trip",
+          "work",
+          "the trip",
+          "early morning",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 2,
+        "energy": 1,
+        "stress": 4
+      },
+      "attempts": 3,
+      "retries": 2,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"After the train trip just finished, I'm sitting at work this early morning, feeling low, drained, and stressed.\"}</json>",
+          "parsed_candidate": "After the train trip just finished, I'm sitting at work this early morning, feeling low, drained, and stressed.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term \"i'm\" is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "i'm"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "After the train trip just finished, I'm sitting at work this early morning, feeling low, drained, and stressed.",
+            "words": 18,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"Sitting at work in the early morning after the train trip, I feel negative, very low, and highly stressed.\"}</json>",
+          "parsed_candidate": "Sitting at work in the early morning after the train trip, I feel negative, very low, and highly stressed.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'highly' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "highly"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "Sitting at work in the early morning after the train trip, I feel negative, very low, and highly stressed.",
+            "words": 19,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"After the train trip and the walk, sitting at work in the early morning, I feel bad, very low on energy, and stressed.\"}</json>",
+          "parsed_candidate": "After the train trip and the walk, sitting at work in the early morning, I feel bad, very low on energy, and stressed.",
+          "validation": {
+            "valid": true,
+            "issues": [],
+            "codes": [],
+            "normalized": "After the train trip and the walk, sitting at work in the early morning, I feel bad, very low on energy, and stressed.",
+            "words": 23,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "After the train trip and the walk, sitting at work in the early morning, I feel bad, very low on energy, and stressed.",
+        "source": "llm",
+        "fallback_reason": null
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 8891.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 729,
+            "completion_tokens": 1801,
+            "total_tokens": 2530,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1764
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 217
+          },
+          "content_chars": 144,
+          "reasoning_chars": 7509
+        },
+        {
+          "ok": true,
+          "latency_ms": 10781.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 773,
+            "completion_tokens": 2407,
+            "total_tokens": 3180,
+            "prompt_tokens_details": {
+              "cached_tokens": 639
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 2370
+            },
+            "prompt_cache_hit_tokens": 639,
+            "prompt_cache_miss_tokens": 134
+          },
+          "content_chars": 139,
+          "reasoning_chars": 9746
+        },
+        {
+          "ok": true,
+          "latency_ms": 6157.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 773,
+            "completion_tokens": 1277,
+            "total_tokens": 2050,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1236
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 261
+          },
+          "content_chars": 151,
+          "reasoning_chars": 5013
+        }
+      ]
+    },
+    {
+      "case": "post_car",
+      "found": true,
+      "fixture": "evening_shift_day",
+      "seed": 1,
+      "temptations": [
+        "named_place",
+        "destination"
+      ],
+      "prompt_time": "2026-06-01T16:15:00",
+      "trigger": "post_trip",
+      "context_seen_by_model": {
+        "activity": "standing",
+        "activity_label": null,
+        "domain": "work",
+        "place_type": "healthcare",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "work",
+        "preceding_activity": "driving",
+        "preceding_domain": "transport",
+        "preceding_journey_mode": "car",
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": 5.0,
+        "minutes_since_active_episode_end": 75.0,
+        "minutes_to_next_commitment": 0.0,
+        "next_commitment_kind": "work",
+        "time_of_day": "afternoon",
+        "weather_available": false,
+        "allowed_entities": [
+          "standing",
+          "the earlier driv",
+          "the drive",
+          "at the clinic",
+          "work",
+          "the trip just finished",
+          "afternoon",
+          "the company"
+        ],
+        "allowed_causes": [
+          "standing",
+          "the drive",
+          "work",
+          "the trip",
+          "afternoon",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 3,
+        "energy": 3,
+        "stress": 4
+      },
+      "attempts": 2,
+      "retries": 1,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I'm standing at the clinic this afternoon, just after the drive, with work starting now.\"}</json>",
+          "parsed_candidate": "I'm standing at the clinic this afternoon, just after the drive, with work starting now.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "medical_condition",
+                "message": "medical/health reference 'clinic' is not allowed",
+                "term": "clinic"
+              },
+              {
+                "code": "unsupported_place",
+                "message": "place reference 'work' is not in the supplied context (grounded: ['healthcare', 'vehicle'])",
+                "term": "work"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term \"i'm\" is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "i'm"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term 'starting' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "starting"
+              }
+            ],
+            "codes": [
+              "medical_condition",
+              "unsupported_place",
+              "unsupported_reference"
+            ],
+            "normalized": "I'm standing at the clinic this afternoon, just after the drive, with work starting now.",
+            "words": 15,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "{\"context_note\":\"My stress feels high while standing after the drive this afternoon.\"}",
+          "parsed_candidate": "My stress feels high while standing after the drive this afternoon.",
+          "validation": {
+            "valid": true,
+            "issues": [],
+            "codes": [],
+            "normalized": "My stress feels high while standing after the drive this afternoon.",
+            "words": 11,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "My stress feels high while standing after the drive this afternoon.",
+        "source": "llm",
+        "fallback_reason": null
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 9750.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 715,
+            "completion_tokens": 2224,
+            "total_tokens": 2939,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 2192
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 203
+          },
+          "content_chars": 121,
+          "reasoning_chars": 8968
+        },
+        {
+          "ok": true,
+          "latency_ms": 8094.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 829,
+            "completion_tokens": 1586,
+            "total_tokens": 2415,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1567
+            },
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 189
+          },
+          "content_chars": 86,
+          "reasoning_chars": 6763
+        }
+      ]
+    },
+    {
+      "case": "documented_delayed_journey",
+      "found": true,
+      "fixture": "public_transport_commuter_day",
+      "seed": 1,
+      "temptations": [
+        "delay (elaboration of a documented fact)"
+      ],
+      "prompt_time": "2026-06-01T08:45:00",
+      "trigger": "post_trip",
+      "context_seen_by_model": {
+        "activity": "sitting",
+        "activity_label": null,
+        "domain": "work",
+        "place_type": "workplace",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "work",
+        "preceding_activity": "walking",
+        "preceding_domain": "transport",
+        "preceding_journey_mode": "train",
+        "preceding_journey_delayed": true,
+        "preceding_journey_crowded": true,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": 5.0,
+        "minutes_since_active_episode_end": 5.0,
+        "minutes_to_next_commitment": 0.0,
+        "next_commitment_kind": "work",
+        "time_of_day": "early_morning",
+        "weather_available": false,
+        "allowed_entities": [
+          "sitting",
+          "the earlier walk",
+          "the walk",
+          "the train trip",
+          "at work",
+          "work",
+          "the trip just finished",
+          "early morning",
+          "the company"
+        ],
+        "allowed_causes": [
+          "sitting",
+          "the walk",
+          "the train trip",
+          "work",
+          "the trip",
+          "early morning",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 3,
+        "energy": 1,
+        "stress": 5
+      },
+      "attempts": 3,
+      "retries": 2,
+      "attempt_details": [
+        {
+          "raw_model_output": "{\"context_note\": \"I'm sitting at work with colleagues in the early morning after the train trip, feeling very low energy, very stressed, and neutral.\"}",
+          "parsed_candidate": "I'm sitting at work with colleagues in the early morning after the train trip, feeling very low energy, very stressed, and neutral.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term \"i'm\" is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "i'm"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "I'm sitting at work with colleagues in the early morning after the train trip, feeling very low energy, very stressed, and neutral.",
+            "words": 22,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"Sitting at work after the train trip and the walk leaves me neutral, with very low energy and very high stress.\"}</json>",
+          "parsed_candidate": "Sitting at work after the train trip and the walk leaves me neutral, with very low energy and very high stress.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'leaves' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "leaves"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "Sitting at work after the train trip and the walk leaves me neutral, with very low energy and very high stress.",
+            "words": 21,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"Sitting at work in the early morning after the train trip, I feel very low energy and very high stress.\"}</json>",
+          "parsed_candidate": "Sitting at work in the early morning after the train trip, I feel very low energy and very high stress.",
+          "validation": {
+            "valid": true,
+            "issues": [],
+            "codes": [],
+            "normalized": "Sitting at work in the early morning after the train trip, I feel very low energy and very high stress.",
+            "words": 20,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "Sitting at work in the early morning after the train trip, I feel very low energy and very high stress.",
+        "source": "llm",
+        "fallback_reason": null
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 3187.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 730,
+            "completion_tokens": 602,
+            "total_tokens": 1332,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 567
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 218
+          },
+          "content_chars": 151,
+          "reasoning_chars": 2523
+        },
+        {
+          "ok": true,
+          "latency_ms": 7891.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 774,
+            "completion_tokens": 1867,
+            "total_tokens": 2641,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1830
+            },
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 134
+          },
+          "content_chars": 144,
+          "reasoning_chars": 7370
+        },
+        {
+          "ok": true,
+          "latency_ms": 6109.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 774,
+            "completion_tokens": 1344,
+            "total_tokens": 2118,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1308
+            },
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 134
+          },
+          "content_chars": 136,
+          "reasoning_chars": 5311
+        }
+      ]
+    },
+    {
+      "case": "journey_without_documented_delay",
+      "found": true,
+      "fixture": "normal_office_day",
+      "seed": 1,
+      "temptations": [
+        "delay (invention)"
+      ],
+      "prompt_time": "2026-06-01T08:35:00",
+      "trigger": "post_trip",
+      "context_seen_by_model": {
+        "activity": "sitting",
+        "activity_label": null,
+        "domain": "work",
+        "place_type": "workplace",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "work",
+        "preceding_activity": "walking",
+        "preceding_domain": "transport",
+        "preceding_journey_mode": "bus",
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": 15.0,
+        "minutes_since_active_episode_end": 5.0,
+        "minutes_to_next_commitment": 0.0,
+        "next_commitment_kind": "work",
+        "time_of_day": "early_morning",
+        "weather_available": false,
+        "allowed_entities": [
+          "sitting",
+          "the earlier walk",
+          "the walk",
+          "the bus trip",
+          "at work",
+          "work",
+          "the trip just finished",
+          "early morning",
+          "the company"
+        ],
+        "allowed_causes": [
+          "sitting",
+          "the walk",
+          "the bus trip",
+          "work",
+          "the trip",
+          "early morning",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 4,
+        "energy": 3,
+        "stress": 4
+      },
+      "attempts": 3,
+      "retries": 2,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"Sitting at work this early morning, after the walk and bus trip, I feel positive, moderately energetic, and quite stressed.\"}</json>",
+          "parsed_candidate": "Sitting at work this early morning, after the walk and bus trip, I feel positive, moderately energetic, and quite stressed.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'moderately' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "moderately"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term 'energetic' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "energetic"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "Sitting at work this early morning, after the walk and bus trip, I feel positive, moderately energetic, and quite stressed.",
+            "words": 20,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I'm sitting at work in the early morning, after the bus trip and the walk.\"}</json>",
+          "parsed_candidate": "I'm sitting at work in the early morning, after the bus trip and the walk.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term \"i'm\" is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "i'm"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "I'm sitting at work in the early morning, after the bus trip and the walk.",
+            "words": 15,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "{\"context_note\": \"I feel positive, with moderate energy and high stress while sitting at work this early morning.\"}",
+          "parsed_candidate": "I feel positive, with moderate energy and high stress while sitting at work this early morning.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'moderate' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "moderate"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "I feel positive, with moderate energy and high stress while sitting at work this early morning.",
+            "words": 16,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "Feeling pressured right now after the bus trip.",
+        "source": "offline_template",
+        "fallback_reason": "closed_world_violation:unsupported_reference"
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 5453.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 729,
+            "completion_tokens": 1152,
+            "total_tokens": 1881,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1113
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 217
+          },
+          "content_chars": 156,
+          "reasoning_chars": 4757
+        },
+        {
+          "ok": true,
+          "latency_ms": 2515.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 801,
+            "completion_tokens": 448,
+            "total_tokens": 1249,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 417
+            },
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 161
+          },
+          "content_chars": 107,
+          "reasoning_chars": 1817
+        },
+        {
+          "ok": true,
+          "latency_ms": 13141.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 773,
+            "completion_tokens": 2812,
+            "total_tokens": 3585,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 2786
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 261
+          },
+          "content_chars": 115,
+          "reasoning_chars": 12122
+        }
+      ]
+    },
+    {
+      "case": "context_transition",
+      "found": true,
+      "fixture": "mostly_home_day",
+      "seed": 1,
+      "temptations": [
+        "causal_explanation",
+        "unsupported_journey_event"
+      ],
+      "prompt_time": "2026-06-01T09:55:00",
+      "trigger": "context_transition",
+      "context_seen_by_model": {
+        "activity": "standing",
+        "activity_label": null,
+        "domain": "household",
+        "place_type": "home",
+        "social_context": "with_children",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "household",
+        "preceding_activity": "sitting",
+        "preceding_domain": "self_care",
+        "preceding_journey_mode": null,
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": null,
+        "minutes_since_active_episode_end": null,
+        "minutes_to_next_commitment": null,
+        "next_commitment_kind": null,
+        "time_of_day": "morning",
+        "weather_available": false,
+        "allowed_entities": [
+          "standing",
+          "the earlier sitting",
+          "sitting",
+          "at home",
+          "the household tasks",
+          "household",
+          "morning",
+          "the company"
+        ],
+        "allowed_causes": [
+          "standing",
+          "sitting",
+          "the household tasks",
+          "household",
+          "morning",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 3,
+        "energy": 3,
+        "stress": 3
+      },
+      "attempts": 3,
+      "retries": 2,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I'm standing at home this morning after sitting, and the household tasks have me feeling neutral and moderately stressed.\"}</json>",
+          "parsed_candidate": "I'm standing at home this morning after sitting, and the household tasks have me feeling neutral and moderately stressed.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term \"i'm\" is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "i'm"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term 'moderately' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "moderately"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "I'm standing at home this morning after sitting, and the household tasks have me feeling neutral and moderately stressed.",
+            "words": 19,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"Standing at home this morning, I feel neither good nor bad, with some energy and some stress.\"}</json>",
+          "parsed_candidate": "Standing at home this morning, I feel neither good nor bad, with some energy and some stress.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'neither' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "neither"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term 'nor' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "nor"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "Standing at home this morning, I feel neither good nor bad, with some energy and some stress.",
+            "words": 17,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"This morning at home, standing with the company, I feel neutral, with moderate energy and stress.\"}</json>",
+          "parsed_candidate": "This morning at home, standing with the company, I feel neutral, with moderate energy and stress.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'moderate' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "moderate"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "This morning at home, standing with the company, I feel neutral, with moderate energy and stress.",
+            "words": 16,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "Feeling fairly neutral right now while standing, at home.",
+        "source": "offline_template",
+        "fallback_reason": "closed_world_violation:unsupported_reference"
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 5578.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 705,
+            "completion_tokens": 1104,
+            "total_tokens": 1809,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1069
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 193
+          },
+          "content_chars": 154,
+          "reasoning_chars": 4707
+        },
+        {
+          "ok": true,
+          "latency_ms": 3219.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 776,
+            "completion_tokens": 582,
+            "total_tokens": 1358,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 548
+            },
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 136
+          },
+          "content_chars": 126,
+          "reasoning_chars": 2261
+        },
+        {
+          "ok": true,
+          "latency_ms": 2672.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 774,
+            "completion_tokens": 405,
+            "total_tokens": 1179,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 372
+            },
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 134
+          },
+          "content_chars": 130,
+          "reasoning_chars": 1626
+        }
+      ]
+    },
+    {
+      "case": "evening",
+      "found": true,
+      "fixture": "evening_shift_day",
+      "seed": 1,
+      "temptations": [
+        "psychological_trait",
+        "causal_explanation"
+      ],
+      "prompt_time": "2026-06-01T18:31:00",
+      "trigger": "semi_random",
+      "context_seen_by_model": {
+        "activity": "standing",
+        "activity_label": null,
+        "domain": "work",
+        "place_type": "healthcare",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "work",
+        "preceding_activity": "standing",
+        "preceding_domain": "work",
+        "preceding_journey_mode": "car",
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": 141.0,
+        "minutes_since_active_episode_end": null,
+        "minutes_to_next_commitment": 0.0,
+        "next_commitment_kind": "work",
+        "time_of_day": "evening",
+        "weather_available": false,
+        "allowed_entities": [
+          "standing",
+          "the earlier standing",
+          "the drive",
+          "at the clinic",
+          "work",
+          "the trip just finished",
+          "evening",
+          "the company"
+        ],
+        "allowed_causes": [
+          "standing",
+          "the drive",
+          "work",
+          "the trip",
+          "evening",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 4,
+        "energy": 4,
+        "stress": 2
+      },
+      "attempts": 3,
+      "retries": 2,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"After the drive, I'm standing with colleagues at the clinic this evening, feeling positive and energized.\"}</json>",
+          "parsed_candidate": "After the drive, I'm standing with colleagues at the clinic this evening, feeling positive and energized.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "medical_condition",
+                "message": "medical/health reference 'clinic' is not allowed",
+                "term": "clinic"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term \"i'm\" is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "i'm"
+              }
+            ],
+            "codes": [
+              "medical_condition",
+              "unsupported_reference"
+            ],
+            "normalized": "After the drive, I'm standing with colleagues at the clinic this evening, feeling positive and energized.",
+            "words": 16,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I feel positive, with high energy and low stress after standing at work this evening.\"}</json>",
+          "parsed_candidate": "I feel positive, with high energy and low stress after standing at work this evening.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_place",
+                "message": "place reference 'work' is not in the supplied context (grounded: ['healthcare'])",
+                "term": "work"
+              }
+            ],
+            "codes": [
+              "unsupported_place"
+            ],
+            "normalized": "I feel positive, with high energy and low stress after standing at work this evening.",
+            "words": 15,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"This evening I am standing in a healthcare setting with colleagues, feeling positive, energetic, and low stress.\"}</json>",
+          "parsed_candidate": "This evening I am standing in a healthcare setting with colleagues, feeling positive, energetic, and low stress.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'setting' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "setting"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term 'energetic' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "energetic"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "This evening I am standing in a healthcare setting with colleagues, feeling positive, energetic, and low stress.",
+            "words": 17,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": null,
+        "source": null,
+        "fallback_reason": "closed_world_violation:unsupported_reference|offline_template_returned_null"
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 4157.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 709,
+            "completion_tokens": 703,
+            "total_tokens": 1412,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 670
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 197
+          },
+          "content_chars": 138,
+          "reasoning_chars": 2819
+        },
+        {
+          "ok": true,
+          "latency_ms": 4843.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 770,
+            "completion_tokens": 847,
+            "total_tokens": 1617,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 817
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 258
+          },
+          "content_chars": 118,
+          "reasoning_chars": 3411
+        },
+        {
+          "ok": true,
+          "latency_ms": 5016.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 753,
+            "completion_tokens": 944,
+            "total_tokens": 1697,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 910
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 241
+          },
+          "content_chars": 145,
+          "reasoning_chars": 3881
+        }
+      ]
+    },
+    {
+      "case": "no_eligible_event_day",
+      "found": true,
+      "fixture": "no_eligible_event_day",
+      "seed": 1,
+      "temptations": [
+        "unsupported_journey_event"
+      ],
+      "prompt_time": "2026-06-01T10:15:00",
+      "trigger": "semi_random",
+      "context_seen_by_model": {
+        "activity": "sitting",
+        "activity_label": null,
+        "domain": "leisure",
+        "place_type": "home",
+        "social_context": "alone",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "leisure",
+        "preceding_activity": "sitting",
+        "preceding_domain": "leisure",
+        "preceding_journey_mode": null,
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": null,
+        "minutes_since_active_episode_end": null,
+        "minutes_to_next_commitment": null,
+        "next_commitment_kind": null,
+        "time_of_day": "morning",
+        "weather_available": false,
+        "allowed_entities": [
+          "sitting",
+          "the earlier sitting",
+          "at home",
+          "the free time",
+          "leisure",
+          "morning",
+          "the quiet"
+        ],
+        "allowed_causes": [
+          "sitting",
+          "the free time",
+          "leisure",
+          "morning",
+          "the quiet",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 3,
+        "energy": 3,
+        "stress": 2
+      },
+      "attempts": 1,
+      "retries": 0,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I am sitting at home in the morning, with the free time, leisure, and the quiet.\"}</json>",
+          "parsed_candidate": "I am sitting at home in the morning, with the free time, leisure, and the quiet.",
+          "validation": {
+            "valid": true,
+            "issues": [],
+            "codes": [],
+            "normalized": "I am sitting at home in the morning, with the free time, leisure, and the quiet.",
+            "words": 16,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "I am sitting at home in the morning, with the free time, leisure, and the quiet.",
+        "source": "llm",
+        "fallback_reason": null
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 9531.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 695,
+            "completion_tokens": 2006,
+            "total_tokens": 2701,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1973
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 183
+          },
+          "content_chars": 113,
+          "reasoning_chars": 8334
+        }
+      ]
+    },
+    {
+      "case": "sparse_ambiguous",
+      "found": true,
+      "fixture": "unresolved_movement_day",
+      "seed": 1,
+      "temptations": [
+        "unsupported_journey_event",
+        "named_place"
+      ],
+      "prompt_time": "2026-06-01T09:55:00",
+      "trigger": "post_trip",
+      "context_seen_by_model": {
+        "activity": "sitting",
+        "activity_label": null,
+        "domain": "work",
+        "place_type": "workplace",
+        "social_context": "with_colleagues",
+        "indoor_outdoor": "indoor",
+        "purpose_category": "work",
+        "preceding_activity": "unknown",
+        "preceding_domain": "other",
+        "preceding_journey_mode": "bus",
+        "preceding_journey_delayed": null,
+        "preceding_journey_crowded": null,
+        "current_journey_mode": null,
+        "minutes_since_journey_end": 35.0,
+        "minutes_since_active_episode_end": null,
+        "minutes_to_next_commitment": 0.0,
+        "next_commitment_kind": "work",
+        "time_of_day": "morning",
+        "weather_available": false,
+        "allowed_entities": [
+          "sitting",
+          "the earlier current activity",
+          "the current activity",
+          "the bus trip",
+          "at work",
+          "work",
+          "the trip just finished",
+          "morning",
+          "the company"
+        ],
+        "allowed_causes": [
+          "sitting",
+          "the current activity",
+          "the bus trip",
+          "work",
+          "the trip",
+          "morning",
+          "the company",
+          "the day so far",
+          "how the day is going",
+          "the morning",
+          "the evening",
+          "the time of day"
+        ]
+      },
+      "state": {
+        "valence": 5,
+        "energy": 3,
+        "stress": 4
+      },
+      "attempts": 3,
+      "retries": 2,
+      "attempt_details": [
+        {
+          "raw_model_output": "<json>{\"context_note\": \"I'm sitting at work this morning, feeling very positive but with moderate energy and high stress from the day so far.\"}</json>",
+          "parsed_candidate": "I'm sitting at work this morning, feeling very positive but with moderate energy and high stress from the day so far.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term \"i'm\" is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "i'm"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term 'moderate' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "moderate"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "I'm sitting at work this morning, feeling very positive but with moderate energy and high stress from the day so far.",
+            "words": 21,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "<json>{\"context_note\": \"At work this morning, sitting with colleagues, I feel very positive, though my stress is high.\"}</json>",
+          "parsed_candidate": "At work this morning, sitting with colleagues, I feel very positive, though my stress is high.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'though' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "though"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "At work this morning, sitting with colleagues, I feel very positive, though my stress is high.",
+            "words": 16,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        },
+        {
+          "raw_model_output": "{\"context_note\": \"Sitting at work this morning, I feel very positive, moderately energetic, and highly stressed.\"}",
+          "parsed_candidate": "Sitting at work this morning, I feel very positive, moderately energetic, and highly stressed.",
+          "validation": {
+            "valid": false,
+            "issues": [
+              {
+                "code": "unsupported_reference",
+                "message": "term 'moderately' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "moderately"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term 'energetic' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "energetic"
+              },
+              {
+                "code": "unsupported_reference",
+                "message": "term 'highly' is not part of the supplied context packet and is not approved subjective vocabulary",
+                "term": "highly"
+              }
+            ],
+            "codes": [
+              "unsupported_reference"
+            ],
+            "normalized": "Sitting at work this morning, I feel very positive, moderately energetic, and highly stressed.",
+            "words": 14,
+            "sentences": 1,
+            "validator_version": "1.0.0",
+            "checks": [
+              "length",
+              "sentence_count",
+              "proper_nouns",
+              "weather",
+              "medical",
+              "transport_disruption",
+              "persons",
+              "activities",
+              "places",
+              "domains",
+              "events",
+              "traits",
+              "absolutes",
+              "closed_world_net",
+              "causal_grounding",
+              "format"
+            ]
+          }
+        }
+      ],
+      "final": {
+        "note": "Feeling pressured right now after the bus trip, at work.",
+        "source": "offline_template",
+        "fallback_reason": "closed_world_violation:unsupported_reference"
+      },
+      "api_metrics": [
+        {
+          "ok": true,
+          "latency_ms": 4422.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 728,
+            "completion_tokens": 905,
+            "total_tokens": 1633,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 868
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 216
+          },
+          "content_chars": 150,
+          "reasoning_chars": 3622
+        },
+        {
+          "ok": true,
+          "latency_ms": 8266.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 798,
+            "completion_tokens": 1644,
+            "total_tokens": 2442,
+            "prompt_tokens_details": {
+              "cached_tokens": 640
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1611
+            },
+            "prompt_cache_hit_tokens": 640,
+            "prompt_cache_miss_tokens": 158
+          },
+          "content_chars": 127,
+          "reasoning_chars": 6780
+        },
+        {
+          "ok": true,
+          "latency_ms": 4015.0,
+          "http_status": 200,
+          "response_model": "deepseek-flash",
+          "usage": {
+            "prompt_tokens": 771,
+            "completion_tokens": 717,
+            "total_tokens": 1488,
+            "prompt_tokens_details": {
+              "cached_tokens": 512
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 690
+            },
+            "prompt_cache_hit_tokens": 512,
+            "prompt_cache_miss_tokens": 259
+          },
+          "content_chars": 114,
+          "reasoning_chars": 2986
+        }
+      ]
+    }
+  ],
+  "found": 15,
+  "surviving_unsupported_facts": [],
+  "gate": {
+    "all_cases_found": true,
+    "zero_survivors": true
+  }
+}

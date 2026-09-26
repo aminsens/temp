@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paper3-ema"
+version = "1.0.0"
+description = "Standalone Paper 3 EMA module: event-enriched stratified semi-random hybrid EMA over externally supplied contextual days (no DayForge, no Appa)"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Paper 3 synthetic-data project" }]
+keywords = ["ema", "ecological momentary assessment", "synthetic data", "accelerometry", "physical activity"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering",
+    "Operating System :: OS Independent",
+]
+# The runtime package is standard-library only.
+# PyYAML is used when present; a built-in parser handles the shipped YAML.
+dependencies = []
+
+[project.optional-dependencies]
+yaml = ["PyYAML>=5"]
+test = ["pytest>=7"]
+
+[tool.setuptools]
+packages = ["paper3_ema"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

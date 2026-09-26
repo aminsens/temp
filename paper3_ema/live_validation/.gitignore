@@ -1,0 +1,6 @@
+.venv-live/
+artifacts/
+__pycache__/
+*.pyc
+.pytest_cache/
+audit_out/
