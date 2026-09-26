@@ -36,14 +36,23 @@ Ecological Momentary Assessment in body-mounted accelerometer studies of physica
 activity (PA) and sedentary behaviour (SB) contributes what movement sensing cannot:
 the domain, purpose, social setting, location and subjective meaning of movement.
 Seven independent deep-research runs over this literature, consolidated in
-`EMA_Definitive_Synthesis.md`, converge on five universal findings that shaped every
-design decision in this module:
+`EMA_Definitive_Synthesis.md` (532 lines; `EMA_Definitive_Synthesis.md` §1),
+converge on five universal findings that shaped every design decision in this
+module:
 
-1. EMA is not ground truth — it is near-ground-truth, weak labelling or contextual metadata.
-2. EMA's core value is *context*.
-3. Temporal alignment of sparse EMA against dense sensor data is the hardest unsolved problem.
-4. EMA is routinely collected but rarely integrated into modelling — the field's largest missed opportunity.
-5. Event-triggered (sensor-informed) EMA is methodologically superior to pure random prompting.
+1. EMA is not ground truth — it is near-ground-truth, weak labelling or
+   contextual metadata (`EMA_Definitive_Synthesis.md` §1, §3.3 "A Taxonomy of
+   Roles", §5.1 label-type taxonomy).
+2. EMA's core value is *context* (`EMA_Definitive_Synthesis.md` §1, §3;
+   `CONCLUSION.md` §1.1).
+3. Temporal alignment of sparse EMA against dense sensor data is the hardest
+   unsolved problem (`EMA_Definitive_Synthesis.md` §7; `Gemini.md:112`).
+4. EMA is routinely collected but rarely integrated into modelling — the
+   field's largest missed opportunity (`EMA_Definitive_Synthesis.md` §5.4).
+5. Event-triggered (sensor-informed) EMA is methodologically superior to pure
+   random prompting (`EMA_Definitive_Synthesis.md` §7.3 — "STRONGEST in
+   theory", "almost never implemented"; `Chatgpt_deep_research.md:210`;
+   `Scite_Opus4.6_v2.md:293`).
 
 Paper 3 requires a *synthetic* EMA layer for simulated contextual days: a
 scientifically defensible stand-in for what such a layer would produce, with
@@ -116,9 +125,11 @@ and the brief fixed a strict hierarchy for using them:
 
 | Source | Role | Files |
 |---|---|---|
-| **Design brief (the prompt)** | current authoritative requirements | the task message; constraints restated above |
-| **Evidence corpus** | verification base for design decisions | `EMA_Definitive_Synthesis.md` (532-line cross-source synthesis, April 2026), `CONCLUSION.md` (agreement/disagreement register), seven primary research reports: `Chatgpt.md`, `Chatgpt_deep_research.md`, `Deepseek.md`, `Gemini.md`, `Kimi.md`, `Scite_Opus4.6.md`, `Scite_Opus4.6_v2.md`, plus the predecessor synthesis `EMA_Accelerometer_Synthesis_v1.md` (used only to check the definitive version dropped nothing silently) |
+| **Design brief (the prompt)** | current authoritative requirements | the task message; constraints restated above; the corpus's only explicit "Paper 3" reference is `CONCLUSION.md:393` (noted in `PHASE0_ARCHAEOLOGY.md` §0) |
+| **Evidence corpus** | verification base for design decisions | `EMA_Definitive_Synthesis.md` (532-line cross-source synthesis, April 2026, 46 KB), `CONCLUSION.md` (agreement/disagreement register, 402 lines, 21 KB), seven primary research reports: `Chatgpt.md`, `Chatgpt_deep_research.md`, `Deepseek.md`, `Gemini.md`, `Kimi.md`, `Scite_Opus4.6.md`, `Scite_Opus4.6_v2.md` (23–67 KB each), plus the predecessor synthesis `EMA_Accelerometer_Synthesis_v1.md` (439 lines; used only to check the definitive version dropped nothing silently) |
 | **Historical implementation** | prior-implementation *evidence only* — never a source of scientific requirements | `EMA-Diary-Generation/` (current DSPy-based diary + EMA pipeline, "Jar of Life", Trondheim) and `EMA-Diary-Generation-BACKUP-20260409/` |
+
+Sizing and inventory as recorded in `PHASE0_ARCHAEOLOGY.md` §0.
 
 The rule of use: the brief says *what*; the evidence corpus says *what is
 supported*; the historical code says *what was done before* (salvageable
@@ -132,34 +143,62 @@ Before writing any module code, a full archaeology pass
 suspected behaviours of the historical EMA generator** against the cited source
 lines — every claim confirmed, including the exact mechanisms:
 
-- 6 probes by default, placed at **episode-index** spacing (clusters on fragmented days);
-- **forced** standing and cycling probes inserted "for under-reporting";
-- **exactly one** missed response hard-coded (in both the deterministic and the LLM path);
-- a programmatic **65% standing misreport** layer (60% in the backup);
-- **location genericisation** through a 24-entry city-specific keyword table;
-- a complete `gt_*` vs. `reported_*` corruption layer over ground truth;
-- **no subjective variables at all** in emitted probes (declared but never populated);
-- validators that **reward the corruption** (5–35% mismatch rates, existence of misses);
+- 6 probes by default, placed at **episode-index** spacing (clusters on
+  fragmented days) — `ema_generator.py:16` (`num_probes=6`, `seed=42`),
+  `:25–31` (index spacing); `configs/pipeline_config.py`
+  (`EMAConfig.prompts_per_day = 6`); `data/models.py:383`
+  (`EMASchedule.prompts_per_day = 6`);
+- **forced** standing and cycling probes inserted "for under-reporting" —
+  `ema_generator.py:33–41`; LLM path `refined_diary_gen.py:224–226`;
+- **exactly one** missed response hard-coded in both the deterministic and
+  the LLM path — `ema_generator.py:44–45, 88–107`;
+  `refined_diary_gen.py:211–213` ("Exactly 1 of {num_probes} prompts missed");
+- a programmatic **65% standing misreport** layer (60% in the backup) —
+  `ema_generator.py` (`if gt_activity == "standing": if rng.random() > 0.35`),
+  `configs/pipeline_config.py` (`standing_report_rate = 0.4`,
+  `standing_misreported_as = ["sitting","walking"]`);
+- **location genericisation** through a 24-entry city-specific keyword
+  table — `ema_generator.py:141–176` (`genericize_location()`);
+- a complete `gt_*` vs. `reported_*` corruption layer over ground truth —
+  `ema_generator.py:96–125`, plus the parallel LLM corruption path in
+  `refined_diary_gen.generate_refined_ema`;
+- **no subjective variables at all** in emitted probes —
+  `data/models.py:246–320` (`EMAProbe` declares
+  `reported_affect_valence/arousal/fatigue`, ~line 300, but `to_dict()` never
+  emits them and the generator never sets them); confirmed by inspection of
+  `output/test_run_output.json`;
+- validators that **reward the corruption** — `evaluation/qa_validator.py:187–200`
+  ("standing overreported … (should be ~40%)"), `evaluation/diary_eval.py:266–320`
+  (requires `0.05 ≤ mismatch_rate ≤ 0.35`, `0.05 ≤ miss_rate ≤ 0.25`),
+  `optimizers/coherence_optimizers.py:102–158` (rewards a 5–35% mismatch rate
+  and the *existence* of missed prompts);
 - and — a finding *beyond* the brief's list — the diary generator's persona
-  prompt context dumping age, gender, occupation, fitness, health notes, hobbies
-  and personality traits into an LLM prompt: precisely the wholesale demographic
-  exposure the brief prohibits. (The historical EMA layer itself was
-  persona-blind, so there is no demographic path to inherit — but the pattern
-  was explicitly not to be copied.)
+  prompt context dumping age, gender, occupation, fitness, health notes,
+  hobbies and personality traits into an LLM prompt
+  (`data/models.py:156–170`, `Persona.to_prompt_context()`) — precisely the
+  wholesale demographic exposure the brief prohibits. (The historical EMA
+  layer itself was persona-blind, so there is no demographic path to inherit
+  — but the pattern was explicitly not to be copied.)
+
+Line numbers refer to the state of the repository at the base commit; every
+claim was verified by reading the cited file (`PHASE0_ARCHAEOLOGY.md` §1).
 
 The same pass produced a **salvage table** (REUSE / ADAPT / REJECT per
 component), which is the direct lineage between old and new:
 
 | Historical asset | Decision | Rationale |
 |---|---|---|
-| Controlled vocabularies (activity, domain, place type, social, I/O, wear, triggers) | **REUSE (adapted)** | strongest asset in the old code; adapted to 5-point *numeric* ordinal scales, `place_type`, the Paper 3 trigger set |
-| `EMAProbe` dual-timestamp record shape | **ADAPT** | prompt/response/latency and trigger kept; the entire `gt_*/reported_*` corruption pair dropped — inherited context is authoritative and is not re-reported |
-| `EMASchedule` config block | **ADAPT** | structure kept; values corrected for Paper 3: 6→**5** prompts/day, 300 s→**10-min** expiry, flat 0.15 missingness→**calibrated 85–90%**, single flat config→**versioned YAML** |
-| Waking-window start/end pair | **ADAPT** | upgraded to stratification across host-supplied daytime windows |
-| HETUS 2018 taxonomy mapping | **REJECT** | a diary/world responsibility; importing it would build a second DayForge |
-| Index-spaced prompt placement | **REJECT** | neither random nor stratified; cannot express event enrichment |
-| Forced standing/cycling probes | **REJECT** | sampling contamination for a validator's benefit, no evidence support |
-| All reporting-noise layers + genericisation | **REJECT** | explicitly forbidden by the brief |
+| Controlled vocabularies (activity, domain, place type, social, I/O, wear, triggers) | **REUSE (adapted)** | strongest asset in the old code (`data/models.py:22–125`, 10 `str, Enum` classes, byte-identical between snapshots); adapted to 5-point *numeric* ordinal scales, `place_type`, the Paper 3 trigger set; grounded in `EMA_Definitive_Synthesis.md` §6.1, §9.5 and `Kimi.md:119` |
+| `EMAProbe` dual-timestamp record shape | **ADAPT** | prompt/response/latency and trigger kept (`data/models.py:246–320`); the entire `gt_*/reported_*` corruption pair dropped — inherited context is authoritative and is not re-reported (`EMA_Definitive_Synthesis.md` §7.3 "dual-timestamp recording") |
+| `EMASchedule` config block | **ADAPT** | structure kept (`data/models.py:381–395`); values corrected for Paper 3: 6→**5** prompts/day, 300 s→**10-min** expiry, flat 0.15 missingness→**calibrated 85–90%**, single flat config→**versioned YAML** (`EMA_Definitive_Synthesis.md` §9.3, §9.5; `Gemini.md:158–162`) |
+| Waking-window start/end pair | **ADAPT** | upgraded to stratification across host-supplied daytime windows (`Deepseek.md:281, 462`; `Chatgpt_deep_research.md:53, 56`) |
+| HETUS 2018 taxonomy mapping | **REJECT** | a diary/world responsibility (`hetus_taxonomy.py`, 295 lines); importing it would build a second DayForge |
+| Index-spaced prompt placement | **REJECT** | neither random nor stratified (`ema_generator.py:25–31`); contradicts `EMA_Definitive_Synthesis.md` §7.3, §9.3 |
+| Forced standing/cycling probes | **REJECT** | sampling contamination for a validator's benefit, no evidence support (`ema_generator.py:33–41`) |
+| All reporting-noise layers + genericisation | **REJECT** | explicitly forbidden by the brief (`ema_generator.py:96–125, 141–176`) |
+
+The complete salvage table with per-component reasoning is
+`PHASE0_ARCHAEOLOGY.md` §2.
 
 ### 2.3 Stop conditions, and what actually stopped
 
@@ -194,20 +233,20 @@ The brief's stop conditions were applied, and the final review
 Derived from the brief and the evidence corpus (with the class of each
 governing rule from the assumptions register):
 
-| # | Requirement | Governing evidence/decision |
+| # | Requirement | Governing evidence/decision (register = `SCIENTIFIC_ASSUMPTIONS.md`) |
 |---|---|---|
-| R1 | Exactly 5 opportunities per participant-day | S-2 (B): synthesis §9.3 "5–6 prompts/day", §9.5 "4–6 for studies >7 days"; 5 is Paper 3's choice inside the supported range |
-| R2 | Hybrid sampling: ≥3 semi-random stratified across host-supplied daytime windows + ≤2 event-enriched | S-3 (A for the design), S-4/S-5 (C for the exact split and priority order), S-7 (B) |
-| R3 | Event families `post_trip`, `post_active_episode`, `context_transition`, `discretionary_fallback`, **detected from the day, never invented**; semi-random fill when no eligible events | S-3/S-5/S-6 |
-| R4 | Exclusions: sleep, driving, cycling, running/vigorous, non-realised movement, unresolved intervals, unstable micro-transitions. (Unknown *posture* was an additional class-C exclusion in 1.0.0 and was removed by policy revision 1.1.0 — §6.5.) | S-11 (A): safety + non-response evidence; demarcation-uncertainty motivation |
-| R5 | Inherited facts copied verbatim, hashed, re-derivable; no re-reporting noise | S-1 (A) |
-| R6 | Subjective states V/E/S, 5-point ordinal, seeded, bounded, context-conditioned, rule-traced; no demographic path | S-14 (B, divergence declared), S-19…S-30 (C) |
-| R7 | Stochastic missingness (never forced), calibrated 85–90% answered at cohort level as a *simulation property* | S-31…S-34 (A/B) |
-| R8 | Right-skewed latency, 10-minute expiry, dual timestamps, context anchored to prompt time | S-35…S-37 (B/C), S-17 (A) |
-| R9 | Optional one-sentence closed-world note; LLM renders only; `null` acceptable; offline fallback | S-38…S-42 (C, A-motivated) |
-| R10 | Full provenance (field origin classes, versions, hashes, seeds, rule traces) | S-43…S-45 (C) |
-| R11 | Read-only schedule auditor + ten-family bundle validation | deliverables #7, #14 |
-| R12 | Versioned YAML as single source of policy; loader hard-rejects historical anti-patterns | S-13 et al.; the loader refuses `force_event_diversity`, `force_one_miss_per_day`, LLM-selecting-subjective-values, and response-time context anchoring |
+| R1 | Exactly 5 opportunities per participant-day | S-2 (B): `EMA_Definitive_Synthesis.md` §9.3 "5–6 prompts/day", §9.5 "4–6 for studies >7 days"; `CONCLUSION.md` (all sources converge on 4–6); `Deepseek.md:281` (5–7) — 5 is Paper 3's choice inside the supported range |
+| R2 | Hybrid sampling: ≥3 semi-random stratified across host-supplied daytime windows + ≤2 event-enriched | S-3 (A for the design): `EMA_Definitive_Synthesis.md` §7.3, §9.1/§9.4, §10.2; `Chatgpt_deep_research.md:210`; `Scite_Opus4.6_v2.md:293`. S-4/S-5 (C for the exact split and priority order). S-7 (B): `Chatgpt_deep_research.md:53` (Maher 2018: six 2-hr windows 08:00–20:00), `:56` (IJBNPA 2021: 2-hr intervals), `Deepseek.md:462` |
+| R3 | Event families `post_trip`, `post_active_episode`, `context_transition`, `discretionary_fallback`, **detected from the day, never invented**; semi-random fill when no eligible events | S-3/S-5/S-6 — `EMA_Definitive_Synthesis.md` §7.3 (event-triggered alignment "STRONGEST"); fabrication would contradict §9.1's diversity guidance |
+| R4 | Exclusions: sleep, driving, cycling, running/vigorous, non-realised movement, unresolved intervals, unstable micro-transitions. (Unknown *posture* was an additional class-C exclusion in 1.0.0 and was removed by policy revision 1.1.0 — §6.5.) | S-11 (A): `Gemini.md:158` (safety + non-response for exercise/cycling/driving); `Scite_Opus4.6.md:224` (sleep-adjacent missingness); demarcation uncertainty — `EMA_Definitive_Synthesis.md` §10.2, `Gemini.md:112` |
+| R5 | Inherited facts copied verbatim, hashed, re-derivable; no re-reporting noise | S-1 (A): `EMA_Definitive_Synthesis.md` §1, §3.3 (OVERRATED #1), §5.2; `CONCLUSION.md` §1.1 (all 7 sources agree) |
+| R6 | Subjective states V/E/S, 5-point ordinal, seeded, bounded, context-conditioned, rule-traced; no demographic path | S-14 (B, divergence declared): `EMA_Definitive_Synthesis.md` §6.1 Tier 3 (2–3 item battery), §6.3; `Kimi.md:119` (Energetic/Tired/Happy/Stressed items); `Chatgpt.md:65`. S-19…S-30 (C: generator form and magnitudes) |
+| R7 | Stochastic missingness (never forced), calibrated 85–90% answered at cohort level as a *simulation property* | S-31 (A): `EMA_Definitive_Synthesis.md` §7.2 (missingness stochastic and non-random); `Scite_Opus4.6.md:224`; forced-miss rejected (`PHASE0_ARCHAEOLOGY.md` §1.4). S-32 (B): `EMA_Definitive_Synthesis.md` §13.1 (reported compliance 70–92%), §4.1 (`Maher et al. 2018`: 92%); `Scite_Opus4.6_v2.md:210` (`Brannon et al. 2016`: 81%); `Kimi.md:239` (mean 76%) |
+| R8 | Right-skewed latency, 10-minute expiry, dual timestamps, context anchored to prompt time | S-35 (B): `Chatgpt_deep_research.md:156` (≈5-min adolescent lag), `Kimi.md:135`, `Deepseek.md:68` (window up to 15 min). S-36 (A): `EMA_Definitive_Synthesis.md` §9.1 ("discard or downweight responses with >10-minute lag"), §7.3; `Gemini.md:158–162`. S-17 (A): prompt-time anchoring |
+| R9 | Optional one-sentence closed-world note; LLM renders only; `null` acceptable; offline fallback | S-38…S-42 (C, A-motivated): `EMA_Definitive_Synthesis.md` §6.3 (open text "rich but unscalable"), §8 (reproducibility warnings); historical LLM failure modes in `EMA-Diary-Generation/TEST_RESULTS.md` |
+| R10 | Full provenance (field origin classes, versions, hashes, seeds, rule traces) | S-43…S-45 (C): brief specification; motivated by `EMA_Definitive_Synthesis.md` §8, §10.2 #3 (latency/reporting blind spots) |
+| R11 | Read-only schedule auditor + ten-family bundle validation | brief deliverables #7, #14; forensics motivated by S-1 |
+| R12 | Versioned YAML as single source of policy; loader hard-rejects historical anti-patterns | S-13 et al.; the rejected anti-patterns are the verified historical behaviours (`PHASE0_ARCHAEOLOGY.md` §1.3–1.5, §1.9) |
 
 ### 3.2 Non-functional requirements
 
@@ -274,14 +313,20 @@ material the state generator and renderer ever see is the bounded
    so detection, placement and audit agree by construction (revision
    correction B; §6.5).
 2. **Event slots** — up to 2 placements, each at the *first stable
-   opportunity* after the event (45-min search horizon, S-10: event-triggered
-   delivery eliminates recall error — the synthesis's "STRONGEST in theory"
-   alignment result), in an unused window, respecting a 30-min minimum gap.
+   opportunity* after the event (45-min search horizon; S-10 —
+   event-triggered delivery eliminates recall error:
+   `EMA_Definitive_Synthesis.md` §7.3 "STRONGEST in theory", "almost never
+   implemented"; delay delivery during exercise/cycling/driving: `Gemini.md:158`),
+   in an unused window, respecting a 30-min minimum gap (S-8, C).
 3. **Background slots** — ≥3 semi-random draws, stratified across the
    host-supplied daytime windows (default: eight strata 08:00–23:00,
    configurable — the *concept* is host-supplied, never asserted, since the
-   host system is unavailable and not in the repository); candidate minutes
-   are the exclusion-safe, stable minutes of the window.
+   host system is unavailable and not in the repository: `PHASE0_ARCHAEOLOGY.md`
+   §0; supporting stratification practice: `Chatgpt_deep_research.md:53, 56`,
+   `Deepseek.md:281, 462`); candidate minutes are the exclusion-safe, stable
+   minutes of the window (5-min stability margin, S-9, C — motivated by
+   demarcation uncertainty: `EMA_Definitive_Synthesis.md` §10.2 #4,
+   `Gemini.md:112`).
 4. **Top-up / infeasibility** — remaining slots filled semi-randomly across all
    windows; a genuinely infeasible day emits fewer than 5 prompts *with an
    explicit note* rather than violating an exclusion.
@@ -298,18 +343,22 @@ never Python's `hash`), so identical inputs give byte-identical schedules.
 ### 4.3 The context packet (the closed world)
 
 `EMAContextPacket` is the **only** factual input to the state generator and
-the note renderer. It is bounded by construction: current-episode facts
-(activity, domain, place *type*, social context, indoor/outdoor, coarse
-purpose) plus linkage ids and optional wear status; derived bounded
-quantities (minutes-since-wake/activity-change/journey-end within 180-min
-windows, a bounded 0–1 recent-exertion aggregate, 60-min activity summary,
-minutes-to-next-commitment); the immediately preceding activity and preceding
-journey (delay/crowding **only if the host documented them**); and
+the note renderer (S-16, C; the *problem* it solves — mixed recall frames —
+is class A: `EMA_Definitive_Synthesis.md` §7.2). It is bounded by
+construction: current-episode facts (activity, domain, place *type*, social
+context, indoor/outdoor, coarse purpose) plus linkage ids and optional wear
+status (device wear: `EMA_Definitive_Synthesis.md` §6.2 "the most underrated
+variable", §10.2 #1 "always collect … shockingly undercollected" — S-18);
+derived bounded quantities (minutes-since-wake/activity-change/journey-end
+within 180-min windows, a bounded 0–1 recent-exertion aggregate, 60-min
+activity summary, minutes-to-next-commitment); the immediately preceding
+activity and preceding journey (delay/crowding **only if the host documented
+them** — S-24, the closed-world discipline of S-1); and
 `allowed_entities`/`allowed_causes` — the closed vocabulary handed to the
 renderer. Same-day structured continuity only (`previous_state`,
-`minutes_since_previous_prompt`) — no previous-day narrative anywhere. No
-proper names, no narratives, no demographic attributes; enforced by tests on
-the serialised packet.
+`minutes_since_previous_prompt`) — no previous-day narrative anywhere
+(brief: no cross-day narrative continuity). No proper names, no narratives,
+no demographic attributes; enforced by tests on the serialised packet.
 
 ### 4.4 The subjective-state generator
 
@@ -323,14 +372,41 @@ ordinal = clamp5(round(latent + sampling noise σ=0.6))
 ```
 
 Every rule is named, magnitude-configured in YAML, and traced per draw
-(`subjective_trace` in record provenance). The rule set (S-19…S-30) covers
-circadian offsets, wake ramp, recent exertion (energy ↓ / valence ↑ / stress ↓,
-45-min half-life), post-journey mode offsets, *documented-only*
-delay/crowding, schedule pressure (stress ↑ as a commitment approaches),
-post-transition and social-company offsets, domain offsets **capped at ±0.30
-per item**, and the two allowlisted persona facts, each applicable *only
-inside its contextual role* (childcare facts inside childcare episodes;
-commute-mode mismatch in transport contexts).
+(`subjective_trace` in record provenance). The rule set (S-19…S-30, with the
+per-rule class and evidence citation in the register) covers:
+
+- **circadian offsets** (S-21, B) — time-of-day effects on EMA affect/energy
+  are ubiquitous in the literature (`Kimi.md:161` completion varies by time of
+  day; `Maes et al. 2023` intraindividual dynamics, `EMA_Definitive_Synthesis.md`
+  §4.4:127); magnitudes deliberately small;
+- **wake ramp, recent exertion** (S-22, B) — post-activity subjective
+  dynamics as a documented EMA use (`EMA_Definitive_Synthesis.md` §4.4;
+  PA↔arousal links consistent: `Chatgpt.md:65`);
+- **post-journey mode offsets** (S-23, C) — no mode-specific affect findings
+  in the corpus; small by design;
+- **journey delay/crowding, documented-only** (S-24 — A for the grounding
+  discipline, C for magnitudes);
+- **schedule pressure** (S-25, B) — schedule pressure as a classic EMA
+  antecedent (`EMA_Definitive_Synthesis.md` §4.4:125, `Maher et al. 2020`
+  intentions/pressure designs);
+- **social-company offsets** (S-26, B) — affect during sedentary behaviour
+  depends on social context (`Hevel et al. 2021`, `EMA_Definitive_Synthesis.md`
+  §4.3:117, §11.2);
+- **domain offsets capped at ±0.30 per item** (S-27, C) — the explicit
+  anti-stereotype guard (the brief's "BAD: work → stress high");
+- **same-day continuity anchor** (S-28, C) — cross-day continuity
+  deliberately excluded by the brief;
+- **persona allowlist with contextual gating** (S-29, C) — brief-mandated
+  demographic safeguard; the corpus contains *no* evidence supporting
+  demographic affect inference (that absence is the motivation); each allowed
+  fact applies only inside its contextual role (childcare facts inside
+  childcare episodes; commute-mode mismatch in transport contexts).
+
+Baselines (valence 3.2, energy 3.2, stress 2.6), noise SDs, the 1.5 modifier
+clip, the [1,5] hard clip and the 0.6 sampling SD are all class C (S-20,
+S-30) — centre-of-scale defaults and boundedness parameters with no empirical
+claim; no empirical moment estimates exist in the corpus for synthetic
+participants.
 
 Two tests pin the brief's "no stereotypes" requirement from both sides: a
 **fixed-work-context stereotype test** proves `domain=work` does not
@@ -343,74 +419,110 @@ states this explicitly.
 ### 4.5 Missingness and latency
 
 Missingness is an **independent Bernoulli draw per prompt** — never
-"exactly one miss" (the loader hard-rejects it). Base rates per trigger
-(0.88–0.94, events slightly lower) plus direction-evidenced modifiers
-(high exertion ×0.92, engaged context ×0.97, late window ×0.95, device not
-worn ×0.85, optional study-day decay off by default) are calibrated so a
-large cohort lands at **85–90% answered** — declared in the YAML and the
-register as *a simulation property inside the observed literature range
-(67–92%)*, never as a claim about true human compliance. The declared
-divergence for event-triggered prompts (real compliance can be much lower)
-has a one-line `literature_divergent` sensitivity profile.
+"exactly one miss" (S-31, A: missingness is stochastic and non-random,
+`EMA_Definitive_Synthesis.md` §7.2; `Scite_Opus4.6.md:224`; the historical
+forced-miss — `ema_generator.py:44–45`, `refined_diary_gen.py:211–213` — is
+explicitly rejected, `PHASE0_ARCHAEOLOGY.md` §1.4, and hard-rejected by the
+loader). Base rates per trigger (0.88–0.94, events slightly lower; S-33, B —
+direction: event-triggered compliance decays, `EMA_Definitive_Synthesis.md`
+§7.2; `Gemini.md:172`: WEALTH event-based median 34% is the extreme) plus
+direction-evidenced modifiers (high exertion ×0.92, engaged context ×0.97,
+late window ×0.95, device not worn ×0.85, optional study-day decay off by
+default; S-34: `EMA_Definitive_Synthesis.md` §7.2, §6.2, §10.2 #6;
+`Scite_Opus4.6_v2.md:210`; `Gemini.md:118`) are calibrated so a large cohort
+lands at **85–90% answered** — declared in the YAML and the register
+(S-32, B) as *a simulation property inside the observed literature range*
+(`EMA_Definitive_Synthesis.md` §13.1:456–466 "typically 70–92%"; §4.1:102
+`Maher et al. 2018`: 92%; `Scite_Opus4.6_v2.md:210` `Brannon et al. 2016`:
+81%; `Kimi.md:239`: mean 76%), never as a claim about true human
+compliance. The declared divergence for event-triggered prompts has a
+one-line `literature_divergent` sensitivity profile.
 
 Latency is a right-skewed lognormal (μ=−0.05, σ=1.3 ⇒ mean ≈2.1 min, median
-≈0.9 min, P(>10 min)≈3.4%) with mild post-exertion/late-window multipliers.
-**Dual timestamps are always recorded**; responses past the 10-minute expiry
-are stored as `EXPIRED` — content kept, flagged, `usable_for_alignment=false`.
-Context is anchored to `prompt_time`, hard-locked by the config loader
+≈0.9 min, P(>10 min)≈3.4%; S-35, B — calibrated to the reported 2–5 min
+range: `Chatgpt_deep_research.md:156` ≈5-min adolescent lag, `Kimi.md:135`
+"a 5-minute delay is common", `Deepseek.md:68` window up to 15 min) with
+mild post-exertion/late-window multipliers (S-37, C). **Dual timestamps are
+always recorded** (S-17, A: `EMA_Definitive_Synthesis.md` §7.3 "dual-timestamp
+recording — STRONGEST in theory, almost never implemented"). Responses past
+the 10-minute expiry (S-36, A: `EMA_Definitive_Synthesis.md` §9.1 "discard or
+downweight responses with >10-minute lag"; `Gemini.md:158–162` strict max
+latency bound 5–10 min; §10.2 #3 latency reporting) are stored as `EXPIRED` —
+content kept, flagged, `usable_for_alignment=false`. Context is anchored to
+`prompt_time` (S-17, A), hard-locked by the config loader
 (`latency.context_reference_time` is not configurable away).
 
 ### 4.6 The closed-world LLM note
 
 The LLM's one permitted job: render **one sentence** (≤24 words / ≤160 chars /
-one sentence) about the packet's closed world, or reply `null`. The validator
-`notes.validate_note` rejects with category-coded issues
+one sentence; S-38, C — motivated by `EMA_Definitive_Synthesis.md` §6.3: open
+text is "rich but unscalable … cannot be automatically processed at dataset
+scale") about the packet's closed world, or reply `null`. The validator
+`notes.validate_note` (S-39, C) rejects with category-coded issues
 (`unsupported_person/place/activity/event/delay/weather/cause/journey`,
 `medical_condition`, `psychological_trait_inference`, `demographic_reference`,
 `proper_noun`, `too_long`, `multiple_sentences`, `unparseable_output`,
 `unsupported_reference`). The render loop retries on rejection, falls back to
-a deterministic offline template (closed-world *by construction*, and still
-re-validated), and finally to `null`. **Every stored note is re-validated** —
-a violation cannot ship. Decoding settings (temp 0.4, top_p 0.9) are recorded
-in provenance.
+a deterministic offline template (S-41, C — closed-world *by construction*,
+and still re-validated), and finally to `null`. **Every stored note is
+re-validated** — a violation cannot ship. Decoding settings (temp 0.4,
+top_p 0.9, max_tokens 120; S-42, C) are recorded in provenance. The
+discipline exists because the corpus's reproducibility warnings
+(`EMA_Definitive_Synthesis.md` §8, §10.2) and the historical pipeline's own
+test reports (`EMA-Diary-Generation/TEST_RESULTS.md` — LLMs emitting unbounded
+reasoning around JSON and corrupting fields) document exactly this failure
+mode.
 
 ### 4.7 The explicit LLM-role decision
 
 **The LLM does not select valence/energy/stress.** `llm.allowed_to_select_subjective_values`
 is validated to be `false` by the config loader. The documented justification
-(`ARCHITECTURE.md` §7, register S-40): (1) the evidence base is explicitly
-cautious about open LLM text at dataset scale, and the historical pipeline's
-own test reports document LLMs emitting unbounded reasoning around JSON and
-corrupting fields; (2) the brief requires *demonstrated superiority* before
-LLM subjective selection — a rule-traced seeded generator is auditable and
-reproducible per draw, while an LLM choosing 1–5 values is opaque per draw and
-couples quantitative outputs to API nondeterminism, a strict downgrade for a
-simulation whose goal is reproducibility; (3) the evidence base's own best
-practice for affect is a short structured battery — which is exactly what the
-state generator implements; (4) the LLM's irreplaceable contribution is
-natural-language rendering, and there the closed-world contract bounds the
-risk completely. Flipping the flag is a config change the loader rejects
-without new justification and comparative evidence.
+(`ARCHITECTURE.md` §7, register S-40 — class C decision, A-motivated):
+
+1. the evidence base is explicitly cautious about open LLM text at dataset
+   scale (`EMA_Definitive_Synthesis.md` §6.3), and the historical pipeline's
+   own test reports document LLMs emitting unbounded reasoning around JSON
+   and corrupting fields (`EMA-Diary-Generation/TEST_RESULTS.md`);
+2. the brief requires *demonstrated superiority* before LLM subjective
+   selection — a rule-traced seeded generator is auditable and reproducible
+   per draw, while an LLM choosing 1–5 values is opaque per draw and couples
+   quantitative outputs to API nondeterminism, a strict downgrade for a
+   simulation whose goal is reproducibility;
+3. the evidence base's own best practice for affect is a short structured
+   battery — 2–3 items at Tier 3 (`EMA_Definitive_Synthesis.md` §6.1; the
+   Energetic/Tired/Happy/Stressed item set, `Kimi.md:119`) — which is exactly
+   what the state generator implements;
+4. the LLM's irreplaceable contribution is natural-language rendering, and
+   there the closed-world contract bounds the risk completely (every stored
+   note re-validated; zero survivors observed in both live runs).
+
+Flipping the flag is a config change the loader rejects without new
+justification and comparative evidence.
 
 ### 4.8 Provenance and validation
 
 Every emitted field maps to exactly one origin class —
 `inherited_context | derived_context | synthetic_protocol | synthetic_subjective |
-llm_rendered`; unclassified fields fail validation. Run-level provenance
-records protocol/schema/scheduler/state-generator/auditor/note-validator
-versions, LLM provider/model/template/decoding, seed, `request_hash`,
+llm_rendered`; unclassified fields fail validation (S-43, C — brief
+specification, motivated by the corpus's reporting/reproducibility failures:
+`EMA_Definitive_Synthesis.md` §8, §10.2 #3). Run-level provenance records
+protocol/schema/scheduler/state-generator/auditor/note-validator versions,
+LLM provider/model/template/decoding, seed, `request_hash`,
 `context_fingerprint`, `config_hash`, participant/date and the deterministic
-`generated_at` anchor. Record-level provenance carries the per-record trace:
-linkage ids, prompt/response times, retry counts, validation state, the
-complete packet (with its own fingerprint) and the rule-level subjective trace.
+`generated_at` anchor (S-44, C). Record-level provenance carries the
+per-record trace: linkage ids, prompt/response times, retry counts,
+validation state, the complete packet (with its own fingerprint) and the
+rule-level subjective trace.
 
-`validate_bundle` runs **ten check families** (sampling; placement via the
-auditor; linkage; inherited-facts re-derivation; subjective bounds/presence;
-missingness explicitness; latency arithmetic and expiry semantics; note
-closed-world re-validation; provenance completeness; demographic-leak scan)
-and returns coded, severity-tagged issues. `audit_schedule` is read-only
-(covered by a test that proves it cannot mutate its inputs) and reports
-`VALID`/`NEEDS_REPAIR` with ~20 coded reasons.
+`validate_bundle` (S-45, C) runs **ten check families** (sampling; placement
+via the auditor; linkage; inherited-facts re-derivation; subjective
+bounds/presence; missingness explicitness; latency arithmetic and expiry
+semantics; note closed-world re-validation; provenance completeness;
+demographic-leak scan) and returns coded, severity-tagged issues; the
+forensic immutability check (re-derivation + fingerprint) follows directly
+from S-1 (A). `audit_schedule` is read-only (covered by a test that proves it
+cannot mutate its inputs) and reports `VALID`/`NEEDS_REPAIR` with ~20 coded
+reasons.
 
 ### 4.9 Configuration as the single source of policy
 
@@ -473,16 +585,19 @@ Development proceeded in phases, each leaving the suite green:
 
 ### 5.3 Testing strategy
 
-- **Offline suite (130+ tests, no network, no credential)**: scheduling
-  invariants (five prompts, increasing times, balance, exclusions, gaps,
+- **Offline suite (no network, no credential)**, `paper3_ema/tests/`:
+  `test_scheduler.py` (five prompts, increasing times, balance, gaps,
   stratification, infeasible-day behaviour, relaxed-fallback flagging),
-  importer tolerance, packet boundedness (no proper names/narratives/
-  demographics in serialised form), state-generator bounds + both
-  anti-stereotype tests, missingness/latency arithmetic and expiry semantics,
-  note validator (each rejection code exercised), **tampering tests** (mutate
-  an inherited field in a bundle → validator must detect via
-  re-derivation + fingerprint mismatch), provenance completeness, config
-  anti-pattern rejection, determinism (byte-identical repeat runs).
+  `test_audit.py` (auditor verdicts, read-only proof), `test_day_import.py`
+  (importer tolerance), `test_context.py` (packet boundedness: no proper
+  names/narratives/demographics in serialised form), `test_state_generator.py`
+  (bounds + both anti-stereotype tests), `test_missingness_latency.py`
+  (arithmetic and expiry semantics), `test_notes.py` (each rejection code
+  exercised), `test_config.py` (anti-pattern rejection), `test_end_to_end.py`
+  and `test_adversarial.py` (pathological days, **tampering tests** — mutate
+  an inherited field in a bundle → validator must detect via re-derivation +
+  fingerprint mismatch — provenance completeness, byte-identical repeat-run
+  determinism), `test_legacy_import.py` (historical-format contract).
 - **DeepSeek integration tests (4)**: activate automatically when
   `DEEPSEEK_API_KEY` is set *and* `api.deepseek.com` is reachable; otherwise an
   explicit SKIP. A local-HTTP-server transport test covers the client offline.
@@ -536,9 +651,11 @@ thinking enabled, reasoning effort high, 1024-token completion budget):
 - Phase 4: **28 participant-days, 140 opportunities: 125 answered / 11 missed
   / 4 expired (89.3%)**; 339/339 API calls succeeded; 28/28 bundles valid;
   0 unsupported facts survived; latency mean 4231 ms / p95 5656 ms; cost
-  $0.346 peak / $0.173 off-peak from returned token usage × published rates.
+  $0.346 peak / $0.173 off-peak from returned token usage × published rates
+  (artefacts: `04_cohort.json`, `06_cohort_bundles.jsonl` under
+  `live_validation/artifacts/live_20260924-192504/`).
 - Phase 5: offline repeatability byte-identical; live confined diff 133 / 0
-  unallowed.
+  unallowed (`07_repeatability.json`).
 - **Gate: 12/12 → CONDITIONAL PASS**, with one documented finding: with a
   1024-token completion budget, ≈777 reasoning tokens/call mean truncated
   visible JSON (149 first-attempt parse failures, all recovered by the
@@ -638,16 +755,19 @@ case, the latent scope of the defect, the measured effect, and what
 deliberately did not change).
 
 Measured effect of 1.1.0 on the frozen 49-day cohort (offline, scheduler +
-auditor only — no provider call): **49/49 valid days, 245/245
-opportunities**, 0 days with fewer than 5 prompts, 0 detected events with no
-legal prompt minute (was 12 days affected), 0 prompts in an excluded minute,
-0 fabricated postures, 0 protected upstream changes; the three previously
-failing days flipped FAIL → PASS and NEEDS_REPAIR → VALID (eligible minutes
-39 → 494, 194 → 526, 69 → 522). The schema is unchanged (1.0.0 — no field
-added, removed or retyped); the safety exclusion set S-11 is intact; sampling,
-stability, state-generator, missingness, latency and note-rendering policy
-are untouched; `meta.protocol_version` is now `1.1.0` so 1.1.0 cohorts are
-distinguishable in provenance from 1.0.0 ones.
+auditor only — no provider call; `POLICY_REVISION_1_1_0.md` §3): **49/49
+valid days, 245/245 opportunities**, 0 days with fewer than 5 prompts, 0
+detected events with no legal prompt minute (was 12 days affected), 0 prompts
+in an excluded minute, 0 fabricated postures, 0 protected upstream changes;
+the three previously failing days flipped FAIL → PASS and NEEDS_REPAIR →
+VALID (eligible minutes 39 → 494, 194 → 526, 69 → 522; §3 of the same
+document). The schema is unchanged (1.0.0 — no field added, removed or
+retyped, `POLICY_REVISION_1_1_0.md` §4); the safety exclusion set S-11
+(`SCIENTIFIC_ASSUMPTIONS.md:30`) is intact and independently enforced (§1,
+audit question A3); sampling, stability, state-generator, missingness,
+latency and note-rendering policy are untouched (§4);
+`meta.protocol_version` is now `1.1.0` so 1.1.0 cohorts are distinguishable
+in provenance from 1.0.0 ones (§5).
 
 ---
 
@@ -761,23 +881,86 @@ frozen-record config sha256 `7dc0928a…d67f95`. Bundles are pure functions of
 
 ---
 
-## 11. Source documents (this repository)
+## 11. References
 
-| Document | Role in development |
-|---|---|
-| `EMA_Definitive_Synthesis.md` | the definitive cross-source synthesis (the "full report"); primary design brief |
-| `CONCLUSION.md` | cross-source agreement/disagreement register; the only explicit "Paper 3" reference |
-| `Chatgpt.md`, `Chatgpt_deep_research.md`, `Deepseek.md`, `Gemini.md`, `Kimi.md`, `Scite_Opus4.6.md`, `Scite_Opus4.6_v2.md` | the seven research reports; cited per-decision in the assumptions register |
-| `EMA_Accelerometer_Synthesis_v1.md` | predecessor synthesis (completeness check only) |
-| `EMA-Diary-Generation/`, `…-BACKUP-20260409/` | historical implementation; evidence for Phase 0, not for requirements |
-| `paper3_ema/docs/PHASE0_ARCHAEOLOGY.md` | Phase 0 report (verified historical claims; salvage table) |
-| `paper3_ema/docs/ARCHITECTURE.md` | final architecture, typed API, the LLM-role decision (§7) |
-| `paper3_ema/docs/SCIENTIFIC_ASSUMPTIONS.md` | the A/B/C assumptions register (S-1…S-45) |
-| `paper3_ema/docs/FINAL_REVIEW.md` | ten-question review + stop-condition report |
-| `paper3_ema/docs/LIVE_DEEPSEEK_VALIDATION.md` | live gate report (CONDITIONAL PASS) |
-| `paper3_ema/docs/FINAL_ACCEPTANCE_AUDIT.md` | final audit (1037/1037 PASS) + definitive implementation contract |
-| `paper3_ema/docs/POLICY_REVISION_1_1_0.md` | post-audit protocol revision (unknown posture promptable; detection/placement/audit alignment), with measured effect |
-| `EMA_RUNTIME_FREEZE.md` (repo root) | runtime freeze record: 1024→4096 comparison, cross-run invariance, `READY_FOR_APPA_ADAPTER` |
-| `paper3_ema/live_validation/artifacts/live_20260924-192504/` | live run, 1024-token budget (baseline) |
-| `paper3_ema/live_validation/artifacts/live_20260924-220804/` | live run, 4096-token budget (frozen runtime) |
-| `paper3_ema/config/paper3_ema_v1.yaml` | the versioned protocol (v1.1.0), single source of policy, inline A/B/C classes |
+**Citation convention.** Primary corpus documents are cited by file name and
+section (`EMA_Definitive_Synthesis.md` §7.3) or file name and line
+(`Gemini.md:158`); historical code by file name and line (all line numbers
+verified against the base commit in `PHASE0_ARCHAEOLOGY.md` §1); internal
+documents by path. Every per-decision citation in this report is cross-checked
+against the assumptions register (`SCIENTIFIC_ASSUMPTIONS.md`, entries S-1…S-45),
+which is the authoritative per-claim citation record for the module.
+
+### A. Primary evidence corpus (repository root)
+
+| # | Document | Contents | Cited for (examples) |
+|---|---|---|---|
+| A1 | `EMA_Definitive_Synthesis.md` (532 ln, 46 KB) | definitive cross-source synthesis of the seven reports (April 2026); the "full report" and primary design brief | §1:9–28 (executive summary, five consensus findings); §3.3:75 (roles taxonomy); §4.1:96–102 (Maher 2018, 92%); §4.3:117 (Giurgiu 2020, Hevel 2021); §4.4:121–127 (Maher 2020, Maes 2023); §5.1:135, §5.2:143–168 (WEALTH benchmark, 97%/32% agreement); §5.4:177 (rarely integrated); §6.1:179 (variable hierarchy, Tier 3 affect battery); §6.2:198 (device wear); §6.3:203 (open text unscalable); §7.2:221 (alignment challenges); §7.3:247 (dual timestamps; event-triggered STRONGEST); §8:261 (weaknesses); §9.1:299 (>10-min discard), §9.3:327 (5–6 prompts/day), §9.5:353 (4–6/day); §10.2:384 (underrated: wear, latency, demarcation, compliance decay); §11.1:406–433 (study exemplars incl. Giurgiu 20-min bout); §13.1:456–466 (compliance 70–92%) |
+| A2 | `CONCLUSION.md` (402 ln, 21 KB) | synthesis-of-syntheses: agreement/disagreement/overrated/underrated register | §1.1 (all seven sources agree EMA ≠ ground truth); `:393` (the corpus's only explicit "Paper 3" reference); §1.7 (all sources converge on 4–6 prompts/day) |
+| A3 | `Chatgpt.md` | research report 1/7 | `:65` (affect as temporally proximal predictor/consequence of PA) |
+| A4 | `Chatgpt_deep_research.md` | research report 2/7 | `:53` (Maher 2018: six 2-hr windows 08:00–20:00), `:56` (IJBNPA 2021: 2-hr intervals), `:156` (≈5-min prompt–response lag), `:210` (hybrid sampling design) |
+| A5 | `Deepseek.md` | research report 3/7 | `:68` (response window up to 15 min), `:281` (5–7 prompts/day, stratification across waking hours), `:462` (stratify across waking hours) |
+| A6 | `Gemini.md` | research report 4/7 | `:112` (temporal linkage windows; demarcation uncertainty), `:118` (non-random missing data), `:158` (hybrid sampling; safety for exercise/cycling/driving), `:162` (clock synchronisation; strict max-latency bound 5–10 min), `:172` (WEALTH in-the-wild performance; event-based median 34%) |
+| A7 | `Kimi.md` | research report 5/7 | `:119` (affect item table: Energetic/Tired/Happy/Stressed), `:135` ("a 5-minute delay is common"), `:161` (completion-rate reporting gaps), `:239` (compliance mean 76%) |
+| A8 | `Scite_Opus4.6.md` | research report 6/7 | `:224` (missing responses non-random; sleep-adjacent missingness) |
+| A9 | `Scite_Opus4.6_v2.md` | research report 7/7 | `:210` (Brannon 2016: 81% completion; missing-data gaps), `:293` (mixed prompting: event-triggered + periodic random) |
+| A10 | `EMA_Accelerometer_Synthesis_v1.md` (439 ln) | predecessor synthesis | completeness check only — verifying the definitive version silently dropped nothing |
+
+### B. Historical implementation (evidence only; never a source of requirements)
+
+| # | Document | Cited for |
+|---|---|---|
+| B1 | `EMA-Diary-Generation/modules/ema_generator.py` (201 ln) | `:16` (6 probes, seed 42), `:25–31` (index spacing), `:33–41` (forced standing/cycling), `:44–45, 88–107` (exactly one miss), `:96–125` (`gt_*`/`reported_*` corruption; 65% standing misreport), `:141–176` (`genericize_location()`) |
+| B2 | `EMA-Diary-Generation/modules/refined_diary_gen.py` | `:211–213` ("Exactly 1 of N prompts missed" in the LLM prompt), `:224–226` (forced probes in the LLM path); `generate_refined_ema` (LLM corruption path) |
+| B3 | `EMA-Diary-Generation/configs/pipeline_config.py` | `EMAConfig.prompts_per_day = 6`, `standing_report_rate = 0.4`, `standing_misreported_as` |
+| B4 | `EMA-Diary-Generation/data/models.py` | `:156–170` (`Persona.to_prompt_context()` demographic dump), `:22–125` (vocabularies, REUSE), `:246–320` (`EMAProbe` shape; declared-but-unemitted affect fields ~`:300`), `:381–395` (`EMASchedule` block) |
+| B5 | `EMA-Diary-Generation/data/hetus_taxonomy.py` (295 ln) | HETUS mapping (REJECT for the EMA package) |
+| B6 | `EMA-Diary-Generation/evaluation/qa_validator.py` | `:187–200` (validator encodes artificial reporting rates) |
+| B7 | `EMA-Diary-Generation/evaluation/diary_eval.py` | `:266–320` (mismatch-rate 5–35% and miss-rate 5–25% requirements) |
+| B8 | `EMA-Diary-Generation/optimizers/coherence_optimizers.py` | `:102–158` (rewards corruption: 5–35% mismatch, existence of misses) |
+| B9 | `EMA-Diary-Generation/output/test_run_output.json`, `TEST_RESULTS.md`, `FINAL_STATUS.md`, `README.md` | evidence of emitted probe shape (no subjective variables); historical LLM failure modes; historical acceptance criteria |
+| B10 | `EMA-Diary-Generation-BACKUP-20260409/` | earlier state of the same pipeline (60% misreport variant; byte-identical vocabularies) |
+
+### C. Internal documents (this package)
+
+| # | Document | Role |
+|---|---|---|
+| C1 | `paper3_ema/docs/PHASE0_ARCHAEOLOGY.md` | Phase 0 report: repository inventory, nine verified historical claims with file:line, salvage table |
+| C2 | `paper3_ema/docs/ARCHITECTURE.md` | final package architecture, typed public API, the LLM-role decision (§7) |
+| C3 | `paper3_ema/docs/SCIENTIFIC_ASSUMPTIONS.md` | the A/B/C assumptions register (S-1…S-45) — the authoritative per-claim citation record |
+| C4 | `paper3_ema/docs/FINAL_REVIEW.md` | ten-question review + stop-condition report |
+| C5 | `paper3_ema/docs/LIVE_DEEPSEEK_VALIDATION.md` | live gate report for run `live_20260924-192504` (CONDITIONAL PASS) |
+| C6 | `paper3_ema/docs/FINAL_ACCEPTANCE_AUDIT.md` | final acceptance audit (1037/1037 PASS) + definitive `EMARequest`/`EMABundle` implementation contract |
+| C7 | `paper3_ema/docs/POLICY_REVISION_1_1_0.md` | post-audit protocol revision: correction A (unknown posture) and correction B (detection/placement alignment), measured effect, what deliberately did not change |
+| C8 | `EMA_RUNTIME_FREEZE.md` (repo root) | runtime freeze record: 1024→4096 comparison, cross-run invariance (4,451 diffs / 0 unallowed), `READY_FOR_APPA_ADAPTER` |
+| C9 | `paper3_ema/config/paper3_ema_v1.yaml` | the versioned protocol (v1.1.0, schema 1.0.0) — single source of policy, inline A/B/C class per parameter |
+| C10 | `paper3_ema/examples/example_input.json`, `example_output.json` | normative `EMARequest`-day / `EMABundle` examples |
+| C11 | `paper3_ema/live_validation/artifacts/live_20260924-192504/` | live run, 1024-token budget (baseline) — all phase artefacts |
+| C12 | `paper3_ema/live_validation/artifacts/live_20260924-220804/` | live run, 4096-token budget (frozen runtime) |
+| C13 | `paper3_ema/live_validation/audit_out/final_audit.json` | machine-readable final audit result (1037/1037) |
+
+### D. Underlying primary studies (as cited through the corpus)
+
+The corpus is the access point to the primary literature; the studies below
+are cited *via* their corpus location (column "in corpus"), not read directly
+for this development.
+
+| Study | In corpus | Used for |
+|---|---|---|
+| Maher et al. 2018 (Frontiers Psych) | `EMA_Definitive_Synthesis.md` §4.1:102, §11.1:410; `Chatgpt_deep_research.md:53` | 92% compliance; six 2-hr windows 08:00–20:00; post-prompt PA reactivity (limitation #6) |
+| Maher et al. 2020 | `EMA_Definitive_Synthesis.md` §4.4:125, §11.1:412 | intentions/self-efficacy predicting subsequent SB — schedule-pressure antecedent (S-25) |
+| Maher et al. 2021 | `EMA_Definitive_Synthesis.md` §11.1:424 | context stability predicting PA/SB patterns |
+| Maes et al. 2023 (JMIR Aging) | `EMA_Definitive_Synthesis.md` §4.4:127 | intraindividual affect dynamics, 15–120 min post-EMA (S-21) |
+| Giurgiu et al. 2020 | `EMA_Definitive_Synthesis.md` §4.3:117, §9.2, §11.1:422 | 20-min continuous-sitting trigger, 82.77% trigger accuracy — bout-threshold motivation (S-13) |
+| Hevel et al. 2021 | `EMA_Definitive_Synthesis.md` §4.3:117, §11.2 | affect during SB depends on social/physical context (S-26) |
+| Brannon et al. 2016 | `Scite_Opus4.6_v2.md:210` | 81% survey completion / 75.3% accelerometer compliance (S-32) |
+| IJBNPA 2021 adolescent study | `Chatgpt_deep_research.md:56` | 2-hr interval random prompting; ≈5-min lag (`:156`) (S-7, S-35) |
+| WEALTH (body-worn sensor + EMA) | `EMA_Definitive_Synthesis.md` §5.2:143–168; `Gemini.md:172` | current benchmark: up to 97% agreement for clear activities, 32% for standing, event-based median 34% (S-33 divergence) |
+
+---
+
+*Every claim in this report that rests on the evidence corpus carries an
+inline citation resolvable to one of the documents above; the complete
+per-rule citation record for the module's scientific rules is
+`SCIENTIFIC_ASSUMPTIONS.md` (S-1…S-45), and the complete per-line record for
+the historical implementation is `PHASE0_ARCHAEOLOGY.md` §1–2.*
